@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <title>Agregar animal</title>
+</head>
+<body class="bodyAgregarAnimal">
+    <header>
+        <img src="img/logo.png" alt="logo sena"> <p>SERVICIO NACIONAL DE APRENDIZAJE </p>
+    </header>
+    <h1>Ingresar animal</h1>
+    <main>
+        <form action="">
+            <b><label for="">Fecha de nacimiento</label></b>
+            <input type="date" name="fechaNacimiento" id="fechaNacimiento"  required>
+            <b><label for="">Numero de chapeta</label></b>
+            <input type="text" name="numeroChapeta" id="numeroChapeta" required>
+            <b><label for="">Nombre</label></b>
+            <input type="text" name="nombre" id="nombre" required>
+            <b><label for="">Raza</label></b>
+            <input type="text" name="raza" id="raza" required>
+            <!-- <b><label for="">Sexo</label></b>  
+            <select name="sexo" id="sexo" required>
+                <option value="Macho">Macho</option>
+                <option value="Hembra">Hembra</option>
+            </select>
+            <b><label for="">Especie</label></b>
+            <select name="especie" id="especie" required>
+                <option value="Bovino">Bovino</option>
+                <option value="Porcino">Porcino</option>
+                <option value="Ovinos">Ovinos</option>
+                <option value="Aves">Aves</option>
+                 Vacas (ganado bovino o vacuno)
+                     Aves (ganado aviar)
+                     Cerdos (ganado porcino)
+                     Ovejas (ganado ovino)
+            </select> -->
+
+            <div class="contenedor">
+                <div class="titulo-borde">INFORMACION PATERNA</div>
+                <div>
+                    <div><label for="">Nombre del padre</label><input type="text"></div>
+                    <div><label for="">Nombre de abuela</label><input type="text"></div>
+                    <div><label for="">Nombre de abuelo</label><input type="text"></div>
+                </div>
+            </div>
+            <div class="contenedor">
+                <div class="titulo-borde">INFORMACION MATERNA</div>
+                <div>
+                    <div><label for="">Nombre de madre</label><input type="text"></div>
+                    <div><label for="">Nombre de abuela</label><input type="text"></div>
+                    <div><label for="">Nombre de abuelo</label><input type="text"></div>
+                </div>
+            </div>
+
+            <label for="">Observaciones</label>
+            <textarea name="Observaciones" id="Observaciones">
+
+            </textarea>
+
+            <input type="submit" value="Guardar">
+        </form>
+
+    </main>
+</body>
+</html>
