@@ -8,7 +8,40 @@ body {
     background: url(../img/fondo.png);
     background-color: #0000004f;
     padding: 10px 0;
-
+    
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        background-color: #fff;
+        padding: 10px;
+    
+        img {
+            width: 50px;
+            height: 50px;
+            margin-left: 20px;
+            margin-right: 10px;
+        }
+    
+        p {
+            width: 179px;
+        }
+        nav {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            a{
+                color:#56B847;
+                text-decoration: none;
+            }
+            
+        }
+    }
     h1 {
         color: #fff;
         border-radius: 10px;
@@ -17,6 +50,8 @@ body {
         background-color: #58c561;
         padding: 10px 50px;
     }
+
+
 }
 
 body.bodyIndex {
@@ -86,26 +121,7 @@ body.bodyIndex {
 
 }
 
-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    width: 100%;
-    background-color: #fff;
-    padding: 10px;
 
-    img {
-        width: 50px;
-        height: 50px;
-        margin-left: 20px;
-        margin-right: 10px;
-    }
-
-    p {
-        width: 179px;
-    }
-}
 
 body.bodyAgregarAnimal {
     display: flex;
