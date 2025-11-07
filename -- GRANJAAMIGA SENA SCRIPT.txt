@@ -1,0 +1,72 @@
+-- GRANJAAMIGA SENA
+-- ==============================================
+-- CREACIÓN DE BASE DE DATOS
+-- ==============================================
+DROP DATABASE IF EXISTS granjaamiga;
+CREATE DATABASE granjaamiga;
+USE granjaamiga;
+
+-- ==============================================
+-- TABLAS PRINCIPALES
+-- ==============================================
+
+-- Tabla de cargos
+CREATE TABLE IF NOT EXISTS cargos(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(50) NOT NULL
+);
+-- Tabla de usuarios
+CREATE TABLE IF NOT EXISTS usuarios (
+	tipo_documento VARCHAR(5) NOT NULL,
+	documento VARCHAR(20) NOT NULL PRIMARY KEY,
+	correo VARCHAR(200) UNIQUE NOT NULL,
+	nombres VARCHAR(100) NOT NULL,
+	apellidos VARCHAR(100) NOT NULL,
+	contrasena VARCHAR(255) NOT NULL,
+	id_cargo INT NOT NULL,
+	FOREIGN KEY(id_cargo) REFERENCES cargos(id)
+)ENGINE=InnoDB;
+-- Tabla de especies
+CREATE TABLE IF NOT EXISTS especies(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL
+);
+-- Tabla de razas 
+CREATE TABLE IF NOT EXISTS razas(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_especie INT NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    FOREIGN KEY(id_especie) REFERENCES especies(id)
+);
+
+-- Tabla de lista animales
+CREATE TABLE IF NOT EXISTS lista_animales(
+    id VARCHAR(10) NOT NULL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Tabla de animales
+CREATE TABLE IF NOT EXISTS animales (
+    fecha_de_nacimiento DATE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    id VARCHAR(10) NOT NULL,
+    id_especie INT NOT NULL,
+    id_raza INT NOT NULL,
+    id_padre VARCHAR(10),
+    id_madre VARCHAR(10),
+    id_abuelo_materno VARCHAR(10),
+    id_abuela_materna VARCHAR(10),
+    id_abuelo_paterno VARCHAR(10),
+    id_abuela_paterna VARCHAR(10),
+    observaciones TEXT,
+    FOREIGN KEY(id_especie) REFERENCES especies(id),
+    FOREIGN KEY(id_raza) REFERENCES razas(id),
+    FOREIGN KEY(id_padre) REFERENCES lista_animales(id),
+    FOREIGN KEY(id_madre) REFERENCES lista_animales(id),
+    FOREIGN KEY(id_abuelo_materno) REFERENCES lista_animales(id),
+    FOREIGN KEY(id_abuela_materna) REFERENCES lista_animales(id),
+    FOREIGN KEY(id_abuelo_paterno) REFERENCES lista_animales(id),
+    FOREIGN KEY(id_abuela_paterna) REFERENCES lista_animales(id)
+);
+
+
