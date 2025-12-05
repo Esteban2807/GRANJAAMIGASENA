@@ -506,3 +506,9 @@ th {
     
     }
 }
+
+/*-----------ESTILOS DE SWEET ALERT----------------*/
+
+.swal2-cancel {
+  color: #000 !important;   /* color del texto */
+}

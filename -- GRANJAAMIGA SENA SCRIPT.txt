@@ -39,12 +39,6 @@ CREATE TABLE IF NOT EXISTS razas(
     FOREIGN KEY(id_especie) REFERENCES especies(id)
 );
 
--- Tabla de lista animales
-CREATE TABLE IF NOT EXISTS lista_animales(
-    id VARCHAR(10) NOT NULL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
 -- Tabla de animales
 CREATE TABLE IF NOT EXISTS animales (
     fecha_de_nacimiento DATE NOT NULL,
@@ -60,13 +54,7 @@ CREATE TABLE IF NOT EXISTS animales (
     id_abuela_paterna VARCHAR(10),
     observaciones TEXT,
     FOREIGN KEY(id_especie) REFERENCES especies(id),
-    FOREIGN KEY(id_raza) REFERENCES razas(id),
-    FOREIGN KEY(id_padre) REFERENCES lista_animales(id),
-    FOREIGN KEY(id_madre) REFERENCES lista_animales(id),
-    FOREIGN KEY(id_abuelo_materno) REFERENCES lista_animales(id),
-    FOREIGN KEY(id_abuela_materna) REFERENCES lista_animales(id),
-    FOREIGN KEY(id_abuelo_paterno) REFERENCES lista_animales(id),
-    FOREIGN KEY(id_abuela_paterna) REFERENCES lista_animales(id)
+    FOREIGN KEY(id_raza) REFERENCES razas(id)
 );
 
 

@@ -140,7 +140,24 @@ class animales extends basedatos
     //Metodos especificos
     public function listar()
     {
-        $sql = "SELECT a.fecha_de_nacimiento,a.nombre,a.id,e.nombre AS especie,r.nombre AS raza,a.id_padre,a.id_madre,a.id_abuelo_materno,a.id_abuela_materna,a.id_abuelo_paterno,a.id_abuela_paterna,observaciones FROM animales AS a, especies AS e, razas AS r WHERE  a.id_especie = e.id AND r.id_especie = e.id  ORDER BY a.nombre ASC";
+        $sql = "SELECT 
+    a.fecha_de_nacimiento,
+    a.nombre,
+    a.id,
+    e.nombre AS especie,
+    r.nombre AS raza,
+    a.id_padre,
+    a.id_madre,
+    a.id_abuelo_materno,
+    a.id_abuela_materna,
+    a.id_abuelo_paterno,
+    a.id_abuela_paterna,
+    a.observaciones
+FROM animales AS a
+INNER JOIN especies AS e ON a.id_especie = e.id
+INNER JOIN razas AS r ON a.id_raza = r.id
+ORDER BY a.nombre ASC;
+";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -149,14 +166,14 @@ class animales extends basedatos
     }
     public function insertar()
     {
-        $sql = sprintf("INSERT INTO granjaamiga (fecha_nacimiento,nombre,id,) VALUES ('%s', '%s', '%s')", $this->codigo, $this->nombre, $this->codigo_transaccion);
+        $sql = sprintf("INSERT INTO animales (fecha_nacimiento,nombre,id,id_especie,id_raza,id_padre,id_madre,id_abuelo_materno,id_abuela_materna,id_abuelo_paterno,id_abuela_paterna,observaciones) VALUES ('%s', '%s', '%s','%s', '%s', '%s','%s', '%s', '%s','%s', '%s', '%s',)", $this->fecha_nacimiento, $this->nombre, $this->id,$this->id_especie,$this->id_raza,$this->id_padre,$this->id_madre,$this->id_abuelo_materno,$this->id_abuela_materna,$this->id_abuelo_paterno,$this->id_abuela_paterna,$this->observaciones);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM banco WHERE codigo = %s", $this->codigo);
+        $sql = sprintf("DELETE FROM animales WHERE id = %s", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -164,7 +181,7 @@ class animales extends basedatos
 
     public function actualizar()
     {
-        $sql = sprintf("UPDATE banco SET codigo = %s, nombre = '%s', codigo_transaccion = '%s' WHERE codigo = %s", $this->codigo, $this->nombre, $this->codigo_transaccion, $this->codigo);
+        $sql = sprintf("UPDATE animales SET fecha_de_nacimiento = %s, nombre = '%s', id = '%s', id_especie = '%s', id_raza = '%s',id_padre = '%s' ,id_madre = '%s' ,id_abuelo_materno = '%s' ,id_abuela_materna = '%s' ,id_abuelo_paterno = '%s' ,id_abuela_paterna = '%s' ,observaciones = '%s'   WHERE id = %s", $this->fecha_nacimiento, $this->nombre, $this->id,$this->id_especie,$this->id_raza,$this->id_padre,$this->id_madre,$this->id_abuelo_materno,$this->id_abuela_materna,$this->id_abuelo_paterno,$this->id_abuela_paterna,$this->observaciones, $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -173,7 +190,16 @@ class animales extends basedatos
 
     public function consult()
     {
-        $sql = "SELECT * FROM banco WHERE codigo like '%$this->consulta%' OR nombre like '%$this->consulta%' OR codigo_transaccion like '%$this->consulta%' ";
+        $sql = "SELECT * FROM banco WHERE fecha_de_nacimiento like '%$this->consulta%' OR nombre like '%$this->consulta%' OR id like '%$this->consulta%' ";
+        $this->conectar();
+        $this->ejecutarSQL($sql);
+        $res = $this->cargarTodo();
+        $this->desconectar();
+        return $res;
+    }
+    public function consultar()
+    {
+        $sql = sprintf("SELECT * FROM animales WHERE id = '%s'", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
