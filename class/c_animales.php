@@ -188,18 +188,28 @@ ORDER BY a.nombre ASC;
         echo $sql;
     }
 
-    public function consult()
-    {
-        $sql = "SELECT * FROM banco WHERE fecha_de_nacimiento like '%$this->consulta%' OR nombre like '%$this->consulta%' OR id like '%$this->consulta%' ";
-        $this->conectar();
-        $this->ejecutarSQL($sql);
-        $res = $this->cargarTodo();
-        $this->desconectar();
-        return $res;
-    }
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM animales WHERE id = '%s'", $this->id);
+        $sql = "SELECT 
+    a.fecha_de_nacimiento,
+    a.nombre,
+    a.id,
+    e.nombre AS especie,
+    r.nombre AS raza,
+    a.id_padre,
+    a.id_madre,
+    a.id_abuelo_materno,
+    a.id_abuela_materna,
+    a.id_abuelo_paterno,
+    a.id_abuela_paterna,
+    a.observaciones
+FROM animales AS a
+INNER JOIN especies AS e ON a.id_especie = e.id
+INNER JOIN razas AS r ON a.id_raza = r.id
+ORDER BY a.nombre ASC
+WHERE a.fecha_de_nacimiento like '%$this->consulta%' 
+OR a.nombre like '%$this->consulta%' 
+OR a.id like '%$this->consulta%' ";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

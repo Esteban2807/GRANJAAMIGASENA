@@ -1,3 +1,11 @@
+<?php
+include_once 'class/c_especies.php';
+include_once 'class/c_animales.php';
+$especies = new especies();
+$listaEspecies = $especies->listar();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,8 +41,13 @@
             <input type="text" name="numeroChapeta" id="numeroChapeta" required>
             <b><label for="">Nombre</label></b>
             <input type="text" name="nombre" id="nombre" required>
-            <b><label for="">Raza</label></b>
-            <input type="text" name="raza" id="raza" required>
+            <b><label for="especie">Especie</label></b>
+            <select name="id_raza">
+                <option value="">Seleeccionar...</option>
+                <?php foreach($listaEspecies as $lista) {?>
+                    <option value="<?= $lista['id'] ?>"><?= $lista['nombre'] ?></option>
+                <?php }?>
+            </select>
             <!-- <b><label for="">Sexo</label></b>  
             <select name="sexo" id="sexo" required>
                 <option value="Macho">Macho</option>
