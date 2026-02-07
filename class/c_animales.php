@@ -185,7 +185,6 @@ ORDER BY a.nombre ASC;
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
-        echo $sql;
     }
 
     public function consultar()

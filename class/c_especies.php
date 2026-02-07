@@ -56,7 +56,6 @@ class especies extends basedatos {
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
-        echo $sql;
     }
      public function consultar()
     {
