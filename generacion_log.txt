@@ -1,0 +1,238 @@
+=== INICIO DE GENERACIÓN ===
+Base de datos: nexo_sena
+Tablas seleccionadas: nexo_centro_formacion, nexo_detalle_usuario_proyecto, nexo_genero, nexo_grupo_etnico, nexo_perfil, nexo_poblacion, nexo_proyecto, nexo_proyecto_aprendiz, nexo_proyecto_archivo, nexo_proyecto_permiso, nexo_regional, nexo_sexo, nexo_tipo_documento, nexo_usuario
+Directorio base: C:\xampp\htdocs\BACKUP HOY\creator_v2\output\nexo_sena
+
+=== GENERANDO CLASES ===
+✓ Clase Nexo_centro_formacion generada correctamente
+✓ Clase Nexo_detalle_usuario_proyecto generada correctamente
+✓ Clase Nexo_genero generada correctamente
+✓ Clase Nexo_grupo_etnico generada correctamente
+✓ Clase Nexo_perfil generada correctamente
+✓ Clase Nexo_poblacion generada correctamente
+✓ Clase Nexo_proyecto generada correctamente
+✓ Clase Nexo_proyecto_aprendiz generada correctamente
+✓ Clase Nexo_proyecto_archivo generada correctamente
+✓ Clase Nexo_proyecto_permiso generada correctamente
+✓ Clase Nexo_regional generada correctamente
+✓ Clase Nexo_sexo generada correctamente
+✓ Clase Nexo_tipo_documento generada correctamente
+✓ Clase Nexo_usuario generada correctamente
+
+=== GENERANDO CONTROLADORES ===
+✓ Controlador crear generado para nexo_centro_formacion: op_crear.php
+✓ Controlador actualizar generado para nexo_centro_formacion: op_actualizar.php
+✓ Controlador eliminar generado para nexo_centro_formacion: op_eliminar.php
+✓ Controlador crear generado para nexo_detalle_usuario_proyecto: op_crear.php
+✓ Controlador actualizar generado para nexo_detalle_usuario_proyecto: op_actualizar.php
+✓ Controlador eliminar generado para nexo_detalle_usuario_proyecto: op_eliminar.php
+✓ Controlador crear generado para nexo_genero: op_crear.php
+✓ Controlador actualizar generado para nexo_genero: op_actualizar.php
+✓ Controlador eliminar generado para nexo_genero: op_eliminar.php
+✓ Controlador crear generado para nexo_grupo_etnico: op_crear.php
+✓ Controlador actualizar generado para nexo_grupo_etnico: op_actualizar.php
+✓ Controlador eliminar generado para nexo_grupo_etnico: op_eliminar.php
+✓ Controlador crear generado para nexo_perfil: op_crear.php
+✓ Controlador actualizar generado para nexo_perfil: op_actualizar.php
+✓ Controlador eliminar generado para nexo_perfil: op_eliminar.php
+✓ Controlador crear generado para nexo_poblacion: op_crear.php
+✓ Controlador actualizar generado para nexo_poblacion: op_actualizar.php
+✓ Controlador eliminar generado para nexo_poblacion: op_eliminar.php
+✓ Controlador crear generado para nexo_proyecto: op_crear.php
+✓ Controlador actualizar generado para nexo_proyecto: op_actualizar.php
+✓ Controlador eliminar generado para nexo_proyecto: op_eliminar.php
+✓ Controlador crear generado para nexo_proyecto_aprendiz: op_crear.php
+✓ Controlador actualizar generado para nexo_proyecto_aprendiz: op_actualizar.php
+✓ Controlador eliminar generado para nexo_proyecto_aprendiz: op_eliminar.php
+✓ Controlador crear generado para nexo_proyecto_archivo: op_crear.php
+✓ Controlador actualizar generado para nexo_proyecto_archivo: op_actualizar.php
+✓ Controlador eliminar generado para nexo_proyecto_archivo: op_eliminar.php
+✓ Controlador crear generado para nexo_proyecto_permiso: op_crear.php
+✓ Controlador actualizar generado para nexo_proyecto_permiso: op_actualizar.php
+✓ Controlador eliminar generado para nexo_proyecto_permiso: op_eliminar.php
+✓ Controlador crear generado para nexo_regional: op_crear.php
+✓ Controlador actualizar generado para nexo_regional: op_actualizar.php
+✓ Controlador eliminar generado para nexo_regional: op_eliminar.php
+✓ Controlador crear generado para nexo_sexo: op_crear.php
+✓ Controlador actualizar generado para nexo_sexo: op_actualizar.php
+✓ Controlador eliminar generado para nexo_sexo: op_eliminar.php
+✓ Controlador crear generado para nexo_tipo_documento: op_crear.php
+✓ Controlador actualizar generado para nexo_tipo_documento: op_actualizar.php
+✓ Controlador eliminar generado para nexo_tipo_documento: op_eliminar.php
+✓ Controlador crear generado para nexo_usuario: op_crear.php
+✓ Controlador actualizar generado para nexo_usuario: op_actualizar.php
+✓ Controlador eliminar generado para nexo_usuario: op_eliminar.php
+
+=== GENERANDO ARCHIVOS LISTAR ===
+✓ Archivo listar generado: l_nexo_centro_formacion.php
+✓ Archivo listar generado: l_nexo_detalle_usuario_proyecto.php
+✓ Archivo listar generado: l_nexo_genero.php
+✓ Archivo listar generado: l_nexo_grupo_etnico.php
+✓ Archivo listar generado: l_nexo_perfil.php
+✓ Archivo listar generado: l_nexo_poblacion.php
+✓ Archivo listar generado: l_nexo_proyecto.php
+✓ Archivo listar generado: l_nexo_proyecto_aprendiz.php
+✓ Archivo listar generado: l_nexo_proyecto_archivo.php
+✓ Archivo listar generado: l_nexo_proyecto_permiso.php
+✓ Archivo listar generado: l_nexo_regional.php
+✓ Archivo listar generado: l_nexo_sexo.php
+✓ Archivo listar generado: l_nexo_tipo_documento.php
+✓ Archivo listar generado: l_nexo_usuario.php
+
+=== GENERANDO ARCHIVO INDEX ===
+✓ Archivo index generado: C:\xampp\htdocs\BACKUP HOY\creator_v2\output\nexo_sena\index.php
+
+=== GENERANDO FORMULARIOS CREAR ===
+✓ Formulario crear generado: cr_nexo_centro_formacion.php
+✓ Formulario crear generado: cr_nexo_detalle_usuario_proyecto.php
+✓ Formulario crear generado: cr_nexo_genero.php
+✓ Formulario crear generado: cr_nexo_grupo_etnico.php
+✓ Formulario crear generado: cr_nexo_perfil.php
+✓ Formulario crear generado: cr_nexo_poblacion.php
+✓ Formulario crear generado: cr_nexo_proyecto.php
+✓ Formulario crear generado: cr_nexo_proyecto_aprendiz.php
+✓ Formulario crear generado: cr_nexo_proyecto_archivo.php
+✓ Formulario crear generado: cr_nexo_proyecto_permiso.php
+✓ Formulario crear generado: cr_nexo_regional.php
+✓ Formulario crear generado: cr_nexo_sexo.php
+✓ Formulario crear generado: cr_nexo_tipo_documento.php
+✓ Formulario crear generado: cr_nexo_usuario.php
+
+=== GENERANDO FORMULARIOS ACTUALIZAR ===
+✓ Formulario actualizar generado: ac_nexo_centro_formacion.php
+✓ Formulario actualizar generado: ac_nexo_detalle_usuario_proyecto.php
+✓ Formulario actualizar generado: ac_nexo_genero.php
+✓ Formulario actualizar generado: ac_nexo_grupo_etnico.php
+✓ Formulario actualizar generado: ac_nexo_perfil.php
+✓ Formulario actualizar generado: ac_nexo_poblacion.php
+✓ Formulario actualizar generado: ac_nexo_proyecto.php
+✓ Formulario actualizar generado: ac_nexo_proyecto_aprendiz.php
+✓ Formulario actualizar generado: ac_nexo_proyecto_archivo.php
+✓ Formulario actualizar generado: ac_nexo_proyecto_permiso.php
+✓ Formulario actualizar generado: ac_nexo_regional.php
+✓ Formulario actualizar generado: ac_nexo_sexo.php
+✓ Formulario actualizar generado: ac_nexo_tipo_documento.php
+✓ Formulario actualizar generado: ac_nexo_usuario.php
+=== GENERANDO BACKUP ===
+✓ Backup generado correctamente
+
+=== ESTRUCTURA GENERADA ===
+├── backup/
+│   └── backup_nexo_sena_20251022_083125.sql (26.21 KB)
+├── class/
+│   ├── basedatos.php (2.27 KB)
+│   ├── c_nexo_centro_formacion.php (4.91 KB)
+│   ├── c_nexo_detalle_usuario_proyecto.php (2.61 KB)
+│   ├── c_nexo_genero.php (3.02 KB)
+│   ├── c_nexo_grupo_etnico.php (2.86 KB)
+│   ├── c_nexo_perfil.php (10.12 KB)
+│   ├── c_nexo_poblacion.php (2.8 KB)
+│   ├── c_nexo_proyecto.php (7.5 KB)
+│   ├── c_nexo_proyecto_aprendiz.php (5.32 KB)
+│   ├── c_nexo_proyecto_archivo.php (5.34 KB)
+│   ├── c_nexo_proyecto_permiso.php (5.99 KB)
+│   ├── c_nexo_regional.php (4.31 KB)
+│   ├── c_nexo_sexo.php (2.59 KB)
+│   ├── c_nexo_tipo_documento.php (2.83 KB)
+│   └── c_nexo_usuario.php (4.29 KB)
+├── controllers/
+│   ├── nexo_centro_formacion/
+│   │   ├── op_actualizar.php (848 B)
+│   │   ├── op_crear.php (957 B)
+│   │   └── op_eliminar.php (413 B)
+│   ├── nexo_detalle_usuario_proyecto/
+│   │   ├── op_actualizar.php (614 B)
+│   │   ├── op_crear.php (717 B)
+│   │   └── op_eliminar.php (435 B)
+│   ├── nexo_genero/
+│   │   ├── op_actualizar.php (584 B)
+│   │   ├── op_crear.php (697 B)
+│   │   └── op_eliminar.php (343 B)
+│   ├── nexo_grupo_etnico/
+│   │   ├── op_actualizar.php (593 B)
+│   │   ├── op_crear.php (690 B)
+│   │   └── op_eliminar.php (385 B)
+│   ├── nexo_perfil/
+│   │   ├── op_actualizar.php (1.38 KB)
+│   │   ├── op_crear.php (1.55 KB)
+│   │   └── op_eliminar.php (343 B)
+│   ├── nexo_poblacion/
+│   │   ├── op_actualizar.php (572 B)
+│   │   ├── op_crear.php (675 B)
+│   │   └── op_eliminar.php (364 B)
+│   ├── nexo_proyecto/
+│   │   ├── op_actualizar.php (1.1 KB)
+│   │   ├── op_crear.php (1.24 KB)
+│   │   └── op_eliminar.php (357 B)
+│   ├── nexo_proyecto_aprendiz/
+│   │   ├── op_actualizar.php (903 B)
+│   │   ├── op_crear.php (1010 B)
+│   │   └── op_eliminar.php (420 B)
+│   ├── nexo_proyecto_archivo/
+│   │   ├── op_actualizar.php (897 B)
+│   │   ├── op_crear.php (1 KB)
+│   │   └── op_eliminar.php (395 B)
+│   ├── nexo_proyecto_permiso/
+│   │   ├── op_actualizar.php (976 B)
+│   │   ├── op_crear.php (1.08 KB)
+│   │   └── op_eliminar.php (395 B)
+│   ├── nexo_regional/
+│   │   ├── op_actualizar.php (743 B)
+│   │   ├── op_crear.php (864 B)
+│   │   └── op_eliminar.php (357 B)
+│   ├── nexo_sexo/
+│   │   ├── op_actualizar.php (525 B)
+│   │   ├── op_crear.php (638 B)
+│   │   └── op_eliminar.php (329 B)
+│   ├── nexo_tipo_documento/
+│   │   ├── op_actualizar.php (597 B)
+│   │   ├── op_crear.php (690 B)
+│   │   └── op_eliminar.php (399 B)
+│   └── nexo_usuario/
+│       ├── op_actualizar.php (736 B)
+│       ├── op_crear.php (859 B)
+│       └── op_eliminar.php (350 B)
+├── ac_nexo_centro_formacion.php (4.46 KB)
+├── ac_nexo_detalle_usuario_proyecto.php (3.2 KB)
+├── ac_nexo_genero.php (2.7 KB)
+├── ac_nexo_grupo_etnico.php (2.55 KB)
+├── ac_nexo_perfil.php (11.1 KB)
+├── ac_nexo_poblacion.php (2.5 KB)
+├── ac_nexo_proyecto.php (6.2 KB)
+├── ac_nexo_proyecto_aprendiz.php (4.89 KB)
+├── ac_nexo_proyecto_archivo.php (5.28 KB)
+├── ac_nexo_proyecto_permiso.php (5.79 KB)
+├── ac_nexo_regional.php (3.53 KB)
+├── ac_nexo_sexo.php (2.38 KB)
+├── ac_nexo_tipo_documento.php (2.56 KB)
+├── ac_nexo_usuario.php (3.95 KB)
+├── cr_nexo_centro_formacion.php (3.43 KB)
+├── cr_nexo_detalle_usuario_proyecto.php (2.59 KB)
+├── cr_nexo_genero.php (2.11 KB)
+├── cr_nexo_grupo_etnico.php (1.93 KB)
+├── cr_nexo_perfil.php (9.05 KB)
+├── cr_nexo_poblacion.php (1.92 KB)
+├── cr_nexo_proyecto.php (5.06 KB)
+├── cr_nexo_proyecto_aprendiz.php (3.88 KB)
+├── cr_nexo_proyecto_archivo.php (4.19 KB)
+├── cr_nexo_proyecto_permiso.php (4.32 KB)
+├── cr_nexo_regional.php (2.77 KB)
+├── cr_nexo_sexo.php (1.87 KB)
+├── cr_nexo_tipo_documento.php (1.91 KB)
+├── cr_nexo_usuario.php (3.15 KB)
+├── index.php (1.23 KB)
+├── l_nexo_centro_formacion.php (2.9 KB)
+├── l_nexo_detalle_usuario_proyecto.php (2.34 KB)
+├── l_nexo_genero.php (2.3 KB)
+├── l_nexo_grupo_etnico.php (2.31 KB)
+├── l_nexo_perfil.php (4.12 KB)
+├── l_nexo_poblacion.php (2.26 KB)
+├── l_nexo_proyecto.php (3.38 KB)
+├── l_nexo_proyecto_aprendiz.php (2.97 KB)
+├── l_nexo_proyecto_archivo.php (2.98 KB)
+├── l_nexo_proyecto_permiso.php (3.11 KB)
+├── l_nexo_regional.php (2.66 KB)
+├── l_nexo_sexo.php (2.16 KB)
+├── l_nexo_tipo_documento.php (2.34 KB)
+└── l_nexo_usuario.php (2.64 KB)
+
