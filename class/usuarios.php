@@ -164,4 +164,6 @@ class usuarios extends basedatos
         $this->desconectar();
         return $res;
     }
+    
 }
+

@@ -1,3 +1,10 @@
+<?php
+require_once __DIR__ . '/config/login.php';
+$login_error = $_SESSION['login_error'] ?? null;
+if ($login_error) {
+    unset($_SESSION['login_error']);
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,7 +32,7 @@
         <div class="login-header">
             <div class="login-logo">
                 <img src="img/logo_sena_verde.png" alt="Logo SENA">
-                <span class="login-brand">NE<span class="green">XO</span></span>
+                <span class="login-brand">GRANJA<span class="green">AMIGA</span></span>
             </div>
             <a href="https://portal.senasofiaplus.edu.co/">
                 <i class="fa-solid fa-arrow-left"></i> Ir a Portal SENA
@@ -43,12 +50,13 @@
         </div>
 
         <!-- Formulario de Iniciar Sesión -->
-        <div class="login-form active" id="login-form">
+        <form method="post" action="" class="login-form active" id="login-form">
+            <input type="hidden" name="action" value="login">
             <div class="form-field">
                 <label for="docType">Tipo de documento *</label>
                 <div class="input-with-icon">
                     <i class="fa-solid fa-id-card input-icon"></i>
-                    <select id="tipoDocumento" required>
+                    <select id="tipo_documento" name="tipo_documento" required>
                         <option value="">Cédula de Ciudadanía</option>
                         <option value="CC">Cédula de ciudadanía</option>
                         <option value="TI">Tarjeta de identidad</option>
@@ -62,7 +70,7 @@
                 <label for="documento">Número de documento *</label>
                 <div class="input-with-icon">
                     <i class="fa-solid fa-hashtag input-icon"></i>
-                    <input type="text" id="documento" placeholder="Ingrese su número de documento" required />
+                    <input type="text" id="documento" name="documento" placeholder="Ingrese su número de documento" required />
                 </div>
             </div>
 
@@ -70,12 +78,12 @@
                 <label for="contrasena">Contraseña *</label>
                 <div class="password-container">
                     <i class="fa-solid fa-lock input-icon"></i>
-                    <input type="password" id="contrasena" placeholder="Contraseña" required />
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required />
                     <i class="fa-solid fa-eye toggle-password"></i>
                 </div>
             </div>
 
-            <button onclick="window.location.href = 'index.php'" type="submit" class="btn-login">
+            <button type="submit" class="btn-login">
                 <i class="fa-solid fa-cloud"></i>Iniciar sesión
             </button>
 
@@ -83,68 +91,19 @@
                 ¿No recuerdas tu contraseña? <a href="#">Restablecer</a><br>
                 ¿Tu cuenta está inactiva? <a href="#">Más información</a>
             </div>
-        </div>
+        </form>
 
         <!-- Formulario de Registro -->
-        <div class="login-form" id="signup-form">
+        <form method="post" action="" class="login-form" id="signup-form">
+            <input type="hidden" name="action" value="register">
+            <input type="hidden" name="id_cargo" value="2">
 
             <div class="signup-scroll-content">
-
-                <div class="form-field">
-                    <label for="firstName">Nombre *</label>
-                    <div class="input-with-icon">
-                        <i class="fa-solid fa-user input-icon"></i>
-                        <input type="text" id="firstName" placeholder="Nombre" required />
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="lastName">Apellido *</label>
-                    <div class="input-with-icon">
-                        <i class="fa-solid fa-user input-icon"></i>
-                        <input type="text" id="lastName" placeholder="Apellido" required />
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="email">Correo electrónico *</label>
-                    <div class="input-with-icon">
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                        <input type="email" id="email" placeholder="Correo electrónico" required />
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="username">Usuario *</label>
-                    <div class="input-with-icon">
-                        <i class="fa-solid fa-at input-icon"></i>
-                        <input type="text" id="username" placeholder="Usuario" required />
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="signupPassword">Contraseña *</label>
-                    <div class="password-container">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" id="signupPassword" placeholder="Contraseña" required />
-                        <i class="fa-solid fa-eye toggle-password"></i>
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="confirmPassword"></i> Confirmar contraseña *</label>
-                    <div class="password-container">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required />
-                        <i class="fa-solid fa-eye toggle-password"></i>
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="docTypeSignup">Tipo de documento *</label>
+                  <div class="form-field">
+                    <label for="docTypeSignup">Tipo_documento</label>
                     <div class="input-with-icon">
                         <i class="fa-solid fa-id-card input-icon"></i>
-                        <select id="docTypeSignup" required>
+                        <select id="docTypeSignup" name="id_cargo" required>
                             <option value="">Tipo Documento...</option>
                             <option value="CC">Cédula de ciudadanía</option>
                             <option value="TI">Tarjeta de identidad</option>
@@ -155,51 +114,53 @@
                 </div>
 
                 <div class="form-field">
-                    <label for="gender">Género *</label>
+                    <label for="lastName">Documento *</label>
                     <div class="input-with-icon">
-                        <i class="fa-solid fa-venus-mars input-icon"></i>
-                        <select id="gender" required>
-                            <option value="">Género...</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
-                            <option value="O">Otro</option>
-                        </select>
+                        <i class="fa-solid fa-user input-icon"></i>
+                        <input type="text" id="lastName" name="documento" placeholder="Documento" required />
                     </div>
                 </div>
 
                 <div class="form-field">
-                    <label for="docNumberNew">Número de documento *</label>
+                    <label for="email">Correo electrónico *</label>
                     <div class="input-with-icon">
-                        <i class="fa-solid fa-hashtag input-icon"></i>
-                        <input type="text" id="documentoNew" placeholder="Ingrese su número de documento" required />
+                        <i class="fa-solid fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="correo" placeholder="Correo electrónico" required />
                     </div>
                 </div>
 
                 <div class="form-field">
-                    <label for="expeditionPlace">Lugar de expedición *</label>
+                    <label for="username">Nombres *</label>
                     <div class="input-with-icon">
-                        <i class="fa-solid fa-location-dot input-icon"></i>
-                        <select id="expeditionPlace" required>
-                            <option value="">Lugar de expedición...</option>
-                            <option value="BOG">Bogotá</option>
-                            <option value="MED">Medellín</option>
-                        </select>
+                        <i class="fa-solid fa-at input-icon"></i>
+                        <input type="text" id="username" name="nombres" placeholder="Nombres" required />
                     </div>
                 </div>
 
                 <div class="form-field">
-                    <label for="expeditionDate">Fecha de expedición del documento *</label>
-                    <div class="input-with-icon">
-                        <i class="fa-solid fa-calendar-days input-icon"></i>
-                        <input type="date" id="expeditionDate" required />
+                    <label for="signupPassword">Apellidos *</label>
+                    <div class="password-container">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="text" id="signupPassword" name="apellidos" placeholder="Apellidos" required />
+                        <i class="fa-solid fa-eye toggle-password"></i>
                     </div>
                 </div>
 
+                <div class="form-field">
+                    <label for="confirmPassword"></i> Contraseña *</label>
+                    <div class="password-container">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" name="confirm_contrasena" placeholder="Confirmar contraseña" required />
+                        <i class="fa-solid fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+              
             </div>
             <button type="submit" class="btn-login">
                 <i class="fa-solid fa-user-plus"></i> Registrarse
             </button>
-        </div>
+        </form>
 
         <!-- Footer del login -->
         <div class="footer-login">
