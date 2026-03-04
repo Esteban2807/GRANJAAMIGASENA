@@ -6,7 +6,7 @@
                 <div class="logo-sena-container">
                     <img src="img/logo_sena_verde.png" alt="Logo SENA">
                 </div>
-                <span class="logo-text">NE<span class="green">XO</span></span>
+                <span class="logo-text">GRANJA <span class="green">AMIGA</span></span>
             </div>
             <div class="ministerio">
                 <img src="img/ministerio_de_trabajo.png" alt="Ministerio del Trabajo">

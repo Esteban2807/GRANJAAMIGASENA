@@ -19,7 +19,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Tipo de Documento</title>
-    <link rel="stylesheet" href="css/nexo-style.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- SweetAlert2 -->
