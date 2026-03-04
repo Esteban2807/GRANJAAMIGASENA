@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Principal - Sistema de Gestión</title>
-    <link rel="stylesheet" href="css/nexo-style.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- SweetAlert2 -->
@@ -31,6 +31,15 @@
 
         <!-- Cards Grid -->
         <ul class="cards-grid">
+            <li class="card">
+                <a href="l_animales.php">
+                    <div class="card-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3 class="card-title">Animales</h3>
+                    <p class="card-description">Administrar animales</p>
+                </a>
+            </li>
             <li class="card">
                 <a href="l_tipos_documento.php">
                     <div class="card-icon">

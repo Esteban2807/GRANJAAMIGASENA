@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    # Incluir la clase Tipos_documento
-    include '../../class/tipos_documento.php';
+    # Incluir la clase Animales
+    include '../../class/animales.php';
 
     # CREAR EL OBJETO Animales
     $obj = new Animales();
