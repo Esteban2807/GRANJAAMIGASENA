@@ -1,10 +1,10 @@
 <?php
 abstract class basedatos
 {
-    private $Servidor = 'localhost';
-    private $BaseDatos = 'granjaamiga';
-    private $Usuario = 'root';
-    private $Clave = '';
+    private $Servidor = 'sql10.freesqldatabase.com';
+    private $BaseDatos = 'sql10818943';
+    private $Usuario = 'sql10818943';
+    private $Clave = 'MheysJ2sNd';
 
     protected $Conexion_ID;
     protected $Consulta_ID;

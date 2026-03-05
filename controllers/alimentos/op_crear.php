@@ -1,0 +1,18 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include '../../class/alimentos.php';
+    $obj = new alimentos();
+    $obj->setNombre($_POST['nombre']);
+    $obj->setTipo($_POST['tipo']);
+    $obj->setMarcaProveedor($_POST['marca_proveedor']);
+    $obj->setStockActual($_POST['stock_actual']);
+    $obj->setUnidadMedida($_POST['unidad_medida']);
+    $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
+    $obj->insertar();
+    header("Location: ../../l_alimentos.php");
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+    echo "Método GET no permitido para crear registros";
+} else{
+    header("Location: ../../index.php");
+}
+?> 
