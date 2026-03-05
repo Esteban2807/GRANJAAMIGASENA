@@ -9,6 +9,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 } else {
     $res = $animales->listar();
 }
+
 ?>
 
 <!DOCTYPE html>
