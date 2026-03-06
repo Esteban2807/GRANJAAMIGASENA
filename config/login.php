@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		$usuario->consultar();
 
 		$stored = $usuario->getContrasena();
-		if ($stored && password_verify($contrasena, $stored)) {
+		// Validar contraseña con MD5
+		if ($stored && $stored === MD5($contrasena)) {
 			$_SESSION['user'] = [
 				'documento' => $usuario->getDocumento(),
 				'nombres' => $usuario->getNombres(),
