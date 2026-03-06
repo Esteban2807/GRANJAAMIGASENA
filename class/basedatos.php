@@ -5,7 +5,6 @@ abstract class basedatos
     private $BaseDatos = 'sql10818943';
     private $Usuario = 'sql10818943';
     private $Clave = 'MheysJ2sNd';
-
     protected $Conexion_ID;
     protected $Consulta_ID;
     protected $ResultadoCon;

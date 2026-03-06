@@ -1,5 +1,4 @@
 <?php
-
 include_once 'class/razas.php';
 $razas = new Razas();
 $razasData = $razas->listar();
