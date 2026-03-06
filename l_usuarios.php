@@ -1,4 +1,8 @@
 <?php
+
+require_once("config/seguridad.php");
+verificarRol([1]);
+
 include_once 'class/usuarios.php';
 
 // Crear objeto Usuarios

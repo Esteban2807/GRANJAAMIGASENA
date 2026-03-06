@@ -5,7 +5,6 @@ abstract class basedatos
     private $BaseDatos = 'sql10818943';
     private $Usuario = 'sql10818943';
     private $Clave = 'MheysJ2sNd';
-
     protected $Conexion_ID;
     protected $Consulta_ID;
     protected $ResultadoCon;
@@ -56,7 +55,7 @@ abstract class basedatos
 
     protected function cargarTodo()
     {
-        if ($this->Conexion_ID) {
+        if ($this->Conexion_ID && $this->Consulta_ID) {
             $this->ResultadoCon = $this->Consulta_ID->fetchAll(PDO::FETCH_ASSOC);
         } else {
             $this->ResultadoCon = false;
@@ -66,7 +65,7 @@ abstract class basedatos
 
     protected function cargarRegistro()
     {
-        if ($this->Conexion_ID) {
+        if ($this->Conexion_ID && $this->Consulta_ID) {
             $this->ResultadoCon = $this->Consulta_ID->fetch(PDO::FETCH_BOTH);
         } else {
             $this->ResultadoCon = false;

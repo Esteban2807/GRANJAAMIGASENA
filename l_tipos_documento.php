@@ -1,4 +1,5 @@
 <?php
+
 include_once 'class/tipos_documento.php';
 
 // Crear objeto Tipos_documento
