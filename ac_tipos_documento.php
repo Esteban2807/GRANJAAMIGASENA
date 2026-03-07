@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
 /* ---- Carga de datos y registro actual ---- */
 /* Leer registro a editar */
 include_once 'class/tipos_documento.php';

@@ -174,4 +174,32 @@ class usuarios extends basedatos
         $this->desconectar();
         return $res;
     }
+    
+    public static function verificarSesion()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        if (!isset($_SESSION['user'])) {
+            header('Location: login.php');
+            exit;
+        }
+    }
+
+    public static function estaAutenticado()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        return isset($_SESSION['user']);
+    }
+
+    public static function usuarioActual()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        return isset($_SESSION['user']) ? $_SESSION['user'] : null;
+    }
 }
+

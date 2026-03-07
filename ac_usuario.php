@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
 include_once 'class/tipos_documento.php';
 $tipos_documento = new Tipos_documento();
 $tipos_documentoData = $tipos_documento->listar();
@@ -70,10 +72,24 @@ $usuario->consultar();
                         <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese Contraseña" value="<?= htmlspecialchars($usuario->getContrasena()) ?>" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="id_cargo">ID Cargo:</label>
-                        <input type="text" name="id_cargo" id="id_cargo" placeholder="Ingrese ID Cargo" value="<?= htmlspecialchars($usuario->getIdCargo()) ?>">
-                    </div>
+                    <?php if (isset($_SESSION['rol_id']) && $_SESSION['rol_id'] == 1): ?>
+                        <?php 
+                            include_once 'class/cargos.php'; 
+                            $roles = (new cargos())->listar(); 
+                        ?>
+                        <div class="form-group">
+                            <label for="id_cargo">Rol:</label>
+                            <select name="id_cargo" id="id_cargo">
+                                <?php foreach ($roles as $r): ?>
+                                    <option value="<?= htmlspecialchars($r['id']) ?>" <?= $usuario->getIdCargo() == $r['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($r['id'] . ' - ' . $r['nombre']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    <?php else: ?>
+                        <input type="hidden" name="id_cargo" value="<?= htmlspecialchars($usuario->getIdCargo()) ?>">
+                    <?php endif; ?>
 
                     <div class="form-actions">
                         <button type="submit" class="btn-action">

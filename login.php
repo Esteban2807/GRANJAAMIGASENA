@@ -1,3 +1,12 @@
+<?php
+session_start();
+$login_error = $_SESSION['login_error'] ?? null;
+if ($login_error) {
+    unset($_SESSION['login_error']);
+}
+?>
+    
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -33,8 +42,8 @@
         <div class="login-header">
 
             <div class="login-logo">
-                <img src="img/logo_sena_verde.png">
-                <span class="login-brand">NE<span class="green">XO</span></span>
+                <img src="img/logo_sena_verde.png" alt="Logo SENA">
+                <span class="login-brand">GRANJA<span class="green">AMIGA</span></span>
             </div>
 
             <a href="https://portal.senasofiaplus.edu.co/">
@@ -58,9 +67,8 @@
 
         </div>
 
-        <!-- LOGIN -->
-        <div class="login-form active" id="login-form">
-
+        <!-- Formulario de Iniciar Sesión -->
+        <form method="post" action="config/login.php" class="login-form active" id="login-form">
             <div class="form-field">
 
                 <label>Tipo de documento *</label>
@@ -68,10 +76,8 @@
                 <div class="input-with-icon">
 
                     <i class="fa-solid fa-id-card input-icon"></i>
-
-                    <select id="tipoDocumento" required>
-
-                        <option value="">Cédula de Ciudadanía</option>
+                    <select id="tipo_documento" name="tipo_documento" required>
+                        <option value="">Tipo de documento...</option>
                         <option value="CC">Cédula de ciudadanía</option>
                         <option value="TI">Tarjeta de identidad</option>
                         <option value="CE">Cédula de extranjería</option>
@@ -90,13 +96,7 @@
                 <div class="input-with-icon">
 
                     <i class="fa-solid fa-hashtag input-icon"></i>
-
-                    <input
-                        type="text"
-                        id="documento"
-                        placeholder="Ingrese su número de documento"
-                        required>
-
+                    <input type="text" id="documento" name="documento" placeholder="Ingrese su número de documento" required />
                 </div>
 
             </div>
@@ -108,25 +108,15 @@
                 <div class="password-container">
 
                     <i class="fa-solid fa-lock input-icon"></i>
-
-                    <input
-                        type="password"
-                        id="contrasena"
-                        placeholder="Contraseña"
-                        required>
-
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required />
                     <i class="fa-solid fa-eye toggle-password"></i>
 
                 </div>
 
             </div>
 
-            <!-- TOKEN CAPTCHA -->
-            <input type="hidden" id="token" name="token">
-
             <button type="submit" class="btn-login">
-                <i class="fa-solid fa-cloud"></i>
-                Iniciar sesión
+                <i class="fa-solid fa-cloud"></i>Iniciar sesión
             </button>
 
             <div class="help-links">
@@ -140,120 +130,77 @@
                 <a href="#">Más información</a>
 
             </div>
+        </form>
 
-        </div>
-
-        <!-- REGISTRO -->
-        <div class="login-form" id="signup-form">
-
+        <!-- Formulario de Registro -->
+        <form method="POST" action="config/register.php" class="login-form" id="signup-form">
+            <input type="hidden" name="id_cargo" value="6">
             <div class="signup-scroll-content">
-
-                <div class="form-field">
-
-                    <label>Nombre *</label>
-
+                  <div class="form-field">
+                    <label for="docTypeSignup">Tipo_documento</label>
                     <div class="input-with-icon">
-
-                        <i class="fa-solid fa-user input-icon"></i>
-
-                        <input
-                            type="text"
-                            placeholder="Nombre"
-                            required>
-
+                        <i class="fa-solid fa-id-card input-icon"></i>
+                        <select id="docTypeSignup" name="tipo_documento" required>
+                            <option value="">Tipo Documento...</option>
+                            <option value="CC">Cédula de ciudadanía</option>
+                            <option value="TI">Tarjeta de identidad</option>
+                            <option value="CE">Cédula de extranjería</option>
+                            <option value="PAS">Pasaporte</option>
+                        </select>
                     </div>
 
+                <div class="form-field">
+                    <label for="lastName">Documento *</label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-user input-icon"></i>
+                        <input type="text" id="lastName" name="documento" placeholder="Documento" required />
+                    </div>
                 </div>
 
                 <div class="form-field">
-
-                    <label>Apellido *</label>
-
+                    <label for="email">Correo electrónico *</label>
                     <div class="input-with-icon">
-
-                        <i class="fa-solid fa-user input-icon"></i>
-
-                        <input
-                            type="text"
-                            placeholder="Apellido"
-                            required>
-
-                    </div>
-
-                </div>
-
-                <div class="form-field">
-
-                    <label>Correo electrónico *</label>
-
-                    <div class="input-with-icon">
-
                         <i class="fa-solid fa-envelope input-icon"></i>
-
-                        <input
-                            type="email"
-                            placeholder="Correo electrónico"
-                            required>
-
+                        <input type="email" id="email" name="correo" placeholder="Correo electrónico" required />
                     </div>
-
                 </div>
 
                 <div class="form-field">
-
-                    <label>Usuario *</label>
-
+                    <label for="username">Nombres *</label>
                     <div class="input-with-icon">
-
                         <i class="fa-solid fa-at input-icon"></i>
-
-                        <input
-                            type="text"
-                            placeholder="Usuario"
-                            required>
-
+                        <input type="text" id="username" name="nombres" placeholder="Nombres" required />
                     </div>
-
                 </div>
 
                 <div class="form-field">
-
-                    <label>Contraseña *</label>
-
+                    <label for="apellidos">Apellidos *</label>
                     <div class="password-container">
-
                         <i class="fa-solid fa-lock input-icon"></i>
-
-                        <input
-                            type="password"
-                            placeholder="Contraseña"
-                            required>
-
+                        <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required />
                         <i class="fa-solid fa-eye toggle-password"></i>
-
                     </div>
-
                 </div>
 
                 <div class="form-field">
-
-                    <label>Confirmar contraseña *</label>
-
+                    <label for="password">Contraseña *</label>
                     <div class="password-container">
-
                         <i class="fa-solid fa-lock input-icon"></i>
-
-                        <input
-                            type="password"
-                            placeholder="Confirmar contraseña"
-                            required>
-
+                        <input type="password" id="password" name="contrasena" placeholder="Contraseña" required />
                         <i class="fa-solid fa-eye toggle-password"></i>
-
                     </div>
-
                 </div>
 
+                <div class="form-field">
+                    <label for="confirmPassword"></i> Confirmar contraseña *</label>
+                    <div class="password-container">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" name="confirm_contrasena" placeholder="Confirmar contraseña" required />
+                        <i class="fa-solid fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+              
             </div>
 
             <button type="submit" class="btn-login">
@@ -262,8 +209,7 @@
                 Registrarse
 
             </button>
-
-        </div>
+        </form>
 
         <!-- FOOTER -->
         <div class="footer-login">

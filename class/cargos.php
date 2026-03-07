@@ -5,6 +5,14 @@ class cargos extends basedatos
     public $id;
     public $nombre;
     public $consulta;
+    public static $defaults = [
+        1 => 'Administrador',
+        2 => 'Veterinario',
+        3 => 'Aprendiz',
+        4 => 'Gestor de Inventario',
+        5 => 'Encargado de Granja',
+        6 => 'Visitante'
+    ];
 
     function __construct($id = null, $nombre = null)
     {
@@ -76,6 +84,15 @@ class cargos extends basedatos
         $res = $this->cargarTodo();
         $this->desconectar();
         return $res;
+    }
+    public function seedDefaults()
+    {
+        $this->conectar();
+        foreach (self::$defaults as $id => $nombre) {
+            $sql = sprintf("INSERT INTO cargos (id, nombre) VALUES (%d, '%s') ON DUPLICATE KEY UPDATE nombre=VALUES(nombre)", $id, $nombre);
+            $this->ejecutarSQL($sql);
+        }
+        $this->desconectar();
     }
 }
 ?> 
