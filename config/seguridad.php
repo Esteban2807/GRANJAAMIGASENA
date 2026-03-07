@@ -12,3 +12,10 @@ function verificarRol($rolesPermitidos) {
         exit();
     }
 }
+
+function verificarSesion() {
+    if (!isset($_SESSION['user'])) {
+        header("Location: login.php");
+        exit();
+    }
+}

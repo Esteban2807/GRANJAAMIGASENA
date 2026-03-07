@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config/login.php';
+session_start();
 $login_error = $_SESSION['login_error'] ?? null;
 if ($login_error) {
     unset($_SESSION['login_error']);
@@ -52,8 +52,7 @@ if ($login_error) {
         </div>
 
         <!-- Formulario de Iniciar Sesión -->
-        <form method="post" action="" class="login-form active" id="login-form">
-            <input type="hidden" name="action" value="login">
+        <form method="post" action="config/login.php" class="login-form active" id="login-form">
             <div class="form-field">
                 <label for="docType">Tipo de documento *</label>
                 <div class="input-with-icon">
@@ -96,16 +95,14 @@ if ($login_error) {
         </form>
 
         <!-- Formulario de Registro -->
-        <form method="post" action="" class="login-form" id="signup-form">
-            <input type="hidden" name="action" value="register">
-            <input type="hidden" name="id_cargo" value="2">
-
+        <form method="POST" action="config/register.php" class="login-form" id="signup-form">
+            <input type="hidden" name="id_cargo" value="6">
             <div class="signup-scroll-content">
                   <div class="form-field">
                     <label for="docTypeSignup">Tipo_documento</label>
                     <div class="input-with-icon">
                         <i class="fa-solid fa-id-card input-icon"></i>
-                        <select id="docTypeSignup" name="id_cargo" required>
+                        <select id="docTypeSignup" name="tipo_documento" required>
                             <option value="">Tipo Documento...</option>
                             <option value="CC">Cédula de ciudadanía</option>
                             <option value="TI">Tarjeta de identidad</option>
@@ -140,16 +137,25 @@ if ($login_error) {
                 </div>
 
                 <div class="form-field">
-                    <label for="signupPassword">Apellidos *</label>
+                    <label for="apellidos">Apellidos *</label>
                     <div class="password-container">
                         <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="text" id="signupPassword" name="apellidos" placeholder="Apellidos" required />
+                        <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required />
                         <i class="fa-solid fa-eye toggle-password"></i>
                     </div>
                 </div>
 
                 <div class="form-field">
-                    <label for="confirmPassword"></i> Contraseña *</label>
+                    <label for="password">Contraseña *</label>
+                    <div class="password-container">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="password" name="contrasena" placeholder="Contraseña" required />
+                        <i class="fa-solid fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="confirmPassword"></i> Confirmar contraseña *</label>
                     <div class="password-container">
                         <i class="fa-solid fa-lock input-icon"></i>
                         <input type="password" id="confirmPassword" name="confirm_contrasena" placeholder="Confirmar contraseña" required />

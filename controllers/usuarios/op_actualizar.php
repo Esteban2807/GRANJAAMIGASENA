@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../config/seguridad.php';
+verificarSesion();
 include_once __DIR__ . '/../../class/usuarios.php';
 
 $obj = new usuarios();

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
 include_once 'class/tipos_documento.php';
 $tipos_documento = new Tipos_documento();
 $tipos_documentoData = $tipos_documento->listar();

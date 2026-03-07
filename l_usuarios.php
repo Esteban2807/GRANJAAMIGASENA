@@ -1,6 +1,7 @@
 <?php
 
 require_once("config/seguridad.php");
+verificarSesion();
 verificarRol([1]);
 
 include_once 'class/usuarios.php';

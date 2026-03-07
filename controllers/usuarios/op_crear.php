@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../config/seguridad.php';
+verificarSesion();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include_once __DIR__ . '/../../class/usuarios.php';
 
@@ -11,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setApellidos($_POST['apellidos'] ?? null);
     $obj->setContrasena($_POST['contrasena'] ?? ($_POST['password'] ?? null));
     $obj->setIdCargo($_POST['id_cargo'] ?? null);
+
 
     $obj->insertar();
 

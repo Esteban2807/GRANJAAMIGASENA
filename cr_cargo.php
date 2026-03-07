@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

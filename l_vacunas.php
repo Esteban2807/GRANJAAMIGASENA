@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
 include_once 'class/vacunas.php';
 $vacunas = new vacunas();
 if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
