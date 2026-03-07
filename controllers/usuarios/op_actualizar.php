@@ -12,8 +12,21 @@ $obj->setTipoDocumento($_POST['tipo_documento'] ?? $obj->getTipoDocumento());
 $obj->setCorreo($_POST['correo'] ?? $obj->getCorreo());
 $obj->setNombres($_POST['nombres'] ?? $obj->getNombres());
 $obj->setApellidos($_POST['apellidos'] ?? $obj->getApellidos());
-$obj->setContrasena($_POST['contrasena'] ?? ($_POST['password'] ?? $obj->getContrasena()));
-$obj->setIdCargo($_POST['id_cargo'] ?? $obj->getIdCargo());
+$incomingPass = $_POST['contrasena'] ?? ($_POST['password'] ?? null);
+if ($incomingPass === null || $incomingPass === '') {
+    $obj->setContrasena($obj->getContrasena());
+} else {
+    if (preg_match('/^[a-f0-9]{32}$/i', $incomingPass)) {
+        $obj->setContrasena($incomingPass);
+    } else {
+        $obj->setContrasena(md5($incomingPass));
+    }
+}
+if (isset($_SESSION['rol_id']) && $_SESSION['rol_id'] == 1) {
+    $obj->setIdCargo($_POST['id_cargo'] ?? $obj->getIdCargo());
+} else {
+    $obj->setIdCargo($obj->getIdCargo());
+}
 
 $obj->actualizar();
 

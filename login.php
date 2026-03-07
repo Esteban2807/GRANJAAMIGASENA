@@ -58,7 +58,7 @@ if ($login_error) {
                 <div class="input-with-icon">
                     <i class="fa-solid fa-id-card input-icon"></i>
                     <select id="tipo_documento" name="tipo_documento" required>
-                        <option value="">Cédula de Ciudadanía</option>
+                        <option value="">Tipo de documento...</option>
                         <option value="CC">Cédula de ciudadanía</option>
                         <option value="TI">Tarjeta de identidad</option>
                         <option value="CE">Cédula de extranjería</option>

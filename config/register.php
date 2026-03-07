@@ -12,7 +12,7 @@ $correo         = trim($_POST['correo'] ?? '');
 $nombres        = trim($_POST['nombres'] ?? '');
 $apellidos      = trim($_POST['apellidos'] ?? '');
 $contrasena     = $_POST['contrasena'] ?? ($_POST['password'] ?? '');
-$id_cargo       = trim($_POST['id_cargo'] ?? '6');
+$id_cargo       = '6';
 
 if ($tipo_documento === '' || $documento === '' || $correo === '' || $nombres === '' || $apellidos === '' || $contrasena === '') {
     header('Location: ../login.php');
