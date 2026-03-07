@@ -121,6 +121,15 @@ class usuarios extends basedatos
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
         $this->desconectar();
+        if (!$res || !is_array($res)) {
+            $this->tipo_documento = NULL;
+            $this->correo = NULL;
+            $this->nombres = NULL;
+            $this->apellidos = NULL;
+            $this->contrasena = NULL;
+            $this->id_cargo = NULL;
+            return false;
+        }
         $this->tipo_documento = $res['tipo_documento'];
         $this->documento = $res['documento'];
         $this->correo = $res['correo'];
@@ -128,6 +137,7 @@ class usuarios extends basedatos
         $this->apellidos = $res['apellidos'];
         $this->contrasena = $res['contrasena'];
         $this->id_cargo = $res['id_cargo'];
+        return true;
     }
 
     public function eliminar()

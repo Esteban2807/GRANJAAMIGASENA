@@ -1983,3 +1983,11 @@ body.login-page {
         max-width: 800px;
     }
 }
+
+/* Quitar blur al badge de reCAPTCHA */
+.grecaptcha-badge {
+    filter: none !important;
+    backdrop-filter: none !important;
+    opacity: 1 !important;
+    z-index: 9999 !important;
+}
