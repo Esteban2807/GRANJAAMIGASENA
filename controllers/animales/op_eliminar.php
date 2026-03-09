@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../config/seguridad.php';
+verificarSesion();
 # Incluir la clase Animales
 include '../../class/animales.php';
 

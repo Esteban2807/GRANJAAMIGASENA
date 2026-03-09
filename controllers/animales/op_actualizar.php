@@ -1,6 +1,9 @@
 <?php
+require_once __DIR__ . '/../../config/seguridad.php';
+verificarSesion();
 # Incluir la clase Tipos_documento
 include '../../class/tipos_documento.php';
+include '../../class/animales.php';
 
 # Crear el objeto Animales
 $obj = new Animales();
