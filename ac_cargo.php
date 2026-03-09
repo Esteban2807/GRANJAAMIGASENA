@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
+verificarRol([1]);
 include_once 'class/cargos.php';
 $cargo = new cargos();
 $cargo->setId($_POST['id']);

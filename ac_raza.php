@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
 include_once 'class/razas.php';
 $raza = new Razas();
 $raza->setId($_POST['id']);

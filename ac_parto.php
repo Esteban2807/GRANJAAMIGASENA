@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
 include_once 'class/partos.php';
 include_once 'class/animales.php';
 include_once 'class/usuarios.php';
