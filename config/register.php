@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../class/usuarios.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -12,10 +13,11 @@ $correo         = trim($_POST['correo'] ?? '');
 $nombres        = trim($_POST['nombres'] ?? '');
 $apellidos      = trim($_POST['apellidos'] ?? '');
 $contrasena     = $_POST['contrasena'] ?? ($_POST['password'] ?? '');
-$id_cargo       = '6';
+$id_cargo       = '1';
 
 if ($tipo_documento === '' || $documento === '' || $correo === '' || $nombres === '' || $apellidos === '' || $contrasena === '') {
-    header('Location: ../login.php');
+    $_SESSION['register_error'] = 'Todos los campos son obligatorios.';
+    header('Location: ../registro.php');
     exit;
 }
 
@@ -27,8 +29,13 @@ $obj->setNombres($nombres);
 $obj->setApellidos($apellidos);
 $obj->setContrasena(md5($contrasena));
 $obj->setIdCargo($id_cargo);
-$obj->insertar();
-
-header('Location: ../login.php');
-exit;
+if ($obj->insertar()) {
+    $_SESSION['register_success'] = 'Usuario registrado con éxito. Ya puedes iniciar sesión.';
+    header('Location: ../login.php');
+    exit;
+} else {
+    $_SESSION['register_error'] = 'Error al registrar el usuario: ' . $obj->imprimirError();
+    header('Location: ../registro.php');
+    exit;
+}
 ?>

@@ -2,8 +2,8 @@
 // Define la imagen, cantidad y tamaño de los logos que se moverán suavemente por la pantalla.
 const logoUrl = 'img/logo_sena_verde.png';
 const numLogos = 30;
-const logoSize = []; 
-const minDistance = [];
+const logoSize = 30; 
+const minDistance = 100;
 
 // Lista donde se guardarán todos los logos creados.
 const logos = [];

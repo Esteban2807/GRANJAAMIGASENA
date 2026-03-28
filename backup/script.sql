@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS animales (
 
 CREATE TABLE IF NOT EXISTS partos (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
-    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha DATETIME NOT NULL ,
     facilidad ENUM('Normal', 'Asistido', 'Cesárea', 'Difícil') NOT NULL, -- ENUM para reportes claros
     madre_id VARCHAR(10) NOT NULL,
     secuencia INT NOT NULL COMMENT 'Número de parto de esta madre',
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS partos (
 
 CREATE TABLE IF NOT EXISTS nacimientos (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha DATETIME NOT NULL ,
     parto_id INT NOT NULL,
     documento_usuario VARCHAR(20) NOT NULL,
     peso_kg DECIMAL(5,2) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS alimentaciones (
     documento_alimentador VARCHAR(20) NOT NULL,
     id_alimento INT NOT NULL,
     cantidad_dada DECIMAL(10,2) NOT NULL,
-    fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_hora DATETIME NOT NULL ,
     FOREIGN KEY(id_animal) REFERENCES animales(id),
     FOREIGN KEY(id_alimento) REFERENCES alimentos(id),
     FOREIGN KEY(documento_alimentador) REFERENCES usuarios(documento)
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS medicaciones (
     documento_veterinario VARCHAR(20) NOT NULL,
     id_medicamento INT NOT NULL,
     cantidad_dada DECIMAL(10,2) NOT NULL,
-    fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_hora DATETIME NOT NULL ,
     FOREIGN KEY(id_animal) REFERENCES animales(id),
     FOREIGN KEY(id_medicamento) REFERENCES medicamentos(id),
     FOREIGN KEY(documento_veterinario) REFERENCES usuarios(documento)
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS vacunaciones (
     documento_veterinario VARCHAR(20) NOT NULL,
     id_vacuna INT NOT NULL,
     cantidad_dada DECIMAL(10,2) NOT NULL,
-    fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_hora DATETIME NOT NULL ,
     FOREIGN KEY(id_animal) REFERENCES animales(id),
     FOREIGN KEY(id_vacuna) REFERENCES vacunas(id),
     FOREIGN KEY(documento_veterinario) REFERENCES usuarios(documento)
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS atenciones_veterinarias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_animal VARCHAR(10) NOT NULL,
     documento_veterinario VARCHAR(20) NOT NULL,
-    fecha_atencion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_atencion DATETIME ,
     motivo ENUM('Chequeo General', 'Vacunación', 'Enfermedad', 'Herida/Trauma', 'Seguimiento') NOT NULL,
     diagnostico TEXT NOT NULL,
     tratamiento TEXT,
