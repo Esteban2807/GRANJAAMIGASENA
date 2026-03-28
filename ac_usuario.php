@@ -45,7 +45,7 @@ $usuario->consultar();
                         <select name="tipo_documento" id="tipo_documento" required>
                             <option value="">-- Seleccione --</option>
                             <?php foreach ($tipos_documentoData as $item): ?>
-                                <option value="<?= htmlspecialchars($item['nombre']) ?>" <?= $usuario->getTipoDocumento() == $item['nombre'] ? 'selected' : '' ?>>
+                                <option value="<?= htmlspecialchars($item['siglas']) ?>" <?= $usuario->getTipoDocumento() == $item['siglas'] ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($item['nombre']) ?>
                                 </option>
                             <?php endforeach; ?>
@@ -66,12 +66,6 @@ $usuario->consultar();
                         <label for="correo">Correo:</label>
                         <input type="email" name="correo" id="correo" placeholder="Ingrese Correo" value="<?= htmlspecialchars($usuario->getCorreo()) ?>" required>
                     </div>
-
-                    <div class="form-group">
-                        <label for="contrasena">Contraseña:</label>
-                        <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese Contraseña" value="<?= htmlspecialchars($usuario->getContrasena()) ?>" required>
-                    </div>
-
                     <?php if (isset($_SESSION['rol_id']) && $_SESSION['rol_id'] == 1): ?>
                         <?php 
                             include_once 'class/cargos.php'; 

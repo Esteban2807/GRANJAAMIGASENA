@@ -59,12 +59,19 @@ class especies extends basedatos {
     }
      public function consultar()
     {
-        $sql = "SELECT * FROM especies WHERE nombre like '%$this->consulta%' OR id like '%$this->consulta%'";
+        $sql = "SELECT * FROM especies WHERE id = $this->id";
         $this->conectar();
         $this->ejecutarSQL($sql);
-        $res = $this->cargarTodo();
+        $res = $this->cargarRegistro();
         $this->desconectar();
-        return $res;
+        if (!$res || !is_array($res)) {
+            $this->id = NULL;
+            $this->nombre = NULL;
+            return false;
+        }
+        $this->id = $res['id'];
+        $this->nombre = $res['nombre'];
+        return true;
     }
     public function buscar($consulta)
     {

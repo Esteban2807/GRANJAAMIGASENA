@@ -2,8 +2,9 @@
 include_once 'class/especies.php';
 $especies = new Especies();
 $especiesData = $especies->listar();
-?>
-<?php
+include_once 'class/razas.php';
+$razas = new Razas();
+$razasData = $razas->listar();
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
 ?>
@@ -53,7 +54,7 @@ verificarSesion();
                             <option value="">-- Seleccione --</option>
                             <?php foreach ($razasData as $item): ?>
                                 <option value="<?= htmlspecialchars($item['id']) ?>">
-                                    <?= htmlspecialchars($item['nombre']) ?>
+                                    <?= htmlspecialchars($item['especie'] . '-' . $item['nombre']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -92,7 +93,7 @@ verificarSesion();
                         <button type="submit" class="btn-action">
                             <i class="fas fa-save"></i> Guardar
                         </button>
-                        <a href="animales" class="btn-cancel">
+                        <a href="l_animales.php" class="btn-cancel">
                             <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>

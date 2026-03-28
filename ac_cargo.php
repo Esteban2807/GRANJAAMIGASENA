@@ -32,7 +32,7 @@ $cargo->consultar();
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-action"><i class="fas fa-save"></i> Guardar Cambios</button>
-                        <a href="cargos" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
+                        <a href="l_cargos.php" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
                     </div>
                 </form>
             </div>
