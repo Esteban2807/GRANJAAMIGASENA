@@ -30,15 +30,15 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             </div>
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="l_atenciones_veterinarias.php" method="GET">
-                        <input type="text" name="buscar" placeholder="Buscar por motivo o animal." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                    <form class="search-form" action="atenciones-veterinarias" method="GET">
+                        <input type="text" name="buscar" placeholder="Buscar por animal o motivo." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action"><i class="fas fa-search"></i> Buscar</button>
                     </form>
                 </div>
                 <?php if (empty($res)): ?>
                     <div class="empty-state">
                         <i class="fas fa-stethoscope"></i>
-                        <p>No se encontraron atenciones.</p>
+                        <p>No se encontraron atenciones veterinarias.</p>
                     </div>
                 <?php else: ?>
                     <table class="data-table">
@@ -85,7 +85,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         </tbody>
                     </table>
                 <?php endif; ?>
-                <form action="index.php" method="get" class="text-center">
+                <form action="inicio" method="get" class="text-center">
                     <button type="submit" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</button>
                 </form>
             </div>

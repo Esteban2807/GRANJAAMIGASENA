@@ -100,8 +100,9 @@ class usuarios extends basedatos
             $this->id_cargo
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $res = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $res;
     }
 
     public function listar()

@@ -1,10 +1,10 @@
 <?php
 abstract class basedatos
 {
-    private $Servidor = 'sql10.freesqldatabase.com';
-    private $BaseDatos = 'sql10818943';
-    private $Usuario = 'sql10818943';
-    private $Clave = 'MheysJ2sNd';
+    private $Servidor = 'localhost';
+    private $BaseDatos = 'granjaamiga';
+    private $Usuario = 'root';
+    private $Clave = '';
     protected $Conexion_ID;
     protected $Consulta_ID;
     protected $ResultadoCon;
@@ -25,7 +25,7 @@ abstract class basedatos
                 $this->Clave,
                 [
                     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'",
-                    PDO::MYSQL_ATTR_LOCAL_INFILE => true
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]
             );
         } catch (PDOException $e) {

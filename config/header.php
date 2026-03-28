@@ -18,7 +18,7 @@
     <nav class="nav-bar">
         <div class="nav-bar-content">
             <div class="nav-left">
-                <button onclick="window.location.href = 'index.php'" class="nav-item menu-toggle-btn">Inicio</button>
+                <button onclick="window.location.href = 'inicio'" class="nav-item menu-toggle-btn">Inicio</button>
                 <div class="menu-dropdown-container">
                     <button id="menu-toggle" class="nav-item menu-toggle-btn">
                         Menú
@@ -88,7 +88,15 @@
 
                 <div class="profile-container">
                     <button class="profile-btn" id="profile-btn" aria-label="Abrir menú de perfil">
-                        <div class="profile-avatar">EE</div>
+                        <div class="profile-avatar">
+                            <?php 
+                            $iniciales = "U";
+                            if (isset($_SESSION['user'])) {
+                                $iniciales = substr($_SESSION['user']['nombres'], 0, 1) . substr($_SESSION['user']['apellidos'], 0, 1);
+                            }
+                            echo strtoupper($iniciales);
+                            ?>
+                        </div>
                     </button>
                 </div>
             </div>
@@ -98,10 +106,35 @@
 
 <div class="profile-menu" id="profile-menu">
     <div class="profile-menu-header">
-        <div class="profile-menu-avatar">EE</div>
-        <div class="profile-menu-name">Ejemplo.Ejemplo</div>
-        <div class="profile-menu-email">ejemplo@sena.edu.co</div>
-        <button class="profile-menu-manage">Aprendiz</button>
+        <div class="profile-menu-avatar">
+            <?php 
+            $iniciales = "U";
+            if (isset($_SESSION['user'])) {
+                $iniciales = substr($_SESSION['user']['nombres'], 0, 1) . substr($_SESSION['user']['apellidos'], 0, 1);
+            }
+            echo strtoupper($iniciales);
+            ?>
+        </div>
+        <div class="profile-menu-name">
+            <?php echo isset($_SESSION['user']) ? $_SESSION['user']['nombres'] . ' ' . $_SESSION['user']['apellidos'] : 'Usuario'; ?>
+        </div>
+        <div class="profile-menu-email">
+            <?php echo isset($_SESSION['user']) ? $_SESSION['user']['correo'] : 'correo@ejemplo.com'; ?>
+        </div>
+        <button class="profile-menu-manage">
+            <?php 
+            $rol = "Invitado";
+            if (isset($_SESSION['rol_id'])) {
+                switch($_SESSION['rol_id']) {
+                    case 1: $rol = "Administrador"; break;
+                    case 2: $rol = "Veterinario"; break;
+                    case 3: $rol = "Operario"; break;
+                    case 6: $rol = "Aprendiz"; break;
+                }
+            }
+            echo $rol;
+            ?>
+        </button>
     </div>
 
     <div class="profile-menu-items">

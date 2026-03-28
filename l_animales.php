@@ -48,8 +48,8 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="l_animales.php" method="GET">
-                        <input type="text" name="buscar" placeholder="Buscar por nombre."
+                    <form class="search-form" action="animales" method="GET">
+                        <input type="text" name="buscar" placeholder="Buscar por nombre, id o fecha."
                             value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
@@ -59,35 +59,35 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
                 <?php if (empty($res)): ?>
                     <div class="empty-state">
-                        <i class="fas fa-id-card"></i>
+                        <i class="fas fa-paw"></i>
                         <p>No se encontraron animales.</p>
                     </div>
                 <?php else: ?>
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Fecha Nacimiento</th>
                                 <th>Nombre</th>
-                                <th>Espécie</th>
+                                <th>ID</th>
+                                <th>Especie</th>
                                 <th>Raza</th>
-                                <th>Padre</th>
-                                <th>Madre</th>
+                                <th>ID Padre</th>
+                                <th>ID Madre</th>
                                 <th>Observaciones</th>
-                                <th>Fecha de Nacimiento</th>
                                 <th colspan="2">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['fecha_de_nacimiento']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['especie']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['raza']); ?></td>
-                                    <td><?php echo htmlspecialchars($registro['id_padre']); ?></td>
-                                    <td><?php echo htmlspecialchars($registro['id_madre']); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['id_padre'] ?? 'N/A'); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['id_madre'] ?? 'N/A'); ?></td>
                                     <td><?php echo htmlspecialchars($registro['observaciones']); ?></td>
-                                    <td><?php echo htmlspecialchars($registro['fecha_de_nacimiento']); ?></td>
                                     <td>
                                         <form action="ac_animal.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id"
@@ -99,7 +99,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     </td>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>"
-                                            action="controllers/raza/op_eliminar.php"
+                                            action="controllers/animales/op_eliminar.php"
                                             method="POST"
                                             class="form-inline">
 
@@ -109,7 +109,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             <button type="button"
                                                 class="btn btn-delete btn-swal-eliminar"
                                                 data-id="<?php echo $registro['id']; ?>"
-                                                data-nombre="<?php echo htmlspecialchars($registro['nombre'] ?? 'esta raza', ENT_QUOTES); ?>">
+                                                data-nombre="<?php echo htmlspecialchars($registro['nombre'] ?? 'este animal', ENT_QUOTES); ?>">
                                                 <i class="fas fa-trash-alt"></i> Eliminar
                                             </button>
                                         </form>
@@ -120,7 +120,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     </table>
                 <?php endif; ?>
 
-                <form action="index.php" method="get" class="text-center">
+                <form action="inicio" method="get" class="text-center">
                     <button type="submit" class="btn-action btn-mt">
                         <i class="fas fa-arrow-left"></i> Volver
                     </button>

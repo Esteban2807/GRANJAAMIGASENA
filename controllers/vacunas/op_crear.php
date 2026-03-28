@@ -10,10 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setUnidadMedida($_POST['unidad_medida']);
     $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
     $obj->insertar();
-    header("Location: ../../l_vacunas.php");
+    header("Location: ../../vacunas");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../index.php");
+    header("Location: ../../inicio");
 }
 ?> 

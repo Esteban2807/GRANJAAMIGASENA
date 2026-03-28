@@ -26,5 +26,5 @@ $obj->setObservaciones($_POST['observaciones']);
 $obj->actualizar();
 
 # Redirigir al listado de Animales
-header("Location: ../../l_animales.php");
+header("Location: ../../animales");
 ?>

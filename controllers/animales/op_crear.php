@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->insertar();
 
     # Redirigir al listado de Animales
-    header("Location: ../../l_animales.php");
+    header("Location: ../../animales");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../index.php");
+    header("Location: ../../inicio");
 }
 ?>

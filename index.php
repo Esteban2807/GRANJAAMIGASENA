@@ -66,7 +66,7 @@ verificarSesion();
             </li>
 
             <li class="card">
-                <a href="l_especies.php">
+                <a href="especies">
                     <div class="card-icon">
                         <i class="fas fa-venus-mars"></i>
                     </div>
@@ -76,7 +76,7 @@ verificarSesion();
             </li>
 
             <li class="card">
-                <a href="l_razas.php">
+                <a href="razas">
                     <div class="card-icon">
                         <i class="fas fa-paw"></i>
                     </div>
@@ -103,7 +103,7 @@ verificarSesion();
                 </a>
             </li>
             <li class="card">
-                <a href="l_medicamentos.php">
+                <a href="medicamentos">
                     <div class="card-icon">
                         <i class="fas fa-pills"></i>
                     </div>
@@ -112,7 +112,7 @@ verificarSesion();
                 </a>
             </li>
             <li class="card">
-                <a href="l_vacunas.php">
+                <a href="vacunas">
                     <div class="card-icon">
                         <i class="fas fa-syringe"></i>
                     </div>
@@ -130,7 +130,7 @@ verificarSesion();
                 </a>
             </li>
             <li class="card">
-                <a href="l_medicaciones.php">
+                <a href="medicaciones">
                     <div class="card-icon">
                         <i class="fas fa-notes-medical"></i>
                     </div>
@@ -148,7 +148,7 @@ verificarSesion();
                 </a>
             </li>
             <li class="card">
-                <a href="l_partos.php">
+                <a href="partos">
                     <div class="card-icon">
                         <i class="fas fa-baby"></i>
                     </div>
@@ -166,7 +166,7 @@ verificarSesion();
                 </a>
             </li>
             <li class="card">
-                <a href="l_atenciones_veterinarias.php">
+                <a href="atenciones-veterinarias">
                     <div class="card-icon">
                         <i class="fas fa-stethoscope"></i>
                     </div>

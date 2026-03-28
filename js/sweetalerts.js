@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }).then((result) => {
                 // Si confirma, redirige al usuario a la página de login.
                 if (result.isConfirmed) {
-                    window.location.href = 'login.php';
+                    window.location.href = 'logout.php';
                 }
             });
         });

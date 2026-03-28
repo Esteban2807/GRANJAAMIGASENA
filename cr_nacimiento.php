@@ -76,7 +76,7 @@ verificarSesion();
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-action"><i class="fas fa-save"></i> Guardar</button>
-                        <a href="l_nacimientos.php" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
+                        <a href="nacimientos" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
                     </div>
                 </form>
             </div>

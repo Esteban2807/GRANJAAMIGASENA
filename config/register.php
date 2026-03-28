@@ -13,7 +13,7 @@ $correo         = trim($_POST['correo'] ?? '');
 $nombres        = trim($_POST['nombres'] ?? '');
 $apellidos      = trim($_POST['apellidos'] ?? '');
 $contrasena     = $_POST['contrasena'] ?? ($_POST['password'] ?? '');
-$id_cargo       = '1';
+$id_cargo       = 1;
 
 if ($tipo_documento === '' || $documento === '' || $correo === '' || $nombres === '' || $apellidos === '' || $contrasena === '') {
     $_SESSION['register_error'] = 'Todos los campos son obligatorios.';

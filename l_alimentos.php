@@ -65,7 +65,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['unidad_medida']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['fecha_vencimiento']); ?></td>
                                     <td>
-                                        <form action="ac_alimento.php" method="POST" class="form-inline">
+                                        <form action="alimentos/actualizar" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
                                         </form>
@@ -83,7 +83,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         </tbody>
                     </table>
                 <?php endif; ?>
-                <form action="index.php" method="get" class="text-center">
+                <form action="inicio" method="get" class="text-center">
                     <button type="submit" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</button>
                 </form>
             </div>

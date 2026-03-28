@@ -53,7 +53,7 @@ verificarSesion();
                         <button type="submit" class="btn-action">
                             <i class="fas fa-save"></i> Guardar
                         </button>
-                        <a href="l_nexo_tipo_documento.php" class="btn-cancel">
+                        <a href="tipos-documento" class="btn-cancel">
                             <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>
