@@ -14,5 +14,8 @@ $obj->setId($_POST['id']);
 $obj->eliminar();
 
 # Redirigir al listado
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Raza eliminado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_razas.php");
+exit;
 ?>

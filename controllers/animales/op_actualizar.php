@@ -26,5 +26,8 @@ $obj->setObservaciones($_POST['observaciones']);
 $obj->actualizar();
 
 # Redirigir al listado de Animales
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Animal actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../animales");
+exit;
 ?>

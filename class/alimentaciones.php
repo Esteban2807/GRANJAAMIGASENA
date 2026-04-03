@@ -95,7 +95,8 @@ class alimentaciones extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM alimentaciones WHERE id_animal LIKE '%$this->consulta%' OR documento_alimentador LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM alimentaciones WHERE id_animal LIKE '%$c%' OR documento_alimentador LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

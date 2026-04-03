@@ -31,10 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $obj->insertar();
 
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario creado(a) exitosamente.'];
+    session_write_close();
     header("Location: ../../l_usuarios.php");
     exit;
 } else {
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_usuarios.php");
     exit;
 }
 ?>

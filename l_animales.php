@@ -12,8 +12,14 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     $res = $animales->listar();
 }
 
-?>
+// Leer y consumir mensaje flash
+$flash = null;
+if (isset($_SESSION['flash'])) {
+    $flash = $_SESSION['flash'];
+    unset($_SESSION['flash']);
+}
 
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -48,7 +54,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="animales" method="GET">
+                    <form class="search-form" action="l_animales.php" method="GET">
                         <input type="text" name="buscar" placeholder="Buscar por nombre, id o fecha."
                             value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
@@ -57,10 +63,14 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     </form>
                 </div>
 
-                <?php if (empty($res)): ?>
+                <?php if (empty($res) || $res === false): ?>
                     <div class="empty-state">
                         <i class="fas fa-paw"></i>
-                        <p>No se encontraron animales.</p>
+                        <?php if (isset($_GET['buscar']) && $_GET['buscar'] !== ''): ?>
+                        <p>No se encontraron animales con "<strong><?php echo htmlspecialchars($_GET['buscar']); ?></strong>".</p>
+                    <?php else: ?>
+                        <p>No hay animales registrados.</p>
+                    <?php endif; ?>
                     </div>
                 <?php else: ?>
                     <table class="data-table">
@@ -120,11 +130,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     </table>
                 <?php endif; ?>
 
-                <form action="inicio" method="get" class="text-center">
-                    <button type="submit" class="btn-action btn-mt">
-                        <i class="fas fa-arrow-left"></i> Volver
-                    </button>
-                </form>
+                <a href="index.php" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</a>
             </div>
         </div>
     </main>
@@ -136,6 +142,23 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
+
+<?php if ($flash): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        icon: '<?php echo htmlspecialchars($flash["tipo"]); ?>',
+        title: '<?php echo $flash["tipo"] === "success" ? "¡Éxito!" : "Error"; ?>',
+        text: '<?php echo htmlspecialchars($flash["mensaje"]); ?>',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end'
+    });
+});
+</script>
+<?php endif; ?>
 
 </body>
 

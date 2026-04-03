@@ -109,7 +109,8 @@ class partos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM partos WHERE madre_id LIKE '%$this->consulta%' OR documento_veterinario LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM partos WHERE madre_id LIKE '%$c%' OR documento_veterinario LIKE '%$c%' OR fecha LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

@@ -8,5 +8,8 @@ $obj->setId($_POST['id']);
 $obj->consultar();
 $obj->setNombre($_POST['nombre']);
 $obj->actualizar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Cargo actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_cargos.php");
+exit;
 ?> 

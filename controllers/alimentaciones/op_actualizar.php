@@ -11,5 +11,8 @@ $obj->setIdAlimento($_POST['id_alimento']);
 $obj->setCantidadDada($_POST['cantidad_dada']);
 $obj->setFechaHora($_POST['fecha_hora']);
 $obj->actualizar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Alimentación actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_alimentaciones.php");
+exit;
 ?> 

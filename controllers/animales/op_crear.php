@@ -19,10 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->insertar();
 
     # Redirigir al listado de Animales
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Animal creado(a) exitosamente.'];
+    session_write_close();
     header("Location: ../../animales");
+    exit;
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Animal creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_animales.php");
+    exit;
 }
 ?>

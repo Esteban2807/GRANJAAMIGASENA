@@ -10,10 +10,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setUnidadMedida($_POST['unidad_medida']);
     $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
     $obj->insertar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Vacuna creado(a) exitosamente.'];
+    session_write_close();
     header("Location: ../../vacunas");
+    exit;
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Vacuna creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_vacunas.php");
+    exit;
 }
 ?> 

@@ -21,5 +21,8 @@ $obj->setIdEspecie($_POST['id_especie']);
 $obj->actualizar();
 
 # Redirigir al listado de Razas
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Raza actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_razas.php");
+exit;
 ?>

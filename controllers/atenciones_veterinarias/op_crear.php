@@ -16,10 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setObservaciones($_POST['observaciones']);
     $obj->setCostoTotal($_POST['costo_total']);
     $obj->insertar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Atención veterinaria creado(a) exitosamente.'];
+    session_write_close();
     header("Location: ../../l_atenciones_veterinarias.php");
+    exit;
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Atención veterinaria creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_atenciones_veterinarias.php");
+    exit;
 }
 ?> 

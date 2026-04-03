@@ -109,7 +109,8 @@ class nacimientos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM nacimientos WHERE sexo LIKE '%$this->consulta%' OR vigor LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM nacimientos WHERE sexo LIKE '%$c%' OR vigor LIKE '%$c%' OR parto_id LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

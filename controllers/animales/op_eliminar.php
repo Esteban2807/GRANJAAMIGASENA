@@ -14,5 +14,8 @@ $obj->setId($_POST['id']);
 $obj->eliminar();
 
 # Redirigir al listado de Animales
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Animal eliminado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../animales");
+exit;
 ?>

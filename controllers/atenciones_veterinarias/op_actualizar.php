@@ -17,5 +17,8 @@ $obj->setViaAdministracion($_POST['via_administracion']);
 $obj->setObservaciones($_POST['observaciones']);
 $obj->setCostoTotal($_POST['costo_total']);
 $obj->actualizar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Atención veterinaria actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_atenciones_veterinarias.php");
+exit;
 ?> 

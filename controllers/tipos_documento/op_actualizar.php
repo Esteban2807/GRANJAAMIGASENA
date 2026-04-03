@@ -22,5 +22,8 @@ $obj->setEstado($_POST['estado']);
 $obj->actualizar();
 
 # Redirigir al listado de Tipos_documento
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Tipo de documento actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_tipos_documento.php");
+exit;
 ?>

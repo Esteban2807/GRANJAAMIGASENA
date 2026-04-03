@@ -102,7 +102,8 @@ class alimentos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM alimentos WHERE nombre LIKE '%$this->consulta%' OR tipo LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM alimentos WHERE nombre LIKE '%$c%' OR tipo LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

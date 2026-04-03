@@ -12,10 +12,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setVigor($_POST['vigor']);
     $obj->setObservaciones($_POST['observaciones']);
     $obj->insertar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Nacimiento creado(a) exitosamente.'];
+    session_write_close();
     header("Location: ../../l_nacimientos.php");
+    exit;
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Nacimiento creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_nacimientos.php");
+    exit;
 }
 ?> 

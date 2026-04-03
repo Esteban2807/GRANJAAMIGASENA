@@ -1,5 +1,5 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 include '../class/usuarios.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -16,8 +16,9 @@ $contrasena     = $_POST['contrasena'] ?? ($_POST['password'] ?? '');
 $id_cargo       = 1;
 
 if ($tipo_documento === '' || $documento === '' || $correo === '' || $nombres === '' || $apellidos === '' || $contrasena === '') {
-    $_SESSION['register_error'] = 'Todos los campos son obligatorios.';
-    header('Location: ../registro.php');
+    $_SESSION['flash'] = ['tipo' => 'error', 'mensaje' => 'Todos los campos son obligatorios.'];
+    session_write_close();
+    header('Location: ../login.php');
     exit;
 }
 
@@ -29,13 +30,15 @@ $obj->setNombres($nombres);
 $obj->setApellidos($apellidos);
 $obj->setContrasena(md5($contrasena));
 $obj->setIdCargo($id_cargo);
+
 if ($obj->insertar()) {
-    $_SESSION['register_success'] = 'Usuario registrado con éxito. Ya puedes iniciar sesión.';
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario registrado con éxito. Ya puedes iniciar sesión.'];
+    session_write_close();
     header('Location: ../login.php');
     exit;
 } else {
-    $_SESSION['register_error'] = 'Error al registrar el usuario: ' . $obj->imprimirError();
-    header('Location: ../registro.php');
+    $_SESSION['flash'] = ['tipo' => 'error', 'mensaje' => 'Error al registrar. El documento o correo ya existe.'];
+    session_write_close();
+    header('Location: ../login.php');
     exit;
 }
-?>

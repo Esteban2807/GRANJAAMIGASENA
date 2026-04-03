@@ -13,5 +13,8 @@ $obj->setSexo($_POST['sexo']);
 $obj->setVigor($_POST['vigor']);
 $obj->setObservaciones($_POST['observaciones']);
 $obj->actualizar();
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Nacimiento actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_nacimientos.php");
+exit;
 ?> 

@@ -1,11 +1,11 @@
 <?php
-session_start();
-$login_error = $_SESSION['login_error'] ?? null;
-if ($login_error) {
-    unset($_SESSION['login_error']);
+if (session_status() === PHP_SESSION_NONE) session_start();
+$flash = null;
+if (isset($_SESSION['flash'])) {
+    $flash = $_SESSION['flash'];
+    unset($_SESSION['flash']);
 }
 ?>
-    
 
 <!DOCTYPE html>
 <html lang="es">
@@ -239,6 +239,24 @@ if ($login_error) {
         });
 
     </script>
+
+
+<?php if ($flash): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        icon: '<?php echo $flash["tipo"]; ?>',
+        title: '<?php echo $flash["tipo"] === "success" ? "¡Éxito!" : ($flash["tipo"] === "error" ? "Error" : "Aviso"); ?>',
+        text: '<?php echo htmlspecialchars($flash["mensaje"]); ?>',
+        timer: 4000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end'
+    });
+});
+</script>
+<?php endif; ?>
 
 </body>
 

@@ -71,7 +71,8 @@ class razas extends basedatos
     public function buscar($consult)
     {
         $this->consult = $consult;
-        $sql = "SELECT r.id,r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre like '%$this->consult%'  OR especie = '%$this->consult%';";
+        $c = $consult;
+        $sql = "SELECT r.id, r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre LIKE '%$c%' OR e.nombre LIKE '%$c%' ORDER BY r.id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -80,7 +81,8 @@ class razas extends basedatos
     }
     public function consultar()
     {
-        $sql = "SELECT r.id,r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre like '%$this->consult%'  OR especie = '%$this->consult%';";
+        $c = $this->consult;
+        $sql = "SELECT r.id, r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre LIKE '%$c%' OR e.nombre LIKE '%$c%' ORDER BY r.id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

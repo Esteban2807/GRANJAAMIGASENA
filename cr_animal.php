@@ -92,7 +92,7 @@ verificarSesion();
                         <button type="submit" class="btn-action">
                             <i class="fas fa-save"></i> Guardar
                         </button>
-                        <a href="animales" class="btn-cancel">
+                        <a href="l_animales.php" class="btn-cancel">
                             <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>

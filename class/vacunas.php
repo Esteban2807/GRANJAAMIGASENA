@@ -95,7 +95,8 @@ class vacunas extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM vacunas WHERE nombre LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM vacunas WHERE nombre LIKE '%$c%' OR marca_proveedor LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

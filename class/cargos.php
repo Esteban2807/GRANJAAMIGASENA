@@ -78,7 +78,8 @@ class cargos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM cargos WHERE nombre LIKE '%$this->consulta%' OR id LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM cargos WHERE nombre LIKE '%$c%' OR id LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

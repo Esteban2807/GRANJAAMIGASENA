@@ -20,5 +20,8 @@ $obj->setNombre($_POST['nombre']);
 $obj->actualizar();
 
 # Redirigir al listado de Especies
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Especie actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_especies.php");
+exit;
 ?>

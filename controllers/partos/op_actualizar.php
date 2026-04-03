@@ -14,5 +14,8 @@ $obj->setDocumentoVeterinario($_POST['documento_veterinario']);
 $obj->setDuracionMinutos($_POST['duracion_minutos']);
 $obj->actualizar();
 $dest = "../../l_partos.php";
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Parto actualizado(a) correctamente.'];
+    session_write_close();
 header("Location: $dest");
+exit;
 ?> 

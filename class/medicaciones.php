@@ -95,7 +95,8 @@ class medicaciones extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM medicaciones WHERE id_animal LIKE '%$this->consulta%' OR documento_veterinario LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM medicaciones WHERE id_animal LIKE '%$c%' OR documento_veterinario LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

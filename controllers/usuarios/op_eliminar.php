@@ -12,5 +12,8 @@ if ($documento !== null) {
     $obj->eliminar();
 }
 
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario eliminado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_usuarios.php");
+exit;
 ?>

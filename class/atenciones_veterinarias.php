@@ -137,7 +137,8 @@ class atenciones_veterinarias extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM atenciones_veterinarias WHERE motivo LIKE '%$this->consulta%' OR id_animal LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM atenciones_veterinarias WHERE motivo LIKE '%$c%' OR id_animal LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

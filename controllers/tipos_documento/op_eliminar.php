@@ -14,5 +14,8 @@ $obj->setId($_POST['id']);
 $obj->eliminar();
 
 # Redirigir al listado
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Tipo de documento eliminado(a) correctamente.'];
+    session_write_close();
 header("Location: ../../l_tipos_documento.php");
+exit;
 ?>
