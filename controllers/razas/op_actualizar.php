@@ -10,8 +10,6 @@ $obj = new Razas();
 # Establecer la clave primaria para consultar
 $obj->setId($_POST['id']);
 
-# Consultar el registro existente
-$obj->consultar();
 
 # Establecer los nuevos valores
 $obj->setNombre($_POST['nombre']);

@@ -46,7 +46,7 @@ if (isset($_SESSION['flash'])) {
                 <h1 class="card-title">
                     <i class="fas fa-id-card"></i> Especies
                 </h1>
-                <a href="cr_especie.php" class="btn-create">
+                <a href="especies/nuevo" class="btn-create">
                     <i class="fas fa-plus-circle"></i> Crear Nuevo
                 </a>
             </div>
@@ -102,7 +102,7 @@ if (isset($_SESSION['flash'])) {
                                             <button type="button"
                                                 class="btn btn-delete btn-swal-eliminar"
                                                 data-id="<?php echo $registro['id']; ?>"
-                                                data-nombre="<?php echo htmlspecialchars($registro['nombre'] ?? 'esta raza', ENT_QUOTES); ?>">
+                                                data-nombre="<?php echo htmlspecialchars($registro['nombre'] ?? 'esta especie', ENT_QUOTES); ?>">
                                                 <i class="fas fa-trash-alt"></i> Eliminar
                                             </button>
                                         </form>
