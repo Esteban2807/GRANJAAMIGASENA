@@ -8,8 +8,7 @@ $raza->consultar();
 
 include_once 'class/especies.php';
 $especie = new Especies();
-$especie->setId($_POST['especie']);
-$especie->consultar();
+$especiesData = $especie->listar();
 ?>
 
 <!DOCTYPE html>
@@ -43,10 +42,10 @@ $especie->consultar();
 
                     <div class="form-group">
                         <label for="especie">Especie:</label>
-                        <select name="especie" id="especie" required>
+                        <select name="id_especie" id="especie" required>
                             <option value="">-- Seleccione --</option>
                             <?php foreach ($especiesData as $item): ?>
-                                <option value="<?= htmlspecialchars($item['id']) ?>" <?= $especie->getId() == $item['id_especie'] ? 'selected' : '' ?>>
+                                <option value="<?= htmlspecialchars($item['id']) ?>" <?= $raza->getIdEspecie() == $item['id'] ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($item['nombre']) ?>
                                 </option>
                             <?php endforeach; ?>

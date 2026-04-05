@@ -47,7 +47,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="tipos-documento" method="GET">
+                    <form class="search-form" action="l_tipos_documento.php" method="GET">
                         <input type="text" name="buscar" placeholder="Buscar por nombre."
                             value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
@@ -80,7 +80,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['siglas']); ?></td>
                                     <td><?php echo $registro['estado'] ? 'Activo' : 'Inactivo'; ?></td>
                                     <td>
-                                        <form action="ac_tipos_documento.php" method="POST" class="form-inline">
+                                        <form action="tipos-documento/actualizar" method="POST" class="form-inline">
                                             <input type="hidden" name="id"
                                                 value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit">
@@ -90,7 +90,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     </td>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>"
-                                            action="controllers/nexo_tipo_documento/op_eliminar.php"
+                                            action="controllers/tipos_documento/op_eliminar.php"
                                             method="POST"
                                             class="form-inline">
 

@@ -107,7 +107,7 @@ class usuarios extends basedatos
 
     public function listar()
     {
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT u.tipo_documento, u.documento,u.correo , u.nombres, u.apellidos, c.nombre AS cargo_nombre FROM usuarios AS u INNER JOIN cargos AS c ON u.id_cargo = c.id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -124,6 +124,7 @@ class usuarios extends basedatos
         $this->desconectar();
         if (!$res || !is_array($res)) {
             $this->tipo_documento = NULL;
+            $this->documento = NULL;
             $this->correo = NULL;
             $this->nombres = NULL;
             $this->apellidos = NULL;
