@@ -6,7 +6,7 @@ verificarRol([1]);
 
 include_once 'class/especies.php';
 $especie = new Especies();
-$especie->setId($_POST['especie']);
+$especie->setId($_POST['id']);
 
 $especie->consultar();
 
@@ -52,7 +52,7 @@ $especie->consultar();
                         <button type="submit" class="btn-action">
                             <i class="fas fa-save"></i> Guardar Cambios
                         </button>
-                        <a href="l_usuarios.php" class="btn-cancel">
+                        <a href="l_especies.php" class="btn-cancel">
                             <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>
