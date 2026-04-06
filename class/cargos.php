@@ -49,22 +49,25 @@ class cargos extends basedatos
     {
         $sql = sprintf("INSERT INTO cargos (nombre) VALUES ('%s')", $this->nombre);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM cargos WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
         $sql = sprintf("UPDATE cargos SET nombre = '%s' WHERE id = %s", $this->nombre, $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function consultar()
     {
@@ -78,7 +81,8 @@ class cargos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM cargos WHERE nombre LIKE '%$this->consulta%' OR id LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM cargos WHERE nombre LIKE '%$c%' OR id LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

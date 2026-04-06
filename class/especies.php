@@ -40,26 +40,30 @@ class especies extends basedatos {
     {
         $sql = sprintf("INSERT INTO especies (nombre) VALUES ('%s')", $this->nombre);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM especies WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
         $sql = sprintf("UPDATE especies SET nombre = '%s'   WHERE id = %s",  $this->nombre, $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
      public function consultar()
     {
-        $sql = "SELECT * FROM especies WHERE nombre like '%$this->consulta%' OR id like '%$this->consulta%'";
+        $c = $this->consulta;
+        $sql = "SELECT * FROM especies WHERE nombre LIKE '%$c%' OR id LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -69,7 +73,8 @@ class especies extends basedatos {
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM especies WHERE nombre like '%$this->consulta%' OR id like '%$this->consulta%'";
+        $c = $this->consulta;
+        $sql = "SELECT * FROM especies WHERE nombre LIKE '%$c%' OR id LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

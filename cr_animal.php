@@ -1,7 +1,16 @@
 <?php
 include_once 'class/especies.php';
+include_once 'class/razas.php';
+include_once 'class/animales.php';
+
 $especies = new Especies();
 $especiesData = $especies->listar();
+
+$razas = new Razas();
+$razasData = $razas->listar();
+
+$animalesObj = new animales();
+$animalesData = $animalesObj->listar();
 ?>
 <?php
 require_once __DIR__ . '/config/seguridad.php';
@@ -18,10 +27,8 @@ verificarSesion();
 </head>
 <body>
 
-    <!-- Header -->
     <header class="header"><?php include './config/header.php' ?></header>
 
-    <!-- Main Content -->
     <main class="container">
         <div class="content-card">
             <div class="card-header">
@@ -92,7 +99,7 @@ verificarSesion();
                         <button type="submit" class="btn-action">
                             <i class="fas fa-save"></i> Guardar
                         </button>
-                        <a href="animales" class="btn-cancel">
+                        <a href="l_animales.php" class="btn-cancel">
                             <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>
@@ -101,9 +108,7 @@ verificarSesion();
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer"><?php include './config/footer.php' ?></footer>
-    <!-- Scripts -->
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>

@@ -2,7 +2,6 @@
 include_once 'basedatos.php';
 class animales extends basedatos
 {
-    //Propiedades y atributos
     public $fecha_nacimiento;
     public $nombre;
     public $id;
@@ -11,11 +10,8 @@ class animales extends basedatos
     public $id_padre;
     public $id_madre;
     public $observaciones;
-
-
     public $consulta;
 
-    //Constructor
     function __construct($fecha_nacimiento = null, $nombre = null, $id = null, $id_especie = null, $id_raza = null, $id_padre = null, $id_madre = null, $observaciones = null)
     {
         $this->fecha_nacimiento = $fecha_nacimiento;
@@ -28,80 +24,27 @@ class animales extends basedatos
         $this->observaciones = $observaciones;
     }
 
-    //Metodos
-    //GET
-    public function getFechaNacimiento()
-    {
-        return $this->fecha_nacimiento;
-    }
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-    public function getId()
-    {
-        return $this->id;
-    }
-    public function getIdEspecie()
-    {
-        return $this->id_especie;
-    }
-    public function getIdRaza()
-    {
-        return $this->id_raza;
-    }
-    public function getIdPadre()
-    {
-        return $this->id_padre;
-    }
-    public function getIdMadre()
-    {
-        return $this->id_madre;
-    }
-    public function getObservaciones()
-    {
-        return $this->observaciones;
-    }
+    public function getFechaNacimiento() { return $this->fecha_nacimiento; }
+    public function getNombre()          { return $this->nombre; }
+    public function getId()              { return $this->id; }
+    public function getIdEspecie()       { return $this->id_especie; }
+    public function getIdRaza()          { return $this->id_raza; }
+    public function getIdPadre()         { return $this->id_padre; }
+    public function getIdMadre()         { return $this->id_madre; }
+    public function getObservaciones()   { return $this->observaciones; }
 
-    //SET
-    public function setFechaNacimiento($fecha_nacimiento)
-    {
-        $this->fecha_nacimiento = $fecha_nacimiento;
-    }
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-    }
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function setIdEspecie($id_especie)
-    {
-        $this->id_especie = $id_especie;
-    }
-    public function setIdRaza($id_raza)
-    {
-        $this->id_raza = $id_raza;
-    }
-    public function setIdPadre($id_padre)
-    {
-        $this->id_padre = $id_padre;
-    }
-    public function setIdMadre($id_madre)
-    {
-        $this->id_madre = $id_madre;
-    }
+    public function setFechaNacimiento($v) { $this->fecha_nacimiento = $v; }
+    public function setNombre($v)          { $this->nombre = $v; }
+    public function setId($v)              { $this->id = $v; }
+    public function setIdEspecie($v)       { $this->id_especie = $v; }
+    public function setIdRaza($v)          { $this->id_raza = $v; }
+    public function setIdPadre($v)         { $this->id_padre = $v; }
+    public function setIdMadre($v)         { $this->id_madre = $v; }
+    public function setObservaciones($v)   { $this->observaciones = $v; }
 
-    public function setObservaciones($observaciones)
-    {
-        $this->observaciones = $observaciones;
-    }
-
-    //Metodos especificos
     public function listar()
     {
-        $sql = "SELECT 
+        $sql = "SELECT
     a.fecha_de_nacimiento,
     a.nombre,
     a.id,
@@ -113,40 +56,49 @@ class animales extends basedatos
 FROM animales AS a
 INNER JOIN especies AS e ON a.id_especie = e.id
 INNER JOIN razas AS r ON a.id_raza = r.id
-ORDER BY a.nombre ASC;
-";
+ORDER BY a.nombre ASC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
         $this->desconectar();
         return $res;
     }
+
     public function insertar()
     {
-        $sql = sprintf("INSERT INTO animales (fecha_nacimiento,nombre,id,id_especie,id_raza,id_padre,id_madre,observaciones) VALUES ('%s', '%s', '%s','%s', '%s', '%s','%s', '%s',)", $this->fecha_nacimiento, $this->nombre, $this->id, $this->id_especie, $this->id_raza, $this->id_padre, $this->id_madre, $this->observaciones);
+        $sql = sprintf("INSERT INTO animales (fecha_nacimiento, nombre, id, id_especie, id_raza, id_padre, id_madre, observaciones) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            $this->fecha_nacimiento, $this->nombre, $this->id, $this->id_especie,
+            $this->id_raza, $this->id_padre, $this->id_madre, $this->observaciones);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
+
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM animales WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
 
     public function actualizar()
     {
-        $sql = sprintf("UPDATE animales SET fecha_de_nacimiento = %s, nombre = '%s', id = '%s', id_especie = '%s', id_raza = '%s',id_padre = '%s' ,id_madre = '%s' ,observaciones = '%s'   WHERE id = %s", $this->fecha_nacimiento, $this->nombre, $this->id, $this->id_especie, $this->id_raza, $this->id_padre, $this->id_madre, $this->observaciones, $this->id);
+        $sql = sprintf("UPDATE animales SET fecha_de_nacimiento = '%s', nombre = '%s', id_especie = '%s', id_raza = '%s', id_padre = '%s', id_madre = '%s', observaciones = '%s' WHERE id = %s",
+            $this->fecha_nacimiento, $this->nombre, $this->id_especie,
+            $this->id_raza, $this->id_padre, $this->id_madre, $this->observaciones, $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
 
     public function consultar()
     {
-        $sql = "SELECT 
+        $c = $this->consulta;
+        $sql = "SELECT
     a.fecha_de_nacimiento,
     a.nombre,
     a.id,
@@ -158,10 +110,10 @@ ORDER BY a.nombre ASC;
 FROM animales AS a
 INNER JOIN especies AS e ON a.id_especie = e.id
 INNER JOIN razas AS r ON a.id_raza = r.id
-ORDER BY a.nombre ASC
-WHERE a.fecha_de_nacimiento like '%$this->consulta%' 
-OR a.nombre like '%$this->consulta%' 
-OR a.id like '%$this->consulta%' ";
+WHERE a.fecha_de_nacimiento LIKE '%$c%'
+OR a.nombre LIKE '%$c%'
+OR a.id LIKE '%$c%'
+ORDER BY a.nombre ASC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -172,7 +124,8 @@ OR a.id like '%$this->consulta%' ";
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT 
+        $c = $consulta;
+        $sql = "SELECT
     a.fecha_de_nacimiento,
     a.nombre,
     a.id,
@@ -184,10 +137,10 @@ OR a.id like '%$this->consulta%' ";
 FROM animales AS a
 INNER JOIN especies AS e ON a.id_especie = e.id
 INNER JOIN razas AS r ON a.id_raza = r.id
-ORDER BY a.nombre ASC
-WHERE a.fecha_de_nacimiento like '%$this->consulta%' 
-OR a.nombre like '%$this->consulta%' 
-OR a.id like '%$this->consulta%' ";
+WHERE a.fecha_de_nacimiento LIKE '%$c%'
+OR a.nombre LIKE '%$c%'
+OR a.id LIKE '%$c%'
+ORDER BY a.nombre ASC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

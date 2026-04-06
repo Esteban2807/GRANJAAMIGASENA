@@ -48,8 +48,9 @@ class Tipos_documento extends basedatos{
     public function insertar(){
         $sql = sprintf("INSERT INTO tipos_documento (nombre, siglas, estado) VALUES ('%s', '%s', '%s')", $this->nombre, $this->siglas, $this->estado);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
 
     public function listar(){
@@ -75,15 +76,17 @@ class Tipos_documento extends basedatos{
     public function eliminar(){
         $sql = sprintf("DELETE FROM tipos_documento WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
 
     public function actualizar(){
         $sql = sprintf("UPDATE tipos_documento SET nombre = '%s', siglas = '%s', estado = '%s' WHERE id = %s", $this->nombre, $this->siglas, $this->estado, $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
 
     public function buscar($valor){

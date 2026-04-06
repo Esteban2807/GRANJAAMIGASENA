@@ -51,27 +51,31 @@ class razas extends basedatos
     {
         $sql = sprintf("INSERT INTO razas (nombre,id_especie) VALUES ('%s','%s');", $this->nombre, $this->id_especie);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM razas WHERE id = '%s';", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
         $sql = sprintf("UPDATE razas SET nombre = '%s', id_especie = '%s' WHERE id = '%s';", $this->nombre, $this->id_especie, $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function buscar($consult)
     {
         $this->consult = $consult;
-        $sql = "SELECT r.id,r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre like '%$this->consult%'  OR especie = '%$this->consult%';";
+        $c = $consult;
+        $sql = "SELECT r.id, r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre LIKE '%$c%' OR e.nombre LIKE '%$c%' ORDER BY r.id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -80,7 +84,8 @@ class razas extends basedatos
     }
     public function consultar()
     {
-        $sql = "SELECT r.id,r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre like '%$this->consult%'  OR especie = '%$this->consult%';";
+        $c = $this->consult;
+        $sql = "SELECT r.id, r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre LIKE '%$c%' OR e.nombre LIKE '%$c%' ORDER BY r.id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

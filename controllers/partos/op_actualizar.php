@@ -12,7 +12,14 @@ $obj->setSecuencia($_POST['secuencia']);
 $obj->setDocumentoUsuario($_POST['documento_usuario']);
 $obj->setDocumentoVeterinario($_POST['documento_veterinario']);
 $obj->setDuracionMinutos($_POST['duracion_minutos']);
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Parto actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar parto. Inténtelo de nuevo.'];
+}
 $dest = "../../l_partos.php";
+    session_write_close();
 header("Location: $dest");
+exit;
 ?> 

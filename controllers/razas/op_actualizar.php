@@ -18,8 +18,15 @@ $obj->setNombre($_POST['nombre']);
 $obj->setIdEspecie($_POST['id_especie']);
 
 # Actualizar en la base de datos
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Raza actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar raza. Inténtelo de nuevo.'];
+}
 
 # Redirigir al listado de Razas
+    session_write_close();
 header("Location: ../../l_razas.php");
+exit;
 ?>

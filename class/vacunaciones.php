@@ -54,15 +54,17 @@ class vacunaciones extends basedatos
             $this->fecha_hora
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM vacunaciones WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
@@ -76,8 +78,9 @@ class vacunaciones extends basedatos
             $this->id
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function consultar()
     {
@@ -95,7 +98,8 @@ class vacunaciones extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM vacunaciones WHERE id_animal LIKE '%$this->consulta%' OR documento_veterinario LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM vacunaciones WHERE id_animal LIKE '%$c%' OR documento_veterinario LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

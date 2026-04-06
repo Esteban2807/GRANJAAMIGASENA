@@ -29,12 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $obj->setIdCargo($idCargo);
 
-    $obj->insertar();
+    $exito = $obj->insertar();
+    if ($exito) {
+        $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario creado(a) exitosamente.'];
+    } else {
+        $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al crear usuario. Inténtelo de nuevo.'];
+    }
 
+    session_write_close();
     header("Location: ../../l_usuarios.php");
     exit;
 } else {
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_usuarios.php");
     exit;
 }
 ?>

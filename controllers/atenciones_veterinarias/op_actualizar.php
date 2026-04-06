@@ -16,6 +16,13 @@ $obj->setDosis($_POST['dosis']);
 $obj->setViaAdministracion($_POST['via_administracion']);
 $obj->setObservaciones($_POST['observaciones']);
 $obj->setCostoTotal($_POST['costo_total']);
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Atención veterinaria actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar atención veterinaria. Inténtelo de nuevo.'];
+}
+    session_write_close();
 header("Location: ../../l_atenciones_veterinarias.php");
+exit;
 ?> 

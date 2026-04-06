@@ -11,8 +11,15 @@ $obj = new Especies();
 $obj->setId($_POST['id']);
 
 # Eliminar de la base de datos
-$obj->eliminar();
+$exito = $obj->eliminar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Especie eliminado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al eliminar especie. Inténtelo de nuevo.'];
+}
 
 # Redirigir al listado
+    session_write_close();
 header("Location: ../../l_especies.php");
+exit;
 ?>

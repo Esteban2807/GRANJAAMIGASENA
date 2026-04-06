@@ -10,6 +10,13 @@ $obj->setMarcaProveedor($_POST['marca_proveedor']);
 $obj->setStockActual($_POST['stock_actual']);
 $obj->setUnidadMedida($_POST['unidad_medida']);
 $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
-$obj->actualizar();
-header("Location: ../../vacunas");
-?> 
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Vacuna actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar vacuna. Inténtelo de nuevo.'];
+}
+session_write_close();
+header("Location: ../../l_vacunas.php");
+exit;
+?>

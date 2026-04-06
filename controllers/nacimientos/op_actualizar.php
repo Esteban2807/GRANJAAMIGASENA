@@ -12,6 +12,13 @@ $obj->setPesoKg($_POST['peso_kg']);
 $obj->setSexo($_POST['sexo']);
 $obj->setVigor($_POST['vigor']);
 $obj->setObservaciones($_POST['observaciones']);
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Nacimiento actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar nacimiento. Inténtelo de nuevo.'];
+}
+    session_write_close();
 header("Location: ../../l_nacimientos.php");
+exit;
 ?> 

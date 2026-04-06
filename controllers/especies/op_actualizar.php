@@ -17,8 +17,15 @@ $obj->consultar();
 $obj->setNombre($_POST['nombre']);
 
 # Actualizar en la base de datos
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Especie actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar especie. Inténtelo de nuevo.'];
+}
 
 # Redirigir al listado de Especies
+    session_write_close();
 header("Location: ../../l_especies.php");
+exit;
 ?>

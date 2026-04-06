@@ -19,8 +19,15 @@ $obj->setSiglas($_POST['siglas']);
 $obj->setEstado($_POST['estado']);
 
 # Actualizar en la base de datos
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Tipo de documento actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar tipo de documento. Inténtelo de nuevo.'];
+}
 
 # Redirigir al listado de Tipos_documento
+    session_write_close();
 header("Location: ../../l_tipos_documento.php");
+exit;
 ?>

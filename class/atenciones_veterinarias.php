@@ -84,15 +84,17 @@ class atenciones_veterinarias extends basedatos
             $this->costo_total
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM atenciones_veterinarias WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
@@ -112,8 +114,9 @@ class atenciones_veterinarias extends basedatos
             $this->id
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function consultar()
     {
@@ -137,7 +140,8 @@ class atenciones_veterinarias extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM atenciones_veterinarias WHERE motivo LIKE '%$this->consulta%' OR id_animal LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM atenciones_veterinarias WHERE motivo LIKE '%$c%' OR id_animal LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

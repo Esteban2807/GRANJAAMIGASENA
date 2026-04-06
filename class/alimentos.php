@@ -59,15 +59,17 @@ class alimentos extends basedatos
             $this->fecha_vencimiento
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM alimentos WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
@@ -82,8 +84,9 @@ class alimentos extends basedatos
             $this->id
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function consultar()
     {
@@ -102,7 +105,8 @@ class alimentos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM alimentos WHERE nombre LIKE '%$this->consulta%' OR tipo LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM alimentos WHERE nombre LIKE '%$c%' OR tipo LIKE '%$c%' ORDER BY id";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

@@ -28,8 +28,14 @@ if (isset($_SESSION['rol_id']) && $_SESSION['rol_id'] == 1) {
     $obj->setIdCargo($obj->getIdCargo());
 }
 
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar usuario. Inténtelo de nuevo.'];
+}
 
+    session_write_close();
 header("Location: ../../l_usuarios.php");
 exit;
 ?>

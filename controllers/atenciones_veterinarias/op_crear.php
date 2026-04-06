@@ -15,11 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setViaAdministracion($_POST['via_administracion']);
     $obj->setObservaciones($_POST['observaciones']);
     $obj->setCostoTotal($_POST['costo_total']);
-    $obj->insertar();
+    $exito = $obj->insertar();
+    if ($exito) {
+        $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Atención veterinaria creado(a) exitosamente.'];
+    } else {
+        $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al crear atención veterinaria. Inténtelo de nuevo.'];
+    }
+    session_write_close();
     header("Location: ../../l_atenciones_veterinarias.php");
+    exit;
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-    header("Location: ../../inicio");
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Atención veterinaria creado(a) exitosamente.'];
+    session_write_close();
+    header("Location: ../../l_atenciones_veterinarias.php");
+    exit;
 }
 ?> 

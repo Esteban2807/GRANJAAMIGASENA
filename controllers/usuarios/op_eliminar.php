@@ -9,8 +9,15 @@ $documento = isset($_POST['documento']) ? $_POST['documento'] : (isset($_POST['i
 
 if ($documento !== null) {
     $obj->setDocumento($documento);
-    $obj->eliminar();
+    $exito = $obj->eliminar();
+    if ($exito) {
+        $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Usuario eliminado(a) correctamente.'];
+    } else {
+        $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al eliminar usuario. Inténtelo de nuevo.'];
+    }
 }
 
+    session_write_close();
 header("Location: ../../l_usuarios.php");
+exit;
 ?>

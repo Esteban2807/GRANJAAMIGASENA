@@ -64,15 +64,17 @@ class nacimientos extends basedatos
             $this->observaciones
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function eliminar()
     {
         $sql = sprintf("DELETE FROM nacimientos WHERE id = %s", $this->id);
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function actualizar()
     {
@@ -88,8 +90,9 @@ class nacimientos extends basedatos
             $this->id
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $ok !== false;
     }
     public function consultar()
     {
@@ -109,7 +112,8 @@ class nacimientos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM nacimientos WHERE sexo LIKE '%$this->consulta%' OR vigor LIKE '%$this->consulta%'";
+        $c = $consulta;
+        $sql = "SELECT * FROM nacimientos WHERE sexo LIKE '%$c%' OR vigor LIKE '%$c%' OR parto_id LIKE '%$c%' ORDER BY id DESC";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

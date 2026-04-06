@@ -7,6 +7,13 @@ $obj = new cargos();
 $obj->setId($_POST['id']);
 $obj->consultar();
 $obj->setNombre($_POST['nombre']);
-$obj->actualizar();
+$exito = $obj->actualizar();
+if ($exito) {
+    $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => 'Cargo actualizado(a) correctamente.'];
+} else {
+    $_SESSION['flash'] = ['tipo' => 'danger', 'mensaje' => 'Error al actualizar cargo. Inténtelo de nuevo.'];
+}
+    session_write_close();
 header("Location: ../../l_cargos.php");
+exit;
 ?> 
