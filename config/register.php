@@ -17,7 +17,7 @@ $id_cargo       = 1;
 
 if ($tipo_documento === '' || $documento === '' || $correo === '' || $nombres === '' || $apellidos === '' || $contrasena === '') {
     $_SESSION['register_error'] = 'Todos los campos son obligatorios.';
-    header('Location: ../registro.php');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -35,7 +35,7 @@ if ($obj->insertar()) {
     exit;
 } else {
     $_SESSION['register_error'] = 'Error al registrar el usuario: ' . $obj->imprimirError();
-    header('Location: ../registro.php');
+    header('Location: ../login.php');
     exit;
 }
 ?>
