@@ -69,7 +69,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                 <th>Fecha Nacimiento</th>
                                 <th>Chapeta</th>
                                 <th>Nombre</th>
-                                <th>ID</th>
                                 <th>Especie</th>
                                 <th>Raza</th>
                                 <th>ID Padre</th>
@@ -84,7 +83,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['fecha_nacimiento']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['chapeta']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['especie']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['raza']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['id_padre'] ?? 'N/A'); ?></td>
