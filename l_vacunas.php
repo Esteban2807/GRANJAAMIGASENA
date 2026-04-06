@@ -30,7 +30,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             </div>
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="vacunas" method="GET">
+                    <form class="search-form" action="l_vacunas.php" method="GET">
                         <input type="text" name="buscar" placeholder="Buscar por nombre." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action"><i class="fas fa-search"></i> Buscar</button>
                     </form>

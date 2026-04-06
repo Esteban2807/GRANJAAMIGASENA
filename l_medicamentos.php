@@ -30,7 +30,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             </div>
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="medicamentos" method="GET">
+                    <form class="search-form" action="l_medicamentos.php" method="GET">
                         <input type="text" name="buscar" placeholder="Buscar por nombre o tipo." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action"><i class="fas fa-search"></i> Buscar</button>
                     </form>
@@ -83,9 +83,9 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         </tbody>
                     </table>
                 <?php endif; ?>
-                <form action="inicio" method="get" class="text-center">
-                    <button type="submit" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</button>
-                </form>
+                <div class="text-center" style="margin-top: 20px;">
+                    <a href="inicio" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</a>
+                </div>
             </div>
         </div>
     </main>
