@@ -48,7 +48,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="animales" method="GET">
+                    <form class="search-form" action="l_animales.php" method="GET">
                         <input type="text" name="buscar" placeholder="Buscar por nombre, id o fecha."
                             value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
@@ -67,6 +67,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <thead>
                             <tr>
                                 <th>Fecha Nacimiento</th>
+                                <th>Chapeta</th>
                                 <th>Nombre</th>
                                 <th>ID</th>
                                 <th>Especie</th>
@@ -80,7 +81,8 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['fecha_de_nacimiento']); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['fecha_nacimiento']); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['chapeta']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['especie']); ?></td>

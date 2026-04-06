@@ -14,5 +14,5 @@ $obj->setId($_POST['id']);
 $obj->eliminar();
 
 # Redirigir al listado de Animales
-header("Location: ../../animales");
+ header("Location: ../../l_animales.php");
 ?>

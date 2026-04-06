@@ -21,10 +21,12 @@ $obj->setIdRaza($_POST['id_raza']);
 $obj->setIdPadre($_POST['id_padre']);
 $obj->setIdMadre($_POST['id_madre']);
 $obj->setObservaciones($_POST['observaciones']);
+$obj->setChapeta($_POST['chapeta']);        // ← agregar
+$obj->setSexo($_POST['sexo']);              // ← agregar
+$obj->setFechaNacimiento($_POST['fecha_nacimiento']); // ← agregar
 
 # Actualizar en la base de datos
 $obj->actualizar();
-
 # Redirigir al listado de Animales
-header("Location: ../../animales");
+header("Location: ../../l_animales.php");
 ?>
