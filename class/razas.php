@@ -84,12 +84,14 @@ class razas extends basedatos
     }
     public function consultar()
     {
-        $c = $this->consult;
-        $sql = "SELECT r.id, r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre LIKE '%$c%' OR e.nombre LIKE '%$c%' ORDER BY r.id";
+        $sql = sprintf("SELECT r.id, r.nombre, r.id_especie, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.id = %s", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
-        $res = $this->cargarTodo();
+        $res = $this->cargarRegistro();
         $this->desconectar();
-        return $res;
+        if ($res) {
+            $this->nombre     = $res['nombre'];
+            $this->id_especie = $res['id_especie'];
+        }
     }
 }

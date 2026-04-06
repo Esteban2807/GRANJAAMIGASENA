@@ -15,7 +15,7 @@ $obj->consultar();
 
 # Establecer los nuevos valores
 $obj->setNombre($_POST['nombre']);
-$obj->setIdEspecie($_POST['id_especie']);
+$obj->setIdEspecie($_POST['especie']);
 
 # Actualizar en la base de datos
 $exito = $obj->actualizar();
