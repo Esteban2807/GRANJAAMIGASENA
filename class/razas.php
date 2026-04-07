@@ -65,7 +65,7 @@ class razas extends basedatos
     }
     public function actualizar()
     {
-        $sql = sprintf("UPDATE razas SET nombre = '%s', id_especie = '%s' WHERE id = '%s';", $this->nombre, $this->id_especie, $this->id);
+        $sql = sprintf("UPDATE razas SET nombre = '%s', id_especie = '%s' WHERE id = '%s'", $this->nombre, $this->id_especie, $this->id);
         $this->conectar();
         $ok = $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -84,14 +84,20 @@ class razas extends basedatos
     }
     public function consultar()
     {
-        $sql = sprintf("SELECT r.id, r.nombre, r.id_especie, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.id = %s", $this->id);
+        $sql = sprintf("SELECT r.id,r.nombre, r.id_especie, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.id = '%s'", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
         $this->desconectar();
-        if ($res) {
-            $this->nombre     = $res['nombre'];
-            $this->id_especie = $res['id_especie'];
+        if (!$res || !is_array($res)) {
+            $this->id = NULL;
+            $this->nombre = NULL;
+            $this->id_especie = NULL;
+            return false;
         }
+        $this->id = $res['id'];
+        $this->nombre = $res['nombre'];
+        $this->id_especie = $res['id_especie'];
+        return true;
     }
 }

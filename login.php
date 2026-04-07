@@ -213,7 +213,7 @@ if (isset($_SESSION['flash'])) {
 
         <!-- FOOTER -->
         <div class="footer-login">
-            © 2025 NEXO. Todos los derechos reservados.
+            © 2025 GRANJA AMIGA. Todos los derechos reservados.
         </div>
 
     </div>

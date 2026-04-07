@@ -11,7 +11,7 @@ verificarSesion();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nexo_tipo_documento</title>
+    <title>Crear Nuevo Tipo de Documento</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -25,12 +25,12 @@ verificarSesion();
         <div class="content-card">
             <div class="card-header">
                 <h1 class="card-title">
-                    <i class="fas fa-id-card"></i> Crear Nexo_tipo_documento
+                    <i class="fas fa-id-card"></i> Crear Nuevo Tipo de Documento
                 </h1>
             </div>
 
             <div class="card-body">
-                <form action="controllers/nexo_tipo_documento/op_crear.php" method="post">
+                <form action="controllers/tipos_documento/op_crear.php" method="post">
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input type="text" name="nombre" id="nombre" placeholder="Ingrese Nombre" required>

@@ -10,8 +10,8 @@ include_once 'class/usuarios.php';
 $usuarios = new Usuarios();
 
 /* ¿Viene búsqueda? */
-if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
-    $res = $usuarios->buscar($_GET['buscar']);
+if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
+    $res = $usuarios->buscar($_POST['buscar']);
 } else {
     $res = $usuarios->listar();
 }
@@ -57,9 +57,9 @@ if (isset($_SESSION['flash'])) {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="l_usuarios.php" method="GET">
+                    <form class="search-form" action="l_usuarios.php" method="POST">
                         <input type="text" name="buscar" placeholder="Buscar por nombre."
-                            value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                            value="<?php echo isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
                         </button>
@@ -92,7 +92,7 @@ if (isset($_SESSION['flash'])) {
                                     <td><?php echo htmlspecialchars($registro['correo']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombres']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['apellidos']); ?></td>
-                                    <td><?php echo htmlspecialchars($registro['id_cargo']); ?></td>
+                                    <td><?php echo htmlspecialchars($registro['cargo_nombre']); ?></td>
                                     <td>
                                         <form action="ac_usuario.php" method="POST" class="form-inline">
                                             <input type="hidden" name="documento"

@@ -7,6 +7,7 @@ verificarRol([1]);
 include_once 'class/especies.php';
 $especie = new Especies();
 $especie->setId($_POST['id']);
+
 $especie->consultar();
 
 ?>

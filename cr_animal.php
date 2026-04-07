@@ -60,7 +60,7 @@ verificarSesion();
                             <option value="">-- Seleccione --</option>
                             <?php foreach ($razasData as $item): ?>
                                 <option value="<?= htmlspecialchars($item['id']) ?>">
-                                    <?= htmlspecialchars($item['nombre']) ?>
+                                    <?= htmlspecialchars($item['especie'] . '-' . $item['nombre']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>

@@ -37,7 +37,7 @@ $especiesData = $especies->listar();
                     <input type="hidden" name="id" value="<?= htmlspecialchars($raza->getId()) ?>">
                     <div class="form-group">
                         <label for="especie">Especie:</label>
-                        <select name="especie" id="especie" required>
+                        <select name="id_especie" id="especie" required>
                             <option value="">-- Seleccione --</option>
                             <?php foreach ($especiesData as $item): ?>
                                 <option value="<?= htmlspecialchars($item['id']) ?>" <?= $raza->getIdEspecie() == $item['id'] ? 'selected' : '' ?>>

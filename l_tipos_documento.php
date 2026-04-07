@@ -46,7 +46,7 @@ if (isset($_SESSION['flash'])) {
                 <h1 class="card-title">
                     <i class="fas fa-id-card"></i> Tipo de Documento
                 </h1>
-                <a href="cr_nexo_tipo_documento.php" class="btn-create">
+                <a href="cr_tipo_documento.php" class="btn-create">
                     <i class="fas fa-plus-circle"></i> Crear Nuevo
                 </a>
             </div>
@@ -86,7 +86,7 @@ if (isset($_SESSION['flash'])) {
                                     <td><?php echo htmlspecialchars($registro['siglas']); ?></td>
                                     <td><?php echo $registro['estado'] ? 'Activo' : 'Inactivo'; ?></td>
                                     <td>
-                                        <form action="ac_tipos_documento.php" method="POST" class="form-inline">
+                                        <form action="tipos-documento/actualizar" method="POST" class="form-inline">
                                             <input type="hidden" name="id"
                                                 value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit">
@@ -96,7 +96,7 @@ if (isset($_SESSION['flash'])) {
                                     </td>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>"
-                                            action="controllers/nexo_tipo_documento/op_eliminar.php"
+                                            action="controllers/tipos_documento/op_eliminar.php"
                                             method="POST"
                                             class="form-inline">
 
