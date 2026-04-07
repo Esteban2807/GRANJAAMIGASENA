@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2026 a las 11:28:49
+-- Tiempo de generación: 07-04-2026 a las 02:02:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,7 +33,7 @@ CREATE TABLE `alimentaciones` (
   `documento_alimentador` varchar(20) NOT NULL,
   `id_alimento` int(11) NOT NULL,
   `cantidad_dada` decimal(10,2) NOT NULL,
-  `fecha_hora` datetime NOT NULL DEFAULT current_timestamp()
+  `fecha_hora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -52,6 +52,15 @@ CREATE TABLE `alimentos` (
   `fecha_vencimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `alimentos`
+--
+
+INSERT INTO `alimentos` (`id`, `nombre`, `tipo`, `marca_proveedor`, `stock_actual`, `unidad_medida`, `fecha_vencimiento`) VALUES
+(1, 'Concentrado para cerdos', 'Concentrado', 'solla', 0.21, 'paca', '2026-04-05'),
+(2, 'Delta Leche', 'Suplemento', 'Colanta ', 0.04, 'litro', '2026-04-06'),
+(3, 'Contrilac', 'Concentrado', 'Contegral', 0.13, 'kg', '2026-04-07');
+
 -- --------------------------------------------------------
 
 --
@@ -59,9 +68,10 @@ CREATE TABLE `alimentos` (
 --
 
 CREATE TABLE `animales` (
-  `id` varchar(10) NOT NULL,
+  `id` int(11) NOT NULL,
+  `chapeta` varchar(20) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `fecha_de_nacimiento` date NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
   `sexo` enum('Macho','Hembra') NOT NULL,
   `id_especie` int(11) NOT NULL,
   `id_raza` int(11) NOT NULL,
@@ -69,6 +79,15 @@ CREATE TABLE `animales` (
   `id_madre` varchar(10) DEFAULT NULL,
   `observaciones` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `animales`
+--
+
+INSERT INTO `animales` (`id`, `chapeta`, `nombre`, `fecha_nacimiento`, `sexo`, `id_especie`, `id_raza`, `id_padre`, `id_madre`, `observaciones`) VALUES
+(1, 'A001', 'Toro1', '2023-01-15', 'Macho', 1, 1, NULL, NULL, 'Animal de pruebaa'),
+(3, '1111', 'oveja', '2026-04-07', 'Hembra', 1, 3, '1', NULL, 'Esta enfermaa'),
+(5, 'A002', 'cerdo', '2026-04-08', 'Macho', 1, 8, NULL, NULL, 'Todo bien ');
 
 -- --------------------------------------------------------
 
@@ -80,7 +99,7 @@ CREATE TABLE `atenciones_veterinarias` (
   `id` int(11) NOT NULL,
   `id_animal` varchar(10) NOT NULL,
   `documento_veterinario` varchar(20) NOT NULL,
-  `fecha_atencion` datetime DEFAULT current_timestamp(),
+  `fecha_atencion` datetime DEFAULT NULL,
   `motivo` enum('Chequeo General','Vacunación','Enfermedad','Herida/Trauma','Seguimiento') NOT NULL,
   `diagnostico` text NOT NULL,
   `tratamiento` text DEFAULT NULL,
@@ -108,11 +127,11 @@ CREATE TABLE `cargos` (
 
 INSERT INTO `cargos` (`id`, `nombre`) VALUES
 (1, 'Administrador'),
-(2, 'Veterinario'),
+(2, 'Veterinarioo'),
 (3, 'Aprendiz'),
 (4, 'Gestor de Inventario'),
 (5, 'Encargado de Granja'),
-(6, 'Visitante');
+(6, 'Visitantee');
 
 -- --------------------------------------------------------
 
@@ -149,7 +168,7 @@ CREATE TABLE `medicaciones` (
   `documento_veterinario` varchar(20) NOT NULL,
   `id_medicamento` int(11) NOT NULL,
   `cantidad_dada` decimal(10,2) NOT NULL,
-  `fecha_hora` datetime NOT NULL DEFAULT current_timestamp()
+  `fecha_hora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -168,6 +187,14 @@ CREATE TABLE `medicamentos` (
   `fecha_vencimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `medicamentos`
+--
+
+INSERT INTO `medicamentos` (`id`, `nombre`, `tipo`, `marca_proveedor`, `stock_actual`, `unidad_medida`, `fecha_vencimiento`) VALUES
+(1, 'antipulgas', 'Antibiotico', 'zoetis', 0.07, 'g', '2026-04-06'),
+(3, 'Bravecto', 'Desinflamatorio', 'Virbac', 0.02, 'ml', '2026-04-05');
+
 -- --------------------------------------------------------
 
 --
@@ -176,7 +203,7 @@ CREATE TABLE `medicamentos` (
 
 CREATE TABLE `nacimientos` (
   `id` int(11) NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `fecha` datetime NOT NULL,
   `parto_id` int(11) NOT NULL,
   `documento_usuario` varchar(20) NOT NULL,
   `peso_kg` decimal(5,2) NOT NULL,
@@ -193,7 +220,7 @@ CREATE TABLE `nacimientos` (
 
 CREATE TABLE `partos` (
   `id` int(11) NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `fecha` datetime NOT NULL,
   `facilidad` enum('Normal','Asistido','Cesárea','Difícil') NOT NULL,
   `madre_id` varchar(10) NOT NULL,
   `secuencia` int(11) NOT NULL COMMENT 'Número de parto de esta madre',
@@ -263,16 +290,6 @@ CREATE TABLE `tipos_documento` (
   `estado` enum('Activo','Inactivo') NOT NULL DEFAULT 'Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `tipos_documento`
---
-
-INSERT INTO `tipos_documento` (`id`, `nombre`, `siglas`, `estado`) VALUES
-(1, 'Cedula de Ciudadanía', 'CC', 'Activo'),
-(2, 'Tarjeta de Identidad', 'TI', 'Activo'),
-(3, 'Cedula de Extranjería', 'CE', 'Activo'),
-(4, 'Pasaporte', 'PAS', 'Activo');
-
 -- --------------------------------------------------------
 
 --
@@ -294,7 +311,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`tipo_documento`, `documento`, `correo`, `nombres`, `apellidos`, `contrasena`, `id_cargo`) VALUES
-('CC', '1054864249', 'juanmua2007@gmail.com', 'Juan Esteban', 'Muñoz Giraldo', '8f05232d4d471f64d5eacbb567371067', 1);
+('CC', '1054864249', 'juanmua2007@gmail.com', 'Juan Esteban', 'Muñoz Giraldo', '827ccb0eea8a706c4c34a16891f84e7b', 1),
+('CC', '1055359547', 'valeriaromangarcia941@gmail.com', 'valeria', 'Roman Garcia', '7902b7c0be5cedb6fbada8d4c7fc42a0', 1),
+('CC', '1089099514', 'marinmishell164@gmail.com', 'Mishell', 'Marin', 'b664415f7ff0bbdfdd527231f5799131', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +327,7 @@ CREATE TABLE `vacunaciones` (
   `documento_veterinario` varchar(20) NOT NULL,
   `id_vacuna` int(11) NOT NULL,
   `cantidad_dada` decimal(10,2) NOT NULL,
-  `fecha_hora` datetime NOT NULL DEFAULT current_timestamp()
+  `fecha_hora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -325,6 +344,14 @@ CREATE TABLE `vacunas` (
   `unidad_medida` enum('ml','cm^3') NOT NULL,
   `fecha_vencimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vacunas`
+--
+
+INSERT INTO `vacunas` (`id`, `nombre`, `marca_proveedor`, `stock_actual`, `unidad_medida`, `fecha_vencimiento`) VALUES
+(1, 'Aftosa', 'Vecol', 0.10, 'ml', '2026-04-06'),
+(2, 'Brucelosis RB51', 'Zoetis', 0.08, 'ml', '2026-04-08');
 
 --
 -- Índices para tablas volcadas
@@ -458,7 +485,13 @@ ALTER TABLE `alimentaciones`
 -- AUTO_INCREMENT de la tabla `alimentos`
 --
 ALTER TABLE `alimentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `animales`
+--
+ALTER TABLE `animales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `atenciones_veterinarias`
@@ -470,7 +503,7 @@ ALTER TABLE `atenciones_veterinarias`
 -- AUTO_INCREMENT de la tabla `cargos`
 --
 ALTER TABLE `cargos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `especies`
@@ -488,7 +521,7 @@ ALTER TABLE `medicaciones`
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `nacimientos`
@@ -512,7 +545,7 @@ ALTER TABLE `razas`
 -- AUTO_INCREMENT de la tabla `tipos_documento`
 --
 ALTER TABLE `tipos_documento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `vacunaciones`
@@ -524,7 +557,7 @@ ALTER TABLE `vacunaciones`
 -- AUTO_INCREMENT de la tabla `vacunas`
 --
 ALTER TABLE `vacunas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -534,7 +567,6 @@ ALTER TABLE `vacunas`
 -- Filtros para la tabla `alimentaciones`
 --
 ALTER TABLE `alimentaciones`
-  ADD CONSTRAINT `alimentaciones_ibfk_1` FOREIGN KEY (`id_animal`) REFERENCES `animales` (`id`),
   ADD CONSTRAINT `alimentaciones_ibfk_2` FOREIGN KEY (`id_alimento`) REFERENCES `alimentos` (`id`),
   ADD CONSTRAINT `alimentaciones_ibfk_3` FOREIGN KEY (`documento_alimentador`) REFERENCES `usuarios` (`documento`);
 
@@ -543,15 +575,12 @@ ALTER TABLE `alimentaciones`
 --
 ALTER TABLE `animales`
   ADD CONSTRAINT `animales_ibfk_1` FOREIGN KEY (`id_especie`) REFERENCES `especies` (`id`),
-  ADD CONSTRAINT `animales_ibfk_2` FOREIGN KEY (`id_raza`) REFERENCES `razas` (`id`),
-  ADD CONSTRAINT `animales_ibfk_3` FOREIGN KEY (`id_padre`) REFERENCES `animales` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `animales_ibfk_4` FOREIGN KEY (`id_madre`) REFERENCES `animales` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `animales_ibfk_2` FOREIGN KEY (`id_raza`) REFERENCES `razas` (`id`);
 
 --
 -- Filtros para la tabla `atenciones_veterinarias`
 --
 ALTER TABLE `atenciones_veterinarias`
-  ADD CONSTRAINT `atenciones_veterinarias_ibfk_1` FOREIGN KEY (`id_animal`) REFERENCES `animales` (`id`),
   ADD CONSTRAINT `atenciones_veterinarias_ibfk_2` FOREIGN KEY (`documento_veterinario`) REFERENCES `usuarios` (`documento`),
   ADD CONSTRAINT `atenciones_veterinarias_ibfk_3` FOREIGN KEY (`medicamento_id`) REFERENCES `medicamentos` (`id`);
 
@@ -559,7 +588,6 @@ ALTER TABLE `atenciones_veterinarias`
 -- Filtros para la tabla `medicaciones`
 --
 ALTER TABLE `medicaciones`
-  ADD CONSTRAINT `medicaciones_ibfk_1` FOREIGN KEY (`id_animal`) REFERENCES `animales` (`id`),
   ADD CONSTRAINT `medicaciones_ibfk_2` FOREIGN KEY (`id_medicamento`) REFERENCES `medicamentos` (`id`),
   ADD CONSTRAINT `medicaciones_ibfk_3` FOREIGN KEY (`documento_veterinario`) REFERENCES `usuarios` (`documento`);
 
@@ -575,8 +603,7 @@ ALTER TABLE `nacimientos`
 --
 ALTER TABLE `partos`
   ADD CONSTRAINT `partos_ibfk_1` FOREIGN KEY (`documento_usuario`) REFERENCES `usuarios` (`documento`),
-  ADD CONSTRAINT `partos_ibfk_2` FOREIGN KEY (`documento_veterinario`) REFERENCES `usuarios` (`documento`),
-  ADD CONSTRAINT `partos_ibfk_3` FOREIGN KEY (`madre_id`) REFERENCES `animales` (`id`);
+  ADD CONSTRAINT `partos_ibfk_2` FOREIGN KEY (`documento_veterinario`) REFERENCES `usuarios` (`documento`);
 
 --
 -- Filtros para la tabla `razas`
@@ -594,7 +621,6 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `vacunaciones`
 --
 ALTER TABLE `vacunaciones`
-  ADD CONSTRAINT `vacunaciones_ibfk_1` FOREIGN KEY (`id_animal`) REFERENCES `animales` (`id`),
   ADD CONSTRAINT `vacunaciones_ibfk_2` FOREIGN KEY (`id_vacuna`) REFERENCES `vacunas` (`id`),
   ADD CONSTRAINT `vacunaciones_ibfk_3` FOREIGN KEY (`documento_veterinario`) REFERENCES `usuarios` (`documento`);
 COMMIT;
