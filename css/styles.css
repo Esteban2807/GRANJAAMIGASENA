@@ -887,15 +887,15 @@ textarea:focus {
 .search-form {
     display: flex;
     gap: var(--spacing-md);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    width: fit-content;
 }
 
 .search-form input {
-    flex: 1;
-    min-width: 250px;
-    max-width: 400px;
-    padding: var(--spacing-md) var(--spacing-lg);
+    flex: none;
+    width: 280px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius-input);
     font-size: var(--font-size-body);

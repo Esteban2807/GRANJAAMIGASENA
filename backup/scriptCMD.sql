@@ -53,15 +53,16 @@ CREATE TABLE IF NOT EXISTS razas(
 -- ==============================================
 
 CREATE TABLE IF NOT EXISTS animales (
-    id VARCHAR(10) NOT NULL PRIMARY KEY,
+    id  INT AUTO_INCREMENT PRIMARY KEY,
+    chapeta VARCHAR(10) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     fecha_de_nacimiento DATE NOT NULL,
     sexo ENUM('Macho', 'Hembra') NOT NULL, -- Uso de ENUM
     id_especie INT NOT NULL,
     id_raza INT NOT NULL,
     -- Genealogía: Apuntan al ID de esta misma tabla
-    id_padre VARCHAR(10),
-    id_madre VARCHAR(10),
+    id_padre INT,
+    id_madre INT,
     observaciones TEXT,
     FOREIGN KEY(id_especie) REFERENCES especies(id),
     FOREIGN KEY(id_raza) REFERENCES razas(id),
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS partos (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
     fecha DATETIME NOT NULL ,
     facilidad ENUM('Normal', 'Asistido', 'Cesárea', 'Difícil') NOT NULL, -- ENUM para reportes claros
-    madre_id VARCHAR(10) NOT NULL,
+    madre_id INT NOT NULL,
     secuencia INT NOT NULL COMMENT 'Número de parto de esta madre',
     documento_usuario VARCHAR(20) NOT NULL,
     documento_veterinario VARCHAR(20) NOT NULL,
@@ -118,7 +119,7 @@ CREATE TABLE IF NOT EXISTS alimentos (
 -- Tabla de alimentaciones 
 CREATE TABLE IF NOT EXISTS alimentaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_animal VARCHAR(10) NOT NULL,
+    id_animal INT NOT NULL,
     documento_alimentador VARCHAR(20) NOT NULL,
     id_alimento INT NOT NULL,
     cantidad_dada DECIMAL(10,2) NOT NULL,
@@ -142,7 +143,7 @@ CREATE TABLE IF NOT EXISTS medicamentos (
 -- Tabla de medicaciones
 CREATE TABLE IF NOT EXISTS medicaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_animal VARCHAR(10) NOT NULL,
+    id_animal INT NOT NULL,
     documento_veterinario VARCHAR(20) NOT NULL,
     id_medicamento INT NOT NULL,
     cantidad_dada DECIMAL(10,2) NOT NULL,
@@ -166,7 +167,7 @@ CREATE TABLE IF NOT EXISTS vacunas (
 
 CREATE TABLE IF NOT EXISTS vacunaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_animal VARCHAR(10) NOT NULL,
+    id_animal INT NOT NULL,
     documento_veterinario VARCHAR(20) NOT NULL,
     id_vacuna INT NOT NULL,
     cantidad_dada DECIMAL(10,2) NOT NULL,
@@ -179,7 +180,7 @@ CREATE TABLE IF NOT EXISTS vacunaciones (
 
 CREATE TABLE IF NOT EXISTS atenciones_veterinarias (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_animal VARCHAR(10) NOT NULL,
+    id_animal INT NOT NULL,
     documento_veterinario VARCHAR(20) NOT NULL,
     fecha_atencion DATETIME ,
     motivo ENUM('Chequeo General', 'Vacunación', 'Enfermedad', 'Herida/Trauma', 'Seguimiento') NOT NULL,
@@ -194,69 +195,3 @@ CREATE TABLE IF NOT EXISTS atenciones_veterinarias (
     FOREIGN KEY (documento_veterinario) REFERENCES usuarios(documento),
     FOREIGN KEY (medicamento_id) REFERENCES medicamentos(id)
 ) ENGINE=InnoDB;
-
-INSERT INTO `cargos` (`id`, `nombre`) VALUES
-(1, 'Administrador'),
-(2, 'Veterinario'),
-(3, 'Aprendiz'),
-(4, 'Gestor de Inventario'),
-(5, 'Encargado de Granja'),
-(6, 'Visitante');
-
-INSERT INTO especies (nombre) VALUES
-('Bovino'),
-('Porcino'),
-('Ovino'),
-('Caprino'),
-('Equino'),
-('Ave');
-
--- Insertar razas para cada especie
-
-INSERT INTO razas (id_especie, nombre) VALUES
--- Bovino (1)
-(1, 'Holstein'),
-(1, 'Jersey'),
-(1, 'Angus'),
-(1, 'Brahman'),
-(1, 'Simmental'),
-
--- Porcino (2)
-(2, 'Yorkshire'),
-(2, 'Landrace'),
-(2, 'Duroc'),
-(2, 'Pietrain'),
-(2, 'Hampshire'),
-
--- Ovino (3)
-(3, 'Merino'),
-(3, 'Suffolk'),
-(3, 'Dorper'),
-(3, 'Hampshire Down'),
-(3, 'Katahdin'),
-
--- Caprino (4)
-(4, 'Saanen'),
-(4, 'Alpina'),
-(4, 'Boer'),
-(4, 'Toggenburg'),
-(4, 'LaMancha'),
-
--- Equino (5)
-(5, 'Árabe'),
-(5, 'Pura Sangre'),
-(5, 'Cuarto de Milla'),
-(5, 'Appaloosa'),
-(5, 'Percherón'),
-
--- Ave (6)
-(6, 'Leghorn'),
-(6, 'Rhode Island Red'),
-(6, 'Plymouth Rock'),
-(6, 'Sussex'),
-(6, 'Cobb 500');
-
-INSERT INTO usuarios 
-(tipo_documento, documento, correo, nombres, apellidos, contrasena, id_cargo)
-VALUES
-('CC', '1054842490', 'juanma2007@gmail.com', 'Juan Esteban', 'Muñoz Giraldo', '8f05232d4d71f8d45eacbb567371067', 1);

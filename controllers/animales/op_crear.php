@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include '../../class/animales.php';
     $obj = new Animales();
     $obj->setNombre($_POST['nombre']);
+    $obj->setChapeta($_POST['chapeta']);
+    $obj->setSexo($_POST['sexo']);
     $obj->setIdMadre($_POST['id_madre']);
     $obj->setIdPadre($_POST['id_padre']);
     $obj->setFechaNacimiento($_POST['fecha_nacimiento']);

@@ -90,7 +90,9 @@ if (isset($_SESSION['flash'])) {
                         </tbody>
                     </table>
                 <?php endif; ?>
-                <a href="index.php" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</a>
+                <div class="text-center" style="margin-top: 20px;">
+                    <a href="inicio" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</a>
+                </div>
             </div>
         </div>
     </main>
