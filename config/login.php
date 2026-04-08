@@ -33,7 +33,7 @@ if ($stored && $stored === md5($contrasena)) {
     $_SESSION['rol_id'] = $usuario->getIdCargo();
     $_SESSION['flash'] = ['tipo' => 'success', 'mensaje' => '¡Bienvenido, ' . htmlspecialchars($usuario->getNombres()) . '!'];
     session_write_close();
-    header('Location: ../inicio');
+    header('Location: ../index.php');
     exit;
 }
 

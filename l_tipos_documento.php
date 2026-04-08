@@ -86,7 +86,7 @@ if (isset($_SESSION['flash'])) {
                                     <td><?php echo htmlspecialchars($registro['siglas']); ?></td>
                                     <td><?php echo $registro['estado'] ? 'Activo' : 'Inactivo'; ?></td>
                                     <td>
-                                        <form action="tipos-documento/actualizar" method="POST" class="form-inline">
+                                        <form action="ac_tipos_documento.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id"
                                                 value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit">
