@@ -8,7 +8,7 @@ function verificarRol($rolesPermitidos) {
     }
 
     if (!in_array($_SESSION['rol_id'], $rolesPermitidos)) {
-        header("Location: inicio"); // o no_permitido.php
+        header("Location: index.php"); // o no_permitido.php
         exit();
     }
 }

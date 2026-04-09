@@ -30,7 +30,7 @@ if ($stored && $stored === md5($contrasena)) {
         'correo'    => $usuario->getCorreo()
     ];
     $_SESSION['rol_id'] = $usuario->getIdCargo();
-    header('Location: ../inicio');
+    header('Location: ../index.php');
     exit;
 }
 

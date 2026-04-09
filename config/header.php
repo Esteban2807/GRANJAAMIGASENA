@@ -18,7 +18,7 @@
     <nav class="nav-bar">
         <div class="nav-bar-content">
             <div class="nav-left">
-                <button onclick="window.location.href = 'inicio'" class="nav-item menu-toggle-btn">Inicio</button>
+                <button onclick="window.location.href = 'index.php'" class="nav-item menu-toggle-btn">Inicio</button>
                 <div class="menu-dropdown-container">
                     <button id="menu-toggle" class="nav-item menu-toggle-btn">
                         Menú
