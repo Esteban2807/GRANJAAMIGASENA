@@ -5,7 +5,8 @@ if ($login_error) {
     unset($_SESSION['login_error']);
 }
 ?>
-    
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -82,7 +83,6 @@ if ($login_error) {
                         <option value="TI">Tarjeta de identidad</option>
                         <option value="CE">Cédula de extranjería</option>
                         <option value="PAS">Pasaporte</option>
-
                     </select>
 
                 </div>
@@ -128,6 +128,14 @@ if ($login_error) {
 
                 ¿Tu cuenta está inactiva?
                 <a href="#">Más información</a>
+
+                <br>
+                <br>
+
+                <!-- ENLACE AL MANUAL DE USUARIO -->
+                <a href="integracion_manual_usuario/Manual_Usuario.html" target="_blank">
+                    <i class="fa-solid fa-book"></i> Ver Manual de Usuario
+                </a>
 
             </div>
         </form>
@@ -192,7 +200,7 @@ if ($login_error) {
                 </div>
 
                 <div class="form-field">
-                    <label for="confirmPassword"></i> Confirmar contraseña *</label>
+                    <label for="confirmPassword"> Confirmar contraseña *</label>
                     <div class="password-container">
                         <i class="fa-solid fa-lock input-icon"></i>
                         <input type="password" id="confirmPassword" name="confirm_contrasena" placeholder="Confirmar contraseña" required />
@@ -200,14 +208,11 @@ if ($login_error) {
                     </div>
                 </div>
 
-              
             </div>
 
             <button type="submit" class="btn-login">
-
                 <i class="fa-solid fa-user-plus"></i>
                 Registrarse
-
             </button>
         </form>
 

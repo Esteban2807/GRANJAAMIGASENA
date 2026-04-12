@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Usuario – Granja Amiga SENA</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-900:#1B5E20;--green-700:#2E7D32;--green-500:#43A047;--green-300:#81C784;
+  --green-100:#C8E6C9;--green-50:#F1F8E9;
+  --accent:#F9A825;
+  --text:#1C2B1E;--text-muted:#4E6152;--text-light:#7A9180;
+  --bg:#FAFCFA;--sidebar-bg:#F0F7F0;--border:#D6EAD7;
+  --radius:10px;--sidebar-w:280px;--header-h:56px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+
+#sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);background:var(--sidebar-bg);border-right:1px solid var(--border);height:100vh;position:fixed;top:0;left:0;overflow-y:auto;display:flex;flex-direction:column;z-index:100;transition:transform .3s ease}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:var(--green-300);border-radius:4px}
+.sidebar-header{padding:20px 20px 16px;border-bottom:1px solid var(--border);background:var(--green-700)}
+.sidebar-logo{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sidebar-logo .icon{font-size:28px}
+.sidebar-logo .brand{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;line-height:1.1}
+.sidebar-logo .brand span{display:block;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--green-100);font-weight:400;letter-spacing:.5px;margin-top:2px}
+.sidebar-badge{display:inline-block;background:var(--accent);color:#1a1a1a;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:6px}
+.nav-section{padding:10px 0}
+.nav-section-title{font-size:10px;font-weight:600;letter-spacing:1.2px;color:var(--text-light);text-transform:uppercase;padding:6px 20px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;cursor:pointer;font-size:13.5px;color:var(--text-muted);font-weight:400;border-left:3px solid transparent;transition:all .15s ease;text-decoration:none}
+.nav-item:hover{background:var(--green-100);color:var(--green-700);border-left-color:var(--green-300)}
+.nav-item.active{background:var(--green-100);color:var(--green-700);border-left-color:var(--green-700);font-weight:600}
+.nav-item .ni{font-size:16px;min-width:20px;text-align:center}
+
+#main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
+#topbar{height:var(--header-h);background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50}
+.topbar-breadcrumb{font-size:13px;color:var(--text-light);display:flex;align-items:center;gap:6px}
+.topbar-breadcrumb .current{color:var(--green-700);font-weight:500}
+#menu-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
+
+#content{padding:40px 48px 80px;max-width:900px}
+.page{display:none}
+.page.active{display:block}
+
+.hero{background:linear-gradient(135deg,var(--green-700) 0%,var(--green-900) 100%);border-radius:16px;padding:48px 40px;margin-bottom:40px;position:relative;overflow:hidden}
+.hero::before{content:'🌾';font-size:160px;position:absolute;right:-10px;top:-20px;opacity:.08;line-height:1}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:12px;color:#fff;margin-bottom:16px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:36px;color:#fff;margin-bottom:8px;line-height:1.2}
+.hero p{font-size:15px;max-width:520px;line-height:1.6;margin-bottom:0;color:#ffffff !important}
+.hero-meta{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap}
+.hero-meta-item{display:flex;align-items:center;gap:8px;color:#ffffff !important;font-size:13px}
+.hero-meta-item .dot{width:8px;height:8px;border-radius:50%;background:var(--green-300)}
+
+.page h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--green-700);margin:36px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--green-100)}
+.page h3{font-size:15px;font-weight:600;color:var(--green-900);margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.page h3::before{content:'';display:inline-block;width:4px;height:16px;background:var(--green-500);border-radius:2px}
+.page p{font-size:14.5px;line-height:1.75;color:var(--text-muted);margin-bottom:12px}
+
+/* ── PHOTO BOX MEJORADO: soporta carga de imágenes ── */
+.photo-box{border:2px dashed var(--green-300);border-radius:var(--radius);background:var(--green-50);padding:0;margin:16px 0 24px;overflow:hidden;position:relative;cursor:pointer;transition:border-color .2s,background .2s}
+.photo-box:hover{border-color:var(--green-500);background:var(--green-100)}
+.photo-box input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2}
+.photo-placeholder{padding:28px 20px;text-align:center;pointer-events:none}
+.photo-box .ph-icon{font-size:28px;margin-bottom:6px;display:block;opacity:.55}
+.photo-box .ph-label{font-size:13px;font-weight:600;color:var(--green-700);margin-bottom:3px}
+.photo-box .ph-hint{font-size:11px;color:var(--text-light)}
+.photo-box img.preview{display:block;width:100%;max-height:420px;object-fit:contain;background:#fff}
+.photo-box .img-controls{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:rgba(0,0,0,.03);border-top:1px solid var(--border);font-size:12px;color:var(--text-light)}
+.photo-box .img-remove{background:none;border:none;cursor:pointer;color:#c62828;font-size:12px;font-weight:600;padding:2px 6px;border-radius:4px}
+.photo-box .img-remove:hover{background:#ffebee}
+
+.steps{list-style:none;margin:12px 0 20px}
+.steps li{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--green-50);font-size:14px;color:var(--text-muted)}
+.steps li:last-child{border-bottom:none}
+.step-num{min-width:26px;height:26px;border-radius:50%;background:var(--green-700);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+.callout{border-radius:var(--radius);padding:12px 16px;margin:16px 0;display:flex;gap:12px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.callout-note{background:#E3F2FD;border-left:4px solid #1565C0;color:#0D47A1}
+.callout-tip{background:var(--green-50);border-left:4px solid var(--green-500);color:var(--green-900)}
+.callout-warn{background:#FFF3E0;border-left:4px solid #E65100;color:#BF360C}
+.callout-danger{background:#FCE4EC;border-left:4px solid #B71C1C;color:#880E4F}
+.callout-icon{font-size:18px;margin-top:1px;flex-shrink:0}
+.callout strong{display:block;margin-bottom:2px}
+
+.fields-table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:13.5px}
+.fields-table th{background:var(--green-700);color:#fff;padding:9px 12px;text-align:left;font-weight:600;font-size:12px}
+.fields-table th:first-child{border-radius:8px 0 0 0}
+.fields-table th:last-child{border-radius:0 8px 0 0}
+.fields-table td{padding:8px 12px;border-bottom:1px solid var(--green-50);color:var(--text-muted)}
+.fields-table tr:nth-child(even) td{background:var(--green-50)}
+.fields-table tr:hover td{background:var(--green-100)}
+.fields-table td:first-child{font-weight:600;color:var(--green-900)}
+.req-yes{color:var(--green-700);font-weight:600}
+.req-no{color:var(--text-light)}
+
+/* Roles cards */
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:16px 0 24px}
+.role-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;border-top:4px solid var(--green-500)}
+.role-card .role-name{font-size:14px;font-weight:700;color:var(--green-900);margin-bottom:8px}
+.role-card ul{list-style:none;padding:0}
+.role-card ul li{font-size:12.5px;color:var(--text-muted);padding:3px 0;display:flex;gap:6px;align-items:flex-start}
+.role-card ul li::before{content:'✓';color:var(--green-500);font-weight:700;flex-shrink:0}
+
+.faq-item{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+.faq-q{padding:14px 18px;font-size:14px;font-weight:600;color:var(--green-900);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fff;user-select:none}
+.faq-q:hover{background:var(--green-50)}
+.faq-q .arrow{transition:transform .2s;color:var(--green-500);font-size:18px}
+.faq-a{display:none;padding:0 18px 14px;font-size:13.5px;color:var(--text-muted);line-height:1.7;background:#fff}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .arrow{transform:rotate(180deg)}
+
+.gloss-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.gloss-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.gloss-term{font-size:13px;font-weight:700;color:var(--green-700);margin-bottom:4px}
+.gloss-def{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+
+.page-nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.pnav-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;cursor:pointer;font-size:13px;color:var(--text-muted);font-family:'DM Sans',sans-serif;transition:all .15s;text-decoration:none}
+.pnav-btn:hover{border-color:var(--green-500);color:var(--green-700);background:var(--green-50)}
+.pnav-btn .pnav-label{font-weight:600;color:var(--green-900);font-size:14px}
+.pnav-btn.next{flex-direction:row-reverse;text-align:right}
+
+.chip{display:inline-block;background:var(--green-100);color:var(--green-900);font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;margin:2px}
+
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0}
+  #content{padding:24px 20px 60px}
+  #menu-toggle{display:block}
+  .gloss-grid{grid-template-columns:1fr}
+  .roles-grid{grid-template-columns:1fr}
+  .hero{padding:32px 24px}
+  .hero h1{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <span class="icon">🌿</span>
+      <div class="brand">Granja Amiga<span>Manual de Usuario v1.0</span></div>
+    </div>
+    <span class="sidebar-badge">SENA · Ficha 2929061</span>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Inicio</div>
+    <a class="nav-item active" onclick="showPage('inicio',this)"><span class="ni">🏠</span>Introducción</a>
+    <a class="nav-item" onclick="showPage('roles',this)"><span class="ni">🔑</span>Roles del sistema</a>
+    <a class="nav-item" onclick="showPage('requisitos',this)"><span class="ni">💻</span>Requisitos</a>
+    <a class="nav-item" onclick="showPage('acceso',this)"><span class="ni">🔐</span>Acceso al sistema</a>
+    <a class="nav-item" onclick="showPage('interfaz',this)"><span class="ni">🖥️</span>Interfaz principal</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Módulos del sistema</div>
+    <a class="nav-item" onclick="showPage('usuarios',this)"><span class="ni">👤</span>Usuarios</a>
+    <a class="nav-item" onclick="showPage('animales',this)"><span class="ni">🐄</span>Animales</a>
+    <a class="nav-item" onclick="showPage('alimentacion',this)"><span class="ni">🌾</span>Alimentación</a>
+    <a class="nav-item" onclick="showPage('alimentos',this)"><span class="ni">🌿</span>Alimentos</a>
+    <a class="nav-item" onclick="showPage('vacunacion',this)"><span class="ni">💉</span>Vacunación</a>
+    <a class="nav-item" onclick="showPage('vacunas',this)"><span class="ni">🧪</span>Vacunas</a>
+    <a class="nav-item" onclick="showPage('atencion',this)"><span class="ni">🩺</span>Atención Veterinaria</a>
+    <a class="nav-item" onclick="showPage('medicacion',this)"><span class="ni">💊</span>Medicación</a>
+    <a class="nav-item" onclick="showPage('medicamentos',this)"><span class="ni">🏥</span>Medicamentos</a>
+    <a class="nav-item" onclick="showPage('nacimientos',this)"><span class="ni">🐣</span>Nacimientos</a>
+    <a class="nav-item" onclick="showPage('partos',this)"><span class="ni">🤱</span>Partos</a>
+    <a class="nav-item" onclick="showPage('razas',this)"><span class="ni">📋</span>Razas y Especies</a>
+    <a class="nav-item" onclick="showPage('documentos',this)"><span class="ni">🪪</span>Tipos de Documento</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Ayuda</div>
+    <a class="nav-item" onclick="showPage('faq',this)"><span class="ni">❓</span>Preguntas frecuentes</a>
+    <a class="nav-item" onclick="showPage('glosario',this)"><span class="ni">📖</span>Glosario</a>
+  </div>
+</nav>
+
+<div id="main">
+  <header id="topbar">
+    <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-breadcrumb">
+      <span>Granja Amiga</span><span style="color:var(--border);margin:0 4px">›</span>
+      <span class="current" id="breadcrumb-current">Introducción</span>
+    </div>
+    <div style="font-size:12px;color:var(--text-light)">Manual de Usuario</div>
+  </header>
+
+  <div id="content">
+
+    <!-- INICIO -->
+    <div class="page active" id="page-inicio">
+      <div class="hero">
+        <div class="hero-badge">📄 Manual de Usuario</div>
+        <h1>Granja Amiga</h1>
+        <p>Sistema web de gestión agrícola y pecuaria desarrollado para el SENA – Centro de Procesos Industriales y Construcción.</p>
+        <div class="hero-meta">
+          <div class="hero-meta-item"><span class="dot"></span>Versión 1.0</div>
+          <div class="hero-meta-item"><span class="dot"></span>Tecnólogo ADSO</div>
+          <div class="hero-meta-item"><span class="dot"></span>Ficha 2929061</div>
+        </div>
+      </div>
+
+      <h2>¿Qué es Granja Amiga?</h2>
+      <p>Granja Amiga es un sistema web diseñado para digitalizar y centralizar toda la información de una granja. Permite registrar animales, controlar la alimentación diaria, gestionar la salud del hato (vacunaciones, atenciones veterinarias, medicación), hacer seguimiento reproductivo (partos y nacimientos) y administrar el personal que opera el sistema.</p>
+      <p>El objetivo principal es reemplazar el manejo manual en cuadernos y hojas sueltas por una plataforma organizada, segura y accesible desde cualquier computador con internet, garantizando la trazabilidad completa de cada animal a lo largo del tiempo.</p>
+
+      <h3>¿A quién va dirigido este manual?</h3>
+      <p>Este manual está dirigido a todos los usuarios del sistema, sin importar su cargo o nivel de conocimiento técnico. Cada sección explica con lenguaje claro qué hace cada módulo, cómo navegar por las pantallas y cómo realizar las operaciones básicas (crear, consultar, editar y eliminar registros).</p>
+
+      <h3>¿Cómo usar este manual?</h3>
+      <p>Usa el <strong>menú lateral izquierdo</strong> para navegar entre los módulos del sistema. Puedes seguirlo en orden o ir directamente a la sección que necesitas. Al final de cada página encontrarás botones para pasar a la sección anterior o siguiente.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Sugerencia</strong> Si es tu primera vez usando el sistema, te recomendamos leer primero la sección <em>Roles del sistema</em> y luego <em>Acceso al sistema</em>, antes de explorar los módulos.</div>
+      </div>
+
+      <h3>Autores</h3>
+      <p><span class="chip">Juan Esteban Muñoz Giraldo</span> <span class="chip">Mishell Dayanna Marín Hernández</span> <span class="chip">Valeria Román García</span></p>
+      <p style="margin-top:8px"><span class="chip">Instructor: José German Estrada Clavijo</span> <span class="chip">SENA Regional Caldas</span></p>
+
+      <div class="page-nav">
+        <span></span>
+        <a class="pnav-btn next" onclick="showPage('roles',document.querySelector('[onclick*=roles]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Roles del sistema</div></div></a>
+      </div>
+    </div>
+
+    <!-- ROLES -->
+    <div class="page" id="page-roles">
+      <h2>🔑 Roles del Sistema</h2>
+      <p>Granja Amiga utiliza un sistema de <strong>roles</strong> (también llamados cargos) para controlar qué puede hacer cada usuario dentro de la plataforma. Al ingresar al sistema, cada usuario tiene asignado un rol que determina los módulos que puede ver y las acciones que puede realizar.</p>
+      <p>A continuación se describen los roles disponibles y sus permisos principales:</p>
+
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-name">🛡️ Administrador</div>
+          <ul>
+            <li>Acceso completo a todos los módulos</li>
+            <li>Crear, editar y eliminar usuarios</li>
+            <li>Gestionar catálogos y configuración del sistema</li>
+            <li>Asignar roles a otros usuarios</li>
+            <li>Única cuenta que puede configurar tipos de documento y cargos</li>
+          </ul>
+        </div>
+        <div class="role-card" style="border-top-color:#1565C0">
+          <div class="role-name">🩺 Veterinario</div>
+          <ul>
+            <li>Registrar atenciones veterinarias</li>
+            <li>Gestionar vacunaciones y medicaciones</li>
+            <li>Registrar y supervisar partos y nacimientos</li>
+            <li>Consultar el historial médico de los animales</li>
+          </ul>
+        </div>
+        <div class="role-card" style="border-top-color:#2E7D32">
+          <div class="role-name">🎓 Aprendiz</div>
+          <ul>
+            <li>Acceso limitado a módulos operativos</li>
+            <li>Puede registrar eventos bajo supervisión</li>
+            <li>Consultar información del sistema</li>
+            <li>No puede modificar catálogos ni usuarios</li>
+          </ul>
+        </div>
+        <div class="role-card" style="border-top-color:#E65100">
+          <div class="role-name">📦 Gestor de Inventario</div>
+          <ul>
+            <li>Gestionar catálogos de alimentos y medicamentos</li>
+            <li>Registrar y actualizar insumos disponibles</li>
+            <li>Consultar el estado del inventario de la granja</li>
+          </ul>
+        </div>
+        <div class="role-card" style="border-top-color:#F9A825">
+          <div class="role-name">🏡 Encargado de Granja</div>
+          <ul>
+            <li>Supervisar las operaciones diarias de la granja</li>
+            <li>Registrar eventos de alimentación y estado de animales</li>
+            <li>Acceso a los módulos operativos principales</li>
+          </ul>
+        </div>
+        <div class="role-card" style="border-top-color:#78909C">
+          <div class="role-name">👁️ Visitante</div>
+          <ul>
+            <li>Acceso de solo lectura al sistema</li>
+            <li>No puede crear, editar ni eliminar registros</li>
+            <li>Útil para visitas institucionales o auditores externos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>¿No ves un módulo?</strong> Si al ingresar al sistema no aparece algún módulo en el menú, es porque tu rol no tiene permiso para acceder a él. Comunícate con el <strong>Administrador</strong> para que revise y ajuste tus permisos si es necesario.</div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Importante</strong> Solo el Administrador puede crear nuevos roles o modificar los permisos existentes. Cambiar el nombre de un rol afecta a todos los usuarios que lo tienen asignado en ese momento. El rol seleccionado al registrarse puede ser ajustado posteriormente por el Administrador si es necesario.</div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('inicio',document.querySelector('[onclick*=inicio]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Introducción</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('requisitos',document.querySelector('[onclick*=requisitos]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Requisitos</div></div></a>
+      </div>
+    </div>
+
+    <!-- REQUISITOS -->
+    <div class="page" id="page-requisitos">
+      <h2>💻 Requisitos del Sistema</h2>
+      <p>Granja Amiga es una aplicación web, lo que significa que <strong>no necesitas instalar ningún programa</strong> en tu computador. Solo debes cumplir con los siguientes requisitos mínimos:</p>
+      <ul class="steps">
+        <li><span class="step-num">1</span><div><strong>Dispositivo:</strong> Computador de escritorio o portátil. También es compatible con tabletas y teléfonos celulares, aunque la experiencia es mejor en pantallas grandes.</div></li>
+        <li><span class="step-num">2</span><div><strong>Conexión a internet:</strong> Necesaria para acceder al sistema en todo momento. No funciona sin conexión.</div></li>
+        <li><span class="step-num">3</span><div><strong>Navegador web actualizado:</strong> Se recomienda <strong>Google Chrome</strong> (versión 90 o superior). También son compatibles Mozilla Firefox, Microsoft Edge y Safari.</div></li>
+        <li><span class="step-num">4</span><div><strong>Credenciales de acceso:</strong> Número de documento y contraseña. Puedes obtenerlas registrándote directamente en la pantalla de inicio, o recibirlas del Administrador si él crea tu cuenta.</div></li>
+      </ul>
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Sin instalación</strong> El sistema funciona directamente desde el navegador. No se requiere instalar Java, Adobe Flash ni ningún complemento adicional.</div>
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Recomendación</strong> Mantén tu navegador actualizado para garantizar el mejor rendimiento y la seguridad de tus datos al usar el sistema.</div>
+      </div>
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('roles',document.querySelector('[onclick*=roles]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Roles del sistema</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('acceso',document.querySelector('[onclick*=acceso]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Acceso al sistema</div></div></a>
+      </div>
+    </div>
+
+    <!-- ACCESO -->
+    <div class="page" id="page-acceso">
+      <h2>🔐 Acceso al Sistema</h2>
+      <p>Para ingresar a Granja Amiga necesitas un número de documento y una contraseña. Puedes obtener estas credenciales de dos formas: <strong>registrándote tú mismo</strong> desde el formulario de registro en la pantalla de inicio, o siendo registrado por el <strong>Administrador</strong> del sistema.</p>
+
+      <h3>Iniciar sesión</h3>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Abre tu navegador web e ingresa la dirección URL del sistema en la barra de direcciones.</li>
+        <li><span class="step-num">2</span>En la pantalla de inicio de sesión, escribe tu <strong>número de documento</strong> en el campo correspondiente.</li>
+        <li><span class="step-num">3</span>Escribe tu <strong>contraseña</strong> en el campo de contraseña. Los caracteres aparecerán ocultos por seguridad.</li>
+        <li><span class="step-num">4</span>Haz clic en el botón <strong>Ingresar</strong>.</li>
+        <li><span class="step-num">5</span>Si los datos son correctos, el sistema te redirigirá automáticamente al panel principal según tu rol.</li>
+      </ul>
+
+      <div class="photo-box" id="pb-acceso-login">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-acceso-login')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 1 – Pantalla de inicio de sesión</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Error al ingresar</strong> Si aparece el mensaje "Documento o contraseña incorrectos", verifica que no haya espacios al inicio o al final de los campos, y que el bloq mayús no esté activado. Si el problema persiste, contacta al Administrador.</div>
+      </div>
+
+      <h3>Cerrar sesión</h3>
+      <p>Es importante cerrar sesión correctamente al terminar de usar el sistema, especialmente si estás en un equipo compartido.</p>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Haz clic en tu nombre de usuario o en el ícono de perfil ubicado en la esquina superior derecha de la pantalla.</li>
+        <li><span class="step-num">2</span>En el menú desplegable que aparece, selecciona la opción <strong>Cerrar sesión</strong>.</li>
+        <li><span class="step-num">3</span>Confirma la acción en el cuadro de diálogo. El sistema te regresará a la pantalla de inicio de sesión.</li>
+      </ul>
+
+      <div class="callout callout-danger">
+        <span class="callout-icon">🔒</span>
+        <div><strong>Seguridad</strong> Nunca compartas tu contraseña con otras personas. Si sospechas que alguien más conoce tu contraseña, solicita al Administrador que la restablezca de inmediato.</div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('requisitos',document.querySelector('[onclick*=requisitos]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Requisitos</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('interfaz',document.querySelector('[onclick*=interfaz]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Interfaz principal</div></div></a>
+      </div>
+    </div>
+
+    <!-- INTERFAZ -->
+    <div class="page" id="page-interfaz">
+      <h2>🖥️ Interfaz Principal</h2>
+      <p>Al iniciar sesión correctamente, el sistema muestra el <strong>panel principal</strong>. Desde aquí puedes acceder a todos los módulos disponibles según tu rol. La interfaz está organizada de la siguiente manera:</p>
+
+      <table class="fields-table">
+        <tr><th>Elemento</th><th>Ubicación</th><th>Descripción</th></tr>
+        <tr><td>Barra de navegación superior</td><td>Parte alta de la pantalla</td><td>Contiene el logo, el menú de módulos, el botón de tema y el perfil de usuario.</td></tr>
+        <tr><td>Menú desplegable de módulos</td><td>Barra superior</td><td>Agrupa todos los módulos del sistema por categorías. Haz clic en cada categoría para desplegar las opciones.</td></tr>
+        <tr><td>Botón de inicio (🏠)</td><td>Barra superior izquierda</td><td>Te regresa al panel principal desde cualquier módulo en el que te encuentres.</td></tr>
+        <tr><td>Cambio de tema (☀️ / 🌙)</td><td>Barra superior derecha</td><td>Alterna entre el modo claro y el modo oscuro de la interfaz, según tu preferencia visual.</td></tr>
+        <tr><td>Perfil de usuario</td><td>Esquina superior derecha</td><td>Muestra el nombre del usuario conectado. Al hacer clic aparece la opción de cerrar sesión.</td></tr>
+        <tr><td>Área de contenido</td><td>Centro de la pantalla</td><td>Aquí se muestran los listados y formularios de cada módulo cuando los seleccionas.</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-interfaz">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-interfaz')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 2 – Panel principal del sistema</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Modo oscuro</strong> Si trabajas en ambientes con poca luz, activa el modo oscuro con el botón ☀️/🌙 de la barra superior. El sistema recordará tu preferencia durante la sesión.</div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('acceso',document.querySelector('[onclick*=acceso]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Acceso al sistema</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('usuarios',document.querySelector('[onclick*=usuarios]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Usuarios</div></div></a>
+      </div>
+    </div>
+
+    <!-- USUARIOS -->
+    <div class="page" id="page-usuarios">
+      <h2>👤 Módulo de Usuarios</h2>
+      <p>Este módulo permite gestionar las cuentas de todo el personal que tiene acceso al sistema. Cada usuario cuenta con un nombre, un documento de identidad (que usa como nombre de usuario para iniciar sesión), un correo electrónico, una contraseña y un rol que define sus permisos.</p>
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>¿Quién puede crear usuarios?</strong> Existen dos formas de crear una cuenta en el sistema: el <strong>Administrador</strong> puede registrar nuevos usuarios directamente desde este módulo, o cualquier persona puede <strong>registrarse por su cuenta</strong> a través del formulario de registro disponible en la pantalla de inicio de sesión. En ambos casos se asigna un rol que determina los permisos del usuario. La edición y eliminación de cuentas es exclusiva del Administrador.</div>
+      </div>
+
+      <h3>Ver el listado de usuarios</h3>
+      <p>Selecciona <strong>Usuarios</strong> en el menú superior. Aparecerá una tabla con todos los usuarios registrados, mostrando: Documento, Nombres, Apellidos, Correo y Rol asignado. Puedes usar el buscador o los filtros para encontrar un usuario específico rápidamente.</p>
+
+      <div class="photo-box" id="pb-usuarios-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-usuarios-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 3 – Listado de usuarios</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <h3>Crear un nuevo usuario (desde el Administrador)</h3>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Haz clic en el botón <strong>Nuevo</strong> o <strong>+ Agregar</strong> que aparece en la parte superior de la tabla.</li>
+        <li><span class="step-num">2</span>Completa todos los campos del formulario. Los marcados con <strong>✔ Sí</strong> son obligatorios.</li>
+        <li><span class="step-num">3</span>Asigna el <strong>Rol / Cargo</strong> correspondiente según las funciones del nuevo usuario.</li>
+        <li><span class="step-num">4</span>Haz clic en <strong>Guardar</strong>. El usuario quedará registrado y podrá iniciar sesión de inmediato.</li>
+      </ul>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Autoregistro</strong> Los usuarios también pueden crear su propia cuenta accediendo al formulario de <strong>Registro</strong> en la pantalla de inicio de sesión, sin necesidad de que el Administrador intervenga. Una vez registrados, el Administrador puede ajustar su rol desde este módulo si es necesario.</div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Tipo de documento</td><td>Tipo de identificación del usuario (CC, TI, CE, etc.).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Documento</td><td>Número de documento. Es el identificador con el que el usuario inicia sesión.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Nombres</td><td>Nombres completos del usuario.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Apellidos</td><td>Apellidos completos del usuario.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Correo electrónico</td><td>Dirección de correo del usuario. Se usa para notificaciones.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Contraseña</td><td>Clave de acceso al sistema. Debe tener mínimo 6 caracteres.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Rol / Cargo</td><td>Nivel de acceso asignado (Administrador, Veterinario, Alimentador, etc.). Determina qué módulos puede usar.</td><td class="req-yes">✔ Sí</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-usuarios-form">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-usuarios-form')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 4 – Formulario de creación de usuario</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <h3>Editar un usuario existente</h3>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Ubica el usuario en el listado usando el buscador si es necesario.</li>
+        <li><span class="step-num">2</span>Haz clic en el ícono ✏️ o en el botón <strong>Actualizar</strong> de esa fila.</li>
+        <li><span class="step-num">3</span>Modifica los campos que necesites cambiar.</li>
+        <li><span class="step-num">4</span>Haz clic en <strong>Guardar Cambios</strong> para confirmar.</li>
+      </ul>
+
+      <h3>Eliminar un usuario</h3>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Ubica el usuario en el listado.</li>
+        <li><span class="step-num">2</span>Haz clic en el ícono 🗑️ o en el botón <strong>Eliminar</strong>.</li>
+        <li><span class="step-num">3</span>Aparecerá un cuadro de confirmación. Haz clic en <strong>Aceptar</strong> para confirmar la eliminación. Esta acción no se puede deshacer.</li>
+      </ul>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Cambio de rol</strong> Si necesitas cambiar el rol de un usuario, edita su perfil y modifica el campo Rol / Cargo. El cambio tiene efecto inmediatamente en el próximo inicio de sesión del usuario.</div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('interfaz',document.querySelector('[onclick*=interfaz]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Interfaz principal</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('animales',document.querySelector('[onclick*=animales]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Animales</div></div></a>
+      </div>
+    </div>
+
+    <!-- ANIMALES -->
+    <div class="page" id="page-animales">
+      <h2>🐄 Módulo de Animales</h2>
+      <p>Es el módulo central del sistema. Aquí se registran todos los animales de la granja. Cada animal tiene un perfil individual que actúa como punto de conexión con los demás módulos: alimentación, vacunaciones, atenciones veterinarias, medicaciones, partos y nacimientos están vinculados directamente al registro del animal.</p>
+
+      <h3>Ver el listado de animales</h3>
+      <p>Selecciona <strong>Animales</strong> en el menú. Verás una tabla con: ID o Código, Nombre, Especie, Raza, Fecha de nacimiento y Estado actual. Puedes filtrar por especie o estado para facilitar la búsqueda.</p>
+
+      <div class="photo-box" id="pb-animales-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-animales-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 5 – Listado de animales</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <h3>Registrar un nuevo animal</h3>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Haz clic en el botón <strong>Nuevo</strong> o <strong>+ Agregar</strong>.</li>
+        <li><span class="step-num">2</span>Completa el formulario con la información del animal. Asegúrate de que la especie y la raza estén previamente registradas en sus respectivos catálogos.</li>
+        <li><span class="step-num">3</span>Haz clic en <strong>Guardar</strong>. El animal quedará disponible en todos los demás módulos.</li>
+      </ul>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>ID / Código</td><td>Identificador único del animal (número de arete o código interno de la granja).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Nombre</td><td>Nombre o apodo del animal para identificarlo fácilmente.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Especie</td><td>Especie a la que pertenece (bovino, porcino, ovino, etc.). Debe existir en el catálogo de Especies.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Raza</td><td>Raza del animal. Debe estar registrada en el catálogo de Razas y corresponder a la especie seleccionada.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Fecha de nacimiento</td><td>Fecha en que nació el animal. Se usa para calcular la edad.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Sexo</td><td>Macho o Hembra. Afecta los módulos de partos y nacimientos.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Peso (kg)</td><td>Peso del animal al momento del registro inicial.</td><td class="req-no">— No</td></tr>
+        <tr><td>Estado</td><td>Estado actual del animal: Activo, Vendido, Fallecido, En cuarentena, etc.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Observaciones</td><td>Notas adicionales relevantes sobre el animal (marcas, características especiales, etc.).</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-animales-form">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-animales-form')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 6 – Formulario de registro de animal</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <h3>Editar o eliminar un animal</h3>
+      <p>Usa el botón ✏️ <strong>Actualizar</strong> para modificar la información del animal, o el botón 🗑️ <strong>Eliminar</strong> para borrarlo definitivamente. La eliminación pedirá confirmación y no puede deshacerse.</p>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('usuarios',document.querySelector('[onclick*=usuarios]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Usuarios</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('alimentacion',document.querySelector('[onclick*=alimentacion]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Alimentación</div></div></a>
+      </div>
+    </div>
+
+    <!-- ALIMENTACIÓN -->
+    <div class="page" id="page-alimentacion">
+      <h2>🌾 Módulo de Alimentación</h2>
+      <p>Este módulo permite registrar cada evento de alimentación aplicado a un animal. Es decir, cada vez que un alimentador suministra alimento a un animal, ese evento queda documentado con la fecha, el tipo de alimento, la cantidad y el responsable. Esto permite hacer un seguimiento detallado del consumo por animal a lo largo del tiempo.</p>
+
+      <div class="photo-box" id="pb-alim-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-alim-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 7 – Listado de alimentaciones registradas</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <h3>Registrar un evento de alimentación</h3>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Selecciona <strong>Alimentación</strong> en el menú y haz clic en <strong>+ Agregar</strong>.</li>
+        <li><span class="step-num">2</span>Elige el animal al que se le suministró el alimento.</li>
+        <li><span class="step-num">3</span>Completa los demás campos del formulario.</li>
+        <li><span class="step-num">4</span>Haz clic en <strong>Guardar</strong>.</li>
+      </ul>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Animal</td><td>Animal al que se le suministró el alimento. Debe estar registrado en el módulo de Animales.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Alimentador</td><td>Usuario responsable de suministrar el alimento en esa ocasión.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Alimento</td><td>Tipo de alimento suministrado. Se selecciona del catálogo de Alimentos.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Cantidad</td><td>Cantidad suministrada, expresada en kilogramos o en las unidades que correspondan.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Fecha</td><td>Fecha en que se realizó la alimentación.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Observaciones</td><td>Notas adicionales sobre el evento (rechazo del alimento, comportamiento del animal, etc.).</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-alim-form">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-alim-form')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 8 – Formulario de registro de alimentación</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('animales',document.querySelector('[onclick*=animales]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Animales</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('alimentos',document.querySelector('[onclick*=alimentos]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Alimentos</div></div></a>
+      </div>
+    </div>
+
+    <!-- ALIMENTOS -->
+    <div class="page" id="page-alimentos">
+      <h2>🌿 Módulo de Alimentos</h2>
+      <p>Este módulo es un <strong>catálogo de referencia</strong> que contiene los tipos de alimento disponibles en la granja. Los alimentos registrados aquí son los que se pueden seleccionar al momento de registrar un evento de alimentación. Antes de registrar alimentaciones, asegúrate de que los alimentos correspondientes ya estén en este catálogo.</p>
+
+      <div class="photo-box" id="pb-alimentos-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-alimentos-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 9 – Catálogo de alimentos</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Nombre</td><td>Nombre del alimento (ej: Heno, Concentrado, Pasto kikuyo, Melaza).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Tipo</td><td>Categoría del alimento: forraje, suplemento, concentrado, etc.</td><td class="req-no">— No</td></tr>
+        <tr><td>Descripción</td><td>Características nutricionales o cualquier información relevante sobre el alimento.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Mantén el catálogo actualizado</strong> Si introduces un nuevo tipo de alimento en la granja, regístralo aquí primero para que los alimentadores puedan seleccionarlo al registrar eventos.</div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('alimentacion',document.querySelector('[onclick*=alimentacion]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Alimentación</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('vacunacion',document.querySelector('[onclick*=vacunacion]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Vacunación</div></div></a>
+      </div>
+    </div>
+
+    <!-- VACUNACIÓN -->
+    <div class="page" id="page-vacunacion">
+      <h2>💉 Módulo de Vacunación</h2>
+      <p>Registra los eventos de vacunación aplicados a los animales. Cada registro queda vinculado al animal, a la vacuna utilizada, al veterinario responsable y a la fecha de aplicación. También permite anotar la fecha de la próxima dosis para llevar un calendario de vacunación.</p>
+
+      <div class="photo-box" id="pb-vacunacion-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-vacunacion-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 10 – Listado de vacunaciones</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Animal</td><td>Animal al que se le aplicó la vacuna.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Vacuna</td><td>Vacuna aplicada. Se selecciona del catálogo de Vacunas.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Veterinario</td><td>Usuario responsable de aplicar la vacuna.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Fecha de aplicación</td><td>Fecha en que se aplicó la vacuna.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Próxima dosis</td><td>Fecha estimada para la siguiente aplicación de la misma vacuna.</td><td class="req-no">— No</td></tr>
+        <tr><td>Observaciones</td><td>Reacciones del animal, dosis aplicada u otras notas relevantes.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-vacunacion-form">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-vacunacion-form')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 11 – Formulario de vacunación</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('alimentos',document.querySelector('[onclick*=alimentos]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Alimentos</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('vacunas',document.querySelector('[onclick*=vacunas]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Vacunas</div></div></a>
+      </div>
+    </div>
+
+    <!-- VACUNAS -->
+    <div class="page" id="page-vacunas">
+      <h2>🧪 Módulo de Vacunas</h2>
+      <p>Catálogo de vacunas disponibles en la granja. Las vacunas registradas aquí son las que pueden seleccionarse al momento de registrar un evento de vacunación. Este catálogo lo administra el Administrador o el veterinario encargado.</p>
+
+      <div class="photo-box" id="pb-vacunas-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-vacunas-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 12 – Catálogo de vacunas</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Nombre</td><td>Nombre comercial de la vacuna.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Laboratorio</td><td>Empresa o laboratorio que fabrica la vacuna.</td><td class="req-no">— No</td></tr>
+        <tr><td>Enfermedad que previene</td><td>Enfermedad o patología contra la que protege la vacuna.</td><td class="req-no">— No</td></tr>
+        <tr><td>Descripción</td><td>Información adicional: dosis recomendada, vía de administración, etc.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('vacunacion',document.querySelector('[onclick*=vacunacion]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Vacunación</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('atencion',document.querySelector('[onclick*=atencion]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Atención Veterinaria</div></div></a>
+      </div>
+    </div>
+
+    <!-- ATENCIÓN VETERINARIA -->
+    <div class="page" id="page-atencion">
+      <h2>🩺 Módulo de Atención Veterinaria</h2>
+      <p>Registra las consultas, revisiones y atenciones médicas realizadas a los animales. Cada registro incluye el diagnóstico del veterinario y el tratamiento indicado, formando parte del historial médico del animal. Este módulo es clave para la trazabilidad sanitaria del hato.</p>
+
+      <div class="photo-box" id="pb-atencion-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-atencion-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 13 – Listado de atenciones veterinarias</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Animal</td><td>Animal que recibió la atención médica.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Veterinario</td><td>Usuario responsable de realizar la atención.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Fecha</td><td>Fecha en que se realizó la consulta o atención.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Diagnóstico</td><td>Descripción del diagnóstico o motivo de la consulta.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Tratamiento</td><td>Descripción del tratamiento indicado o aplicado en la consulta.</td><td class="req-no">— No</td></tr>
+        <tr><td>Observaciones</td><td>Notas adicionales relevantes para el seguimiento del caso.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-atencion-form">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-atencion-form')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 14 – Formulario de atención veterinaria</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('vacunas',document.querySelector('[onclick*=vacunas]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Vacunas</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('medicacion',document.querySelector('[onclick*=medicacion]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Medicación</div></div></a>
+      </div>
+    </div>
+
+    <!-- MEDICACIÓN -->
+    <div class="page" id="page-medicacion">
+      <h2>💊 Módulo de Medicación</h2>
+      <p>Registra la administración de medicamentos a los animales. Cada registro se vincula al historial de atención veterinaria del animal, permitiendo hacer seguimiento completo a los tratamientos farmacológicos: qué medicamento se aplicó, en qué dosis, por qué vía y durante cuánto tiempo.</p>
+
+      <div class="photo-box" id="pb-medicacion-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-medicacion-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 15 – Listado de medicaciones</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Animal</td><td>Animal que recibió el medicamento.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Veterinario</td><td>Usuario responsable de administrar el medicamento.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Medicamento</td><td>Medicamento administrado. Se selecciona del catálogo de Medicamentos.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Dosis</td><td>Cantidad administrada del medicamento (en mg, ml u otras unidades).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Vía de administración</td><td>Forma de aplicación: oral, inyectable intramuscular, subcutánea, tópica, etc.</td><td class="req-no">— No</td></tr>
+        <tr><td>Fecha inicio</td><td>Fecha en que comenzó el tratamiento.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Fecha fin</td><td>Fecha estimada o real en que termina el tratamiento.</td><td class="req-no">— No</td></tr>
+        <tr><td>Observaciones</td><td>Respuesta del animal al tratamiento, efectos secundarios u otras notas.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('atencion',document.querySelector('[onclick*=atencion]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Atención Veterinaria</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('medicamentos',document.querySelector('[onclick*=medicamentos]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Medicamentos</div></div></a>
+      </div>
+    </div>
+
+    <!-- MEDICAMENTOS -->
+    <div class="page" id="page-medicamentos">
+      <h2>🏥 Módulo de Medicamentos</h2>
+      <p>Catálogo de medicamentos disponibles en la granja. Al igual que el catálogo de vacunas y alimentos, los medicamentos deben estar registrados aquí antes de poder seleccionarlos al registrar una medicación. Este catálogo lo gestiona el Administrador junto con el veterinario.</p>
+
+      <div class="photo-box" id="pb-medicamentos-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-medicamentos-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 16 – Catálogo de medicamentos</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Nombre</td><td>Nombre comercial o genérico del medicamento.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Laboratorio</td><td>Empresa o laboratorio fabricante.</td><td class="req-no">— No</td></tr>
+        <tr><td>Principio activo</td><td>Componente farmacológico activo principal del medicamento.</td><td class="req-no">— No</td></tr>
+        <tr><td>Descripción</td><td>Indicaciones de uso, contraindicaciones u otras características relevantes.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('medicacion',document.querySelector('[onclick*=medicacion]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Medicación</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('nacimientos',document.querySelector('[onclick*=nacimientos]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Nacimientos</div></div></a>
+      </div>
+    </div>
+
+    <!-- NACIMIENTOS -->
+    <div class="page" id="page-nacimientos">
+      <h2>🐣 Módulo de Nacimientos</h2>
+      <p>Registra los eventos de nacimiento de animales en la granja. Cada nacimiento queda vinculado al animal recién nacido (que debe haber sido registrado previamente en el módulo de Animales) y a sus progenitores, permitiendo construir el árbol genealógico del hato.</p>
+
+      <div class="photo-box" id="pb-nacimientos-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-nacimientos-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 17 – Listado de nacimientos</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Animal (cría)</td><td>Animal recién nacido. Debe estar previamente registrado en el módulo de Animales.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Madre</td><td>Animal hembra que dio a luz. Debe existir en el sistema.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Padre</td><td>Animal macho progenitor, si se conoce.</td><td class="req-no">— No</td></tr>
+        <tr><td>Fecha de nacimiento</td><td>Fecha en que ocurrió el nacimiento.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Peso al nacer</td><td>Peso de la cría en kilogramos en el momento del nacimiento.</td><td class="req-no">— No</td></tr>
+        <tr><td>Estado al nacer</td><td>Condición de la cría al nacer: saludable, con complicaciones, etc.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Observaciones</td><td>Notas adicionales sobre el nacimiento.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Orden de registro</strong> Antes de registrar un nacimiento, crea primero el registro del animal recién nacido en el módulo de Animales. Luego regresa aquí y vincula ese animal como la cría del nacimiento.</div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('medicamentos',document.querySelector('[onclick*=medicamentos]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Medicamentos</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('partos',document.querySelector('[onclick*=partos]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Partos</div></div></a>
+      </div>
+    </div>
+
+    <!-- PARTOS -->
+    <div class="page" id="page-partos">
+      <h2>🤱 Módulo de Partos</h2>
+      <p>Registra los eventos de parto de los animales hembra. A diferencia del módulo de Nacimientos (que se enfoca en la cría), este módulo se enfoca en la madre: permite documentar cómo fue el parto, cuántas crías nacieron, qué tipo de parto fue y si hubo complicaciones. Es fundamental para el seguimiento reproductivo y el control de la natalidad en la granja.</p>
+
+      <div class="photo-box" id="pb-partos-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-partos-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 18 – Listado de partos</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Madre</td><td>Animal hembra que tuvo el parto.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Veterinario</td><td>Usuario responsable o que atendió y supervisó el parto.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Fecha del parto</td><td>Fecha en que ocurrió el parto.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>N.° de crías</td><td>Número total de crías nacidas en el parto.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Tipo de parto</td><td>Clasificación: natural, asistido, por cesárea, etc.</td><td class="req-no">— No</td></tr>
+        <tr><td>Complicaciones</td><td>Descripción de complicaciones presentadas durante el parto, si las hubo.</td><td class="req-no">— No</td></tr>
+        <tr><td>Observaciones</td><td>Notas adicionales sobre el evento reproductivo.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('nacimientos',document.querySelector('[onclick*=nacimientos]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Nacimientos</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('razas',document.querySelector('[onclick*=razas]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Razas y Especies</div></div></a>
+      </div>
+    </div>
+
+    <!-- RAZAS Y ESPECIES -->
+    <div class="page" id="page-razas">
+      <h2>📋 Módulo de Razas y Especies</h2>
+      <p>Contiene dos catálogos de referencia que son utilizados en el módulo de Animales: las <strong>razas</strong> y las <strong>especies</strong>. Solo el Administrador puede agregar, editar o eliminar entradas en estos catálogos. Es importante tener completos estos catálogos antes de comenzar a registrar animales.</p>
+
+      <h3>Razas</h3>
+      <p>Una raza pertenece a una especie. Por ejemplo: la raza "Holstein" pertenece a la especie "Bovino". Al registrar una raza debes indicar a qué especie corresponde.</p>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Nombre</td><td>Nombre de la raza (ej: Holstein, Brahman, Landrace, Duroc).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Especie</td><td>Especie a la que pertenece la raza. Debe estar registrada previamente.</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Descripción</td><td>Características generales de la raza (producción, tamaño, temperamento, etc.).</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-razas-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-razas-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 19 – Catálogo de razas</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <h3>Especies</h3>
+      <p>Las especies son las categorías más generales de clasificación animal (ej: Bovino, Porcino, Ovino, Equino). Deben registrarse antes de crear las razas.</p>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Nombre</td><td>Nombre de la especie (ej: Bovino, Porcino, Ovino, Caprino).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Descripción</td><td>Características generales de la especie.</td><td class="req-no">— No</td></tr>
+      </table>
+
+      <div class="photo-box" id="pb-especies-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-especies-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 20 – Catálogo de especies</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('partos',document.querySelector('[onclick*=partos]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Partos</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('documentos',document.querySelector('[onclick*=documentos]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Tipos de Documento</div></div></a>
+      </div>
+    </div>
+
+    <!-- TIPOS DOCUMENTO -->
+    <div class="page" id="page-documentos">
+      <h2>🪪 Módulo de Tipos de Documento</h2>
+      <p>Este catálogo define los tipos de documento de identidad que pueden asignarse a los usuarios del sistema. Por ejemplo: Cédula de Ciudadanía (CC), Tarjeta de Identidad (TI), Cédula de Extranjería (CE), entre otros. Al crear un usuario, se selecciona su tipo de documento de este catálogo.</p>
+
+      <table class="fields-table">
+        <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+        <tr><td>Siglas</td><td>Abreviatura del tipo de documento (ej: CC, TI, CE, PA).</td><td class="req-yes">✔ Sí</td></tr>
+        <tr><td>Nombre</td><td>Nombre completo del tipo de documento (ej: Cédula de Ciudadanía).</td><td class="req-yes">✔ Sí</td></tr>
+      </table>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Acceso restringido</strong> Solo el Administrador puede agregar o modificar los tipos de documento. Si necesitas un tipo de documento que no aparece en la lista al crear un usuario, comunícate con el Administrador.</div>
+      </div>
+
+      <div class="photo-box" id="pb-documentos-lista">
+        <input type="file" accept="image/*" onchange="loadImage(this,'pb-documentos-lista')">
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <div class="ph-label">Figura 21 – Catálogo de tipos de documento</div>
+          <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+        </div>
+      </div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('razas',document.querySelector('[onclick*=razas]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Razas y Especies</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('faq',document.querySelector('[onclick*=faq]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Preguntas frecuentes</div></div></a>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="page" id="page-faq">
+      <h2>❓ Preguntas Frecuentes</h2>
+      <p>Respuestas a las dudas más comunes al usar Granja Amiga.</p>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Qué hago si olvidé mi contraseña? <span class="arrow">⌄</span></div><div class="faq-a">Actualmente el sistema no cuenta con recuperación automática de contraseña por correo electrónico. Debes contactar al <strong>Administrador</strong> del sistema para que restablezca tu contraseña. Una vez restablecida, podrás ingresar con la nueva clave y se recomienda elegir una que solo tú conozcas.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Puedo acceder desde el celular? <span class="arrow">⌄</span></div><div class="faq-a">Sí, el sistema es compatible con navegadores móviles como Chrome para Android o Safari para iOS. Sin embargo, dado que el sistema maneja tablas y formularios con varios campos, la experiencia de uso es mucho mejor en un computador de escritorio o portátil.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si elimino un animal que tiene historial? <span class="arrow">⌄</span></div><div class="faq-a">Se perderá todo el historial asociado: alimentaciones, vacunaciones, atenciones veterinarias, medicaciones, partos y nacimientos. <strong>Se recomienda NO eliminar animales con historial activo.</strong> En su lugar, cambia el estado del animal a <strong>"Vendido"</strong> o <strong>"Fallecido"</strong> para conservar el historial completo y mantener la trazabilidad.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Por qué no puedo ver ciertos módulos? <span class="arrow">⌄</span></div><div class="faq-a">El acceso a los módulos depende del <strong>rol asignado</strong> a tu usuario. Cada rol tiene permisos específicos: por ejemplo, el Alimentador no tiene acceso a los módulos veterinarios. Si necesitas acceder a un módulo adicional para realizar tu trabajo, comunícate con el Administrador para que revise y ajuste tus permisos.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Los datos se guardan automáticamente? <span class="arrow">⌄</span></div><div class="faq-a">No. Cada formulario debe ser enviado manualmente haciendo clic en el botón <strong>"Guardar"</strong> o <strong>"Guardar Cambios"</strong>. Si cierras el navegador, cambias de pestaña o navegas a otra sección sin guardar, perderás toda la información que habías ingresado en ese formulario.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Cómo cambio entre modo claro y modo oscuro? <span class="arrow">⌄</span></div><div class="faq-a">Usa el botón de cambio de tema (ícono de luna 🌙 o sol ☀️) ubicado en la barra de navegación superior derecha. El cambio es inmediato y aplica a toda la interfaz del sistema.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Qué significan los campos marcados con ✔ Sí? <span class="arrow">⌄</span></div><div class="faq-a">Son campos <strong>obligatorios</strong>. El sistema no permitirá guardar el registro si alguno de estos campos está vacío, y mostrará un mensaje de error indicando cuál campo falta completar.</div></div>
+
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Qué debo registrar primero para empezar a usar el sistema? <span class="arrow">⌄</span></div><div class="faq-a">Te recomendamos este orden: <strong>1)</strong> Configura los catálogos base: Tipos de Documento, Especies, Razas, Alimentos, Vacunas y Medicamentos. <strong>2)</strong> Crea los usuarios del sistema con sus respectivos roles. <strong>3)</strong> Registra los animales de la granja. <strong>4)</strong> A partir de ahí ya puedes registrar alimentaciones, vacunaciones, atenciones veterinarias y demás módulos operativos.</div></div>
+
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('documentos',document.querySelector('[onclick*=documentos]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Tipos de Documento</div></div></a>
+        <a class="pnav-btn next" onclick="showPage('glosario',document.querySelector('[onclick*=glosario]'))"><span>→</span><div><div style="font-size:11px;color:var(--text-light)">Siguiente</div><div class="pnav-label">Glosario</div></div></a>
+      </div>
+    </div>
+
+    <!-- GLOSARIO -->
+    <div class="page" id="page-glosario">
+      <h2>📖 Glosario</h2>
+      <p>Definición de los términos técnicos utilizados en este manual y en el sistema.</p>
+      <div class="gloss-grid">
+        <div class="gloss-item"><div class="gloss-term">Administrador</div><div class="gloss-def">Rol con acceso completo al sistema, incluyendo la gestión de usuarios, catálogos y configuración general.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Catálogo</div><div class="gloss-def">Listado de valores de referencia (razas, alimentos, vacunas, medicamentos) que se usan como opciones en los formularios de otros módulos.</div></div>
+        <div class="gloss-item"><div class="gloss-term">CRUD</div><div class="gloss-def">Acrónimo de las operaciones básicas sobre registros: Crear, Leer (consultar), Actualizar y Eliminar.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Hato</div><div class="gloss-def">Conjunto de animales bovinos que pertenecen a una misma explotación ganadera.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Módulo</div><div class="gloss-def">Sección del sistema que agrupa funcionalidades relacionadas a un tema específico (ej: Módulo de Animales, Módulo de Vacunación).</div></div>
+        <div class="gloss-item"><div class="gloss-term">Registro</div><div class="gloss-def">Fila de información almacenada en el sistema. Por ejemplo: un animal, una vacunación o un parto son registros individuales.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Rol / Cargo</div><div class="gloss-def">Nivel de acceso asignado a un usuario que determina qué módulos puede ver y qué acciones puede realizar en el sistema.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Sesión</div><div class="gloss-def">Período activo de uso del sistema que comienza cuando el usuario inicia sesión y termina cuando la cierra o cuando expira por inactividad.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Trazabilidad</div><div class="gloss-def">Capacidad de conocer y seguir el historial completo de un animal a lo largo del tiempo: su alimentación, salud, reproducción y estado actual.</div></div>
+        <div class="gloss-item"><div class="gloss-term">URL</div><div class="gloss-def">Dirección web donde está alojado el sistema. Se ingresa en la barra de direcciones del navegador para acceder a Granja Amiga (ej: http://servidor/granjaamiga).</div></div>
+      </div>
+      <div class="page-nav">
+        <a class="pnav-btn" onclick="showPage('faq',document.querySelector('[onclick*=faq]'))"><span>←</span><div><div style="font-size:11px;color:var(--text-light)">Anterior</div><div class="pnav-label">Preguntas frecuentes</div></div></a>
+        <span></span>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+function showPage(id, navEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('breadcrumb-current').textContent = navEl ? navEl.textContent.trim() : id;
+  window.scrollTo({top:0, behavior:'smooth'});
+  if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+/* ── Carga funcional de imágenes en photo-box (con localStorage) ── */
+function renderImage(box, boxId, dataUrl, fileName) {
+  box.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = dataUrl;
+  img.className = 'preview';
+  box.appendChild(img);
+  const controls = document.createElement('div');
+  controls.className = 'img-controls';
+  controls.innerHTML = `<span>📎 ${fileName}</span>
+    <button class="img-remove" onclick="removeImage('${boxId}', event)">✕ Quitar imagen</button>`;
+  box.appendChild(controls);
+  box.style.cursor = 'default';
+  box.style.borderStyle = 'solid';
+  box.style.borderColor = 'var(--green-500)';
+}
+
+function loadImage(input, boxId) {
+  const box = document.getElementById(boxId);
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      localStorage.setItem('manual_img_' + boxId, JSON.stringify({ data: e.target.result, name: file.name }));
+    } catch(err) { /* localStorage lleno, continúa sin guardar */ }
+    renderImage(box, boxId, e.target.result, file.name);
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage(boxId, e) {
+  e.stopPropagation();
+  localStorage.removeItem('manual_img_' + boxId);
+  const box = document.getElementById(boxId);
+  const figLabel = box.getAttribute('data-label') || 'Figura';
+  box.style.cursor = 'pointer';
+  box.style.borderStyle = 'dashed';
+  box.style.borderColor = 'var(--green-300)';
+  box.innerHTML = `
+    <input type="file" accept="image/*" onchange="loadImage(this,'${boxId}')">
+    <div class="photo-placeholder">
+      <span class="ph-icon">📷</span>
+      <div class="ph-label">${figLabel}</div>
+      <div class="ph-hint">Haz clic aquí para insertar una captura de pantalla</div>
+    </div>`;
+}
+
+// Guardar data-label y restaurar imágenes guardadas al cargar
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.photo-box').forEach(box => {
+    const label = box.querySelector('.ph-label');
+    if (label) box.setAttribute('data-label', label.textContent);
+    const saved = localStorage.getItem('manual_img_' + box.id);
+    if (saved) {
+      try {
+        const { data, name } = JSON.parse(saved);
+        renderImage(box, box.id, data, name);
+      } catch(e) { localStorage.removeItem('manual_img_' + box.id); }
+    }
+  });
+});
+</script>
+</body>
+</html>
