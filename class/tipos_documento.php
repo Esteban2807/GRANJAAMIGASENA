@@ -46,14 +46,14 @@ class Tipos_documento extends basedatos{
     }
 
     public function insertar(){
-        $sql = sprintf("INSERT INTO tipos_documento (nombre, siglas, estado) VALUES ('%s', '%s', '%s')", $this->nombre, $this->siglas, $this->estado);
+        $sql = sprintf("CALL crearTipoDocumento ('%s', '%s', '%s')", $this->nombre, $this->siglas, $this->estado);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
 
     public function listar(){
-        $sql = "SELECT * FROM tipos_documento";
+        $sql = "SELECT * FROM listarTiposDocumento";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -62,7 +62,7 @@ class Tipos_documento extends basedatos{
     }
 
     public function consultar(){
-        $sql = sprintf("SELECT * FROM tipos_documento WHERE id = %s", $this->id);
+        $sql = sprintf("CALL listarTipoDocumento (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
@@ -73,21 +73,21 @@ class Tipos_documento extends basedatos{
     }
 
     public function eliminar(){
-        $sql = sprintf("DELETE FROM tipos_documento WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarTipoDocumento (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
 
     public function actualizar(){
-        $sql = sprintf("UPDATE tipos_documento SET nombre = '%s', siglas = '%s', estado = '%s' WHERE id = %s", $this->nombre, $this->siglas, $this->estado, $this->id);
+        $sql = sprintf("CALL actualizarTipoDocumento (%s, '%s', '%s', '%s')", $this->id, $this->nombre, $this->siglas, $this->estado);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
 
     public function buscar($valor){
-        $sql = sprintf("SELECT * FROM tipos_documento WHERE nombre LIKE '%%%s%%'", $valor);
+        $sql = sprintf("CALL consultarTiposDocumento ('%s')", $valor);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

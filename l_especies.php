@@ -5,8 +5,8 @@ include_once 'class/especies.php';
 $especies = new Especies();
 $especiesData = $especies->listar();
 /* ¿Viene búsqueda? */
-if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
-    $res = $especies->buscar($_GET['buscar']);
+if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
+    $res = $especies->buscar($_POST['buscar']);
 } else {
     $res = $especies->listar();
 }
@@ -40,16 +40,16 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 <h1 class="card-title">
                     <i class="fas fa-id-card"></i> Especies
                 </h1>
-                <a href="especies/nuevo" class="btn-create">
+                <a href="cr_especie.php" class="btn-create">
                     <i class="fas fa-plus-circle"></i> Crear Nuevo
                 </a>
             </div>
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="especies" method="GET">
+                    <form class="search-form" action="l_especies.php" method="POST">
                         <input type="text" name="buscar" placeholder="Buscar por nombre."
-                            value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                            value="<?php echo isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
                         </button>

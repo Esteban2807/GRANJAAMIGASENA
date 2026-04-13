@@ -195,3 +195,362 @@ CREATE TABLE IF NOT EXISTS atenciones_veterinarias (
     FOREIGN KEY (documento_veterinario) REFERENCES usuarios(documento),
     FOREIGN KEY (medicamento_id) REFERENCES medicamentos(id)
 ) ENGINE=InnoDB;
+
+
+---------------------------------
+----PROCEDIMIENTOS Y VISTAS
+---------------------------------
+
+---------------
+----ANIMALES
+---------------
+
+
+-- Vista listar animales
+
+CREATE VIEW listarAnimales AS
+SELECT a.id, a.chapeta, a.nombre, a.sexo, a.fecha_nacimiento,
+                e.nombre AS especie, r.nombre AS raza,
+                a.id_padre, a.id_madre, a.observaciones
+                FROM animales AS a
+                INNER JOIN especies AS e ON a.id_especie = e.id
+                INNER JOIN razas AS r ON a.id_raza = r.id
+                ORDER BY a.nombre ASC;
+
+
+-- Procedimiento crear animal
+
+DELIMITER //
+
+CREATE PROCEDURE crearAnimal (
+    IN p_chapeta VARCHAR(20),
+    IN p_nombre VARCHAR(100),
+    IN p_sexo VARCHAR(10),
+    IN p_fecha_nacimiento DATE,
+    IN p_id_especie INT,
+    IN p_id_raza INT,
+    IN p_id_padre INT,
+    IN p_id_madre INT,
+    IN p_observaciones TEXT
+)
+BEGIN
+    -- Lógica del procedimiento
+    INSERT INTO animales (chapeta, nombre, sexo, fecha_nacimiento, id_especie, id_raza, id_padre, id_madre, observaciones) VALUES (p_chapeta, p_nombre, p_sexo, p_fecha_nacimiento, p_id_especie, p_id_raza, p_id_padre, p_id_madre, p_observaciones);
+
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar animal
+DELIMITER //
+
+CREATE PROCEDURE actualizarAnimal (
+    IN p_chapeta VARCHAR(20),
+    IN p_nombre VARCHAR(100),
+    IN p_sexo VARCHAR(10),
+    IN p_fecha_nacimiento DATE,
+    IN p_id_especie INT,
+    IN p_id_raza INT,
+    IN p_id_padre INT,
+    IN p_id_madre INT,
+    IN p_observaciones TEXT,
+    IN p_id INT
+)
+BEGIN
+    UPDATE animales SET 
+        chapeta = p_chapeta,
+        nombre = p_nombre,
+        sexo = p_sexo,
+        fecha_nacimiento = p_fecha_nacimiento,
+        id_especie = p_id_especie,
+        id_raza = p_id_raza,
+        id_padre = p_id_padre,
+        id_madre = p_id_madre,
+        observaciones = p_observaciones
+    WHERE 
+        id = p_id;
+
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar animal
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarAnimal (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM animales
+    WHERE 
+        id = p_id;
+
+END //
+
+DELIMITER ;
+
+-- Procedimiento listar animal
+DELIMITER //
+
+CREATE PROCEDURE listarAnimal (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM animales WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar animales 
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAnimales (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM animales WHERE nombre LIKE CONCAT('%', p_consulta, '%') OR chapeta LIKE CONCAT('%', p_consulta, '%') ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
+
+---------------------------
+----  TIPOS DE DOCUMENTO
+---------------------------
+
+-- Vista listar tipos de documento
+
+CREATE VIEW listarTiposDocumento AS
+SELECT * FROM tipos_documento;
+
+-- Procedimiento crear tipo de documento
+DELIMITER // 
+
+CREATE PROCEDURE crearTipoDocumento (
+    IN p_nombre VARCHAR(50),
+    IN p_siglas VARCHAR(10),
+    IN p_estado VARCHAR(20)
+)
+BEGIN
+    -- Lógica del procedimiento
+    INSERT INTO tipos_documento (nombre, siglas, estado) VALUES (p_nombre, p_siglas, p_estado);
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar tipo de documento
+DELIMITER // 
+
+CREATE PROCEDURE actualizarTipoDocumento (
+    IN p_id INT,
+    IN p_nombre VARCHAR(50),
+    IN p_siglas VARCHAR(10),
+    IN p_estado VARCHAR(20)
+)
+BEGIN
+    -- Lógica del procedimiento
+    UPDATE tipos_documento SET 
+        nombre = p_nombre,
+        siglas = p_siglas,
+        estado = p_estado
+    WHERE 
+        id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar tipo de documento
+DELIMITER // 
+
+CREATE PROCEDURE eliminarTipoDocumento (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM tipos_documento
+    WHERE 
+        id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento listar tipo de documento
+DELIMITER // 
+
+CREATE PROCEDURE listarTipoDocumento (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM tipos_documento WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar tipos de documento
+
+DELIMITER // 
+
+CREATE PROCEDURE consultarTiposDocumento (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM tipos_documento WHERE nombre LIKE CONCAT('%', p_consulta, '%') OR siglas LIKE CONCAT('%', p_consulta, '%') ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
+
+
+----------------------
+---- CARGOS
+----------------------
+
+-- Vista listar cargos
+
+CREATE VIEW listarCargos AS
+SELECT * FROM cargos ORDER BY id ASC;
+
+-- Procedimiento crear
+
+DELIMITER //
+
+CREATE PROCEDURE crearCargo (
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    -- Lógica del procedimiento
+    INSERT INTO cargos (nombre) VALUES (p_nombre);
+END //
+
+DELIMITER ;
+
+-- Procedimiento para actualizar
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarCargo (
+    IN p_id INT,
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    -- Lógica del procedimiento
+    UPDATE cargos SET nombre = p_nombre WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento para eliminar
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarCargo (
+    IN p_id INT
+)
+BEGIN
+    -- Lógica del procedimiento
+    DELETE FROM cargos WHERE id = p_id;
+END //
+
+-- Procedimiento para consultar uno
+
+DELIMITER //
+
+CREATE PROCEDURE consultarCargo (
+    IN p_id INT
+)
+BEGIN
+    -- Lógica del procedimiento
+    SELECT * FROM cargos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento para consultar varios
+
+DELIMITER //
+
+CREATE PROCEDURE consultarCargos (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    -- Lógica del procedimiento
+    SELECT * FROM cargos WHERE nombre LIKE CONCAT('%', p_consulta, '%') ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
+
+----------------------
+---- ESPECIES
+----------------------
+
+-- Vista listar especies
+
+CREATE VIEW listarEspecies AS
+SELECT * FROM especies ORDER BY nombre ASC;
+
+-- Procedimiento crear especie
+
+DELIMITER //
+
+CREATE PROCEDURE crearEspecie (
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    -- Lógica del procedimiento
+    INSERT INTO especies (nombre) VALUES (p_nombre);
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar especie
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarEspecie (
+    IN p_id INT,
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    -- Lógica del procedimiento
+    UPDATE especies SET nombre = p_nombre WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar especie
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarEspecie (
+    IN p_id INT
+)
+BEGIN
+    -- Lógica del procedimiento
+    DELETE FROM especies WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar especie por id
+DELIMITER //
+
+CREATE PROCEDURE consultarEspecie (
+    IN p_id INT
+)
+BEGIN
+    -- Lógica del procedimiento
+    SELECT * FROM especies WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar especies por nombre
+DELIMITER //
+
+CREATE PROCEDURE consultarEspecies (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM especies WHERE nombre LIKE CONCAT('%', p_consulta, '%') ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
