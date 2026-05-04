@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS animales (
     id  INT AUTO_INCREMENT PRIMARY KEY,
     chapeta VARCHAR(10) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
-    fecha_de_nacimiento DATE NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
     sexo ENUM('Macho', 'Hembra') NOT NULL, -- Uso de ENUM
     id_especie INT NOT NULL,
     id_raza INT NOT NULL,
@@ -551,6 +551,281 @@ CREATE PROCEDURE consultarEspecies (
 )
 BEGIN
     SELECT * FROM especies WHERE nombre LIKE CONCAT('%', p_consulta, '%') ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
+
+-----------------------------------------
+-- Procedimientos y vistar para ALIMENTOS
+-----------------------------------------
+
+CREATE VIEW listarAlimentos AS
+SELECT * FROM alimentos ORDER BY nombre ASC;
+
+-- CREAR
+DELIMITER //
+
+CREATE PROCEDURE crearAlimento (
+    IN p_nombre VARCHAR(100),
+    IN p_tipo VARCHAR(50),
+    IN p_marca VARCHAR(255),
+    IN p_stock DECIMAL(10,2),
+    IN p_unidad VARCHAR(20),
+    IN p_fecha DATE
+)
+BEGIN
+    INSERT INTO alimentos (nombre, tipo, marca_proveedor, stock_actual, unidad_medida, fecha_vencimiento)
+    VALUES (p_nombre, p_tipo, p_marca, p_stock, p_unidad, p_fecha);
+END //
+
+DELIMITER ;
+
+
+-- ACTUALIZAR 
+DELIMITER //
+
+CREATE PROCEDURE actualizarAlimento (
+    IN p_id INT,
+    IN p_nombre VARCHAR(100),
+    IN p_tipo VARCHAR(50),
+    IN p_marca VARCHAR(255),
+    IN p_stock DECIMAL(10,2),
+    IN p_unidad VARCHAR(20),
+    IN p_fecha DATE
+)
+BEGIN
+    UPDATE alimentos SET
+        nombre = p_nombre,
+        tipo = p_tipo,
+        marca_proveedor = p_marca,
+        stock_actual = p_stock,
+        unidad_medida = p_unidad,
+        fecha_vencimiento = p_fecha
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- ELIMINAR
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarAlimento (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM alimentos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- CONSULTAR UNO
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAlimento (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM alimentos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- CONSULTAR VARIOS 
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAlimentos (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM alimentos
+    WHERE nombre LIKE CONCAT('%', p_consulta, '%')
+    ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
+
+-- --------------------------
+-- MEDICAMENTOS
+-- ---------------------------
+
+CREATE VIEW listarMedicamentos AS
+SELECT * FROM medicamentos ORDER BY nombre ASC;
+
+-- CREAR
+
+DELIMITER //
+
+CREATE PROCEDURE crearMedicamento (
+    IN p_nombre VARCHAR(100),
+    IN p_tipo VARCHAR(50),
+    IN p_marca VARCHAR(255),
+    IN p_stock DECIMAL(10,2),
+    IN p_unidad VARCHAR(20),
+    IN p_fecha DATE
+)
+BEGIN
+    INSERT INTO medicamentos (nombre, tipo, marca_proveedor, stock_actual, unidad_medida, fecha_vencimiento)
+    VALUES (p_nombre, p_tipo, p_marca, p_stock, p_unidad, p_fecha);
+END //
+
+DELIMITER ;
+
+-- ACTUALIZAR
+ 
+ DELIMITER //
+
+CREATE PROCEDURE actualizarMedicamento (
+    IN p_id INT,
+    IN p_nombre VARCHAR(100),
+    IN p_tipo VARCHAR(50),
+    IN p_marca VARCHAR(255),
+    IN p_stock DECIMAL(10,2),
+    IN p_unidad VARCHAR(20),
+    IN p_fecha DATE
+)
+BEGIN
+    UPDATE medicamentos SET
+        nombre = p_nombre,
+        tipo = p_tipo,
+        marca_proveedor = p_marca,
+        stock_actual = p_stock,
+        unidad_medida = p_unidad,
+        fecha_vencimiento = p_fecha
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- ELIMINAR 
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarMedicamento (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM medicamentos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- CONSULTAR UNO 
+
+DELIMITER //
+
+CREATE PROCEDURE consultarMedicamento (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM medicamentos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- CONSULTAR VARIOS
+
+DELIMITER //
+
+CREATE PROCEDURE consultarMedicamentos (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM medicamentos
+    WHERE nombre LIKE CONCAT('%', p_consulta, '%')
+    ORDER BY nombre ASC;
+END //
+
+DELIMITER ;
+
+-- ---------------------------------
+-- VACUNAS -------------------------
+-- ---------------------------------
+
+CREATE VIEW listarVacunas AS
+SELECT * FROM vacunas ORDER BY nombre ASC;
+
+-- CREAR
+
+DELIMITER //
+
+CREATE PROCEDURE crearVacuna (
+    IN p_nombre VARCHAR(100),
+    IN p_marca VARCHAR(255),
+    IN p_stock DECIMAL(10,2),
+    IN p_unidad VARCHAR(20),
+    IN p_fecha DATE
+)
+BEGIN
+    INSERT INTO vacunas (nombre, marca_proveedor, stock_actual, unidad_medida, fecha_vencimiento)
+    VALUES (p_nombre, p_marca, p_stock, p_unidad, p_fecha);
+END //
+
+DELIMITER ;
+
+-- ACTUALIZAR
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarVacuna (
+    IN p_id INT,
+    IN p_nombre VARCHAR(100),
+    IN p_marca VARCHAR(255),
+    IN p_stock DECIMAL(10,2),
+    IN p_unidad VARCHAR(20),
+    IN p_fecha DATE
+)
+BEGIN
+    UPDATE vacunas SET
+        nombre = p_nombre,
+        marca_proveedor = p_marca,
+        stock_actual = p_stock,
+        unidad_medida = p_unidad,
+        fecha_vencimiento = p_fecha
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- ELIMINAR
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarVacuna (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM vacunas WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- CONSULTAR UNO
+
+DELIMITER //
+
+CREATE PROCEDURE consultarVacuna (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM vacunas WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- CONSULTAR VARIOS
+
+DELIMITER //
+
+CREATE PROCEDURE consultarVacunas (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM vacunas
+    WHERE nombre LIKE CONCAT('%', p_consulta, '%')
+    ORDER BY nombre ASC;
 END //
 
 DELIMITER ;

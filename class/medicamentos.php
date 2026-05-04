@@ -1,5 +1,6 @@
 <?php
 include_once 'basedatos.php';
+
 class medicamentos extends basedatos
 {
     public $id;
@@ -22,6 +23,9 @@ class medicamentos extends basedatos
         $this->fecha_vencimiento = $fecha_vencimiento;
     }
 
+    // ======================
+    // GETTERS Y SETTERS
+    // ======================
     public function setId($id) { $this->id = $id; }
     public function setNombre($nombre) { $this->nombre = $nombre; }
     public function setTipo($tipo) { $this->tipo = $tipo; }
@@ -38,76 +42,106 @@ class medicamentos extends basedatos
     public function getUnidadMedida() { return $this->unidad_medida; }
     public function getFechaVencimiento() { return $this->fecha_vencimiento; }
 
+    // ======================
+    // LISTAR (vista)
+    // ======================
     public function listar()
     {
-        $sql = "SELECT * FROM medicamentos ORDER BY id";
+        $sql = "SELECT * FROM listarMedicamentos";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
         $this->desconectar();
         return $res;
     }
+
+    // ======================
+    // INSERTAR (SP)
+    // ======================
     public function insertar()
     {
-        $sql = sprintf(
-            "INSERT INTO medicamentos (nombre,tipo,marca_proveedor,stock_actual,unidad_medida,fecha_vencimiento) VALUES ('%s','%s','%s','%s','%s','%s')",
-            $this->nombre,
-            $this->tipo,
-            $this->marca_proveedor,
-            $this->stock_actual,
-            $this->unidad_medida,
-            $this->fecha_vencimiento
-        );
+        $sql = "CALL crearMedicamento(
+            '{$this->nombre}',
+            '{$this->tipo}',
+            '{$this->marca_proveedor}',
+            '{$this->stock_actual}',
+            '{$this->unidad_medida}',
+            '{$this->fecha_vencimiento}'
+        )";
+
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
-    public function eliminar()
-    {
-        $sql = sprintf("DELETE FROM medicamentos WHERE id = %s", $this->id);
-        $this->conectar();
-        $this->ejecutarSQL($sql);
-        $this->desconectar();
-    }
+
+    // ======================
+    // ACTUALIZAR (SP)
+    // ======================
     public function actualizar()
     {
-        $sql = sprintf(
-            "UPDATE medicamentos SET nombre='%s', tipo='%s', marca_proveedor='%s', stock_actual='%s', unidad_medida='%s', fecha_vencimiento='%s' WHERE id=%s",
-            $this->nombre,
-            $this->tipo,
-            $this->marca_proveedor,
-            $this->stock_actual,
-            $this->unidad_medida,
-            $this->fecha_vencimiento,
-            $this->id
-        );
+        $sql = "CALL actualizarMedicamento(
+            {$this->id},
+            '{$this->nombre}',
+            '{$this->tipo}',
+            '{$this->marca_proveedor}',
+            '{$this->stock_actual}',
+            '{$this->unidad_medida}',
+            '{$this->fecha_vencimiento}'
+        )";
+
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
+
+    // ======================
+    // ELIMINAR (SP)
+    // ======================
+    public function eliminar()
+    {
+        $sql = "CALL eliminarMedicamento({$this->id})";
+        $this->conectar();
+        $this->ejecutarSQL($sql);
+        $this->desconectar();
+    }
+
+    // ======================
+    // CONSULTAR UNO (SP)
+    // ======================
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM medicamentos WHERE id = %s", $this->id);
+        $sql = "CALL consultarMedicamento({$this->id})";
+
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
         $this->desconectar();
-        $this->nombre = $res['nombre'];
-        $this->tipo = $res['tipo'];
-        $this->marca_proveedor = $res['marca_proveedor'];
-        $this->stock_actual = $res['stock_actual'];
-        $this->unidad_medida = $res['unidad_medida'];
-        $this->fecha_vencimiento = $res['fecha_vencimiento'];
+
+        if ($res) {
+            $this->nombre = $res['nombre'];
+            $this->tipo = $res['tipo'];
+            $this->marca_proveedor = $res['marca_proveedor'];
+            $this->stock_actual = $res['stock_actual'];
+            $this->unidad_medida = $res['unidad_medida'];
+            $this->fecha_vencimiento = $res['fecha_vencimiento'];
+        }
     }
+
+    // ======================
+    // BUSCAR (SP)
+    // ======================
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM medicamentos WHERE nombre LIKE '%$this->consulta%' OR tipo LIKE '%$this->consulta%'";
+
+        $sql = "CALL consultarMedicamentos('{$this->consulta}')";
+
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
         $this->desconectar();
+
         return $res;
     }
 }
-?> 
+?>
