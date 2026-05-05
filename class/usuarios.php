@@ -161,7 +161,7 @@ class usuarios extends basedatos
             $this->contrasena,
             $this->id_cargo,
             $this->documento
-        );  
+        );
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -176,7 +176,7 @@ class usuarios extends basedatos
         $this->desconectar();
         return $res;
     }
-    
+
     public static function verificarSesion()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {

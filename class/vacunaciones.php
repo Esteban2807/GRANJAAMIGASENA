@@ -20,19 +20,55 @@ class vacunaciones extends basedatos
         $this->fecha_hora = $fecha_hora;
     }
 
-    public function setId($id) { $this->id = $id; }
-    public function setIdAnimal($id_animal) { $this->id_animal = $id_animal; }
-    public function setDocumentoVeterinario($documento_veterinario) { $this->documento_veterinario = $documento_veterinario; }
-    public function setIdVacuna($id_vacuna) { $this->id_vacuna = $id_vacuna; }
-    public function setCantidadDada($cantidad_dada) { $this->cantidad_dada = $cantidad_dada; }
-    public function setFechaHora($fecha_hora) { $this->fecha_hora = $fecha_hora; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setIdAnimal($id_animal)
+    {
+        $this->id_animal = $id_animal;
+    }
+    public function setDocumentoVeterinario($documento_veterinario)
+    {
+        $this->documento_veterinario = $documento_veterinario;
+    }
+    public function setIdVacuna($id_vacuna)
+    {
+        $this->id_vacuna = $id_vacuna;
+    }
+    public function setCantidadDada($cantidad_dada)
+    {
+        $this->cantidad_dada = $cantidad_dada;
+    }
+    public function setFechaHora($fecha_hora)
+    {
+        $this->fecha_hora = $fecha_hora;
+    }
 
-    public function getId() { return $this->id; }
-    public function getIdAnimal() { return $this->id_animal; }
-    public function getDocumentoVeterinario() { return $this->documento_veterinario; }
-    public function getIdVacuna() { return $this->id_vacuna; }
-    public function getCantidadDada() { return $this->cantidad_dada; }
-    public function getFechaHora() { return $this->fecha_hora; }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getIdAnimal()
+    {
+        return $this->id_animal;
+    }
+    public function getDocumentoVeterinario()
+    {
+        return $this->documento_veterinario;
+    }
+    public function getIdVacuna()
+    {
+        return $this->id_vacuna;
+    }
+    public function getCantidadDada()
+    {
+        return $this->cantidad_dada;
+    }
+    public function getFechaHora()
+    {
+        return $this->fecha_hora;
+    }
 
     public function listar()
     {
@@ -46,7 +82,7 @@ class vacunaciones extends basedatos
     public function insertar()
     {
         $sql = sprintf(
-            "INSERT INTO vacunaciones (id_animal,documento_veterinario,id_vacuna,cantidad_dada,fecha_hora) VALUES ('%s','%s','%s','%s','%s')",
+            "CALL registrarVacunacion('%s','%s','%s','%s','%s')",
             $this->id_animal,
             $this->documento_veterinario,
             $this->id_vacuna,
@@ -59,7 +95,7 @@ class vacunaciones extends basedatos
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM vacunaciones WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarVacunacion(%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -67,13 +103,13 @@ class vacunaciones extends basedatos
     public function actualizar()
     {
         $sql = sprintf(
-            "UPDATE vacunaciones SET id_animal='%s', documento_veterinario='%s', id_vacuna='%s', cantidad_dada='%s', fecha_hora='%s' WHERE id=%s",
+            "CALL actualizarVacunacion(%s,'%s','%s','%s','%s','%s')",
+            $this->id,
             $this->id_animal,
             $this->documento_veterinario,
             $this->id_vacuna,
             $this->cantidad_dada,
-            $this->fecha_hora,
-            $this->id
+            $this->fecha_hora
         );
         $this->conectar();
         $this->ejecutarSQL($sql);
@@ -103,4 +139,4 @@ class vacunaciones extends basedatos
         return $res;
     }
 }
-?> 
+?>

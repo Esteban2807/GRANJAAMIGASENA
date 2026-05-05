@@ -95,4 +95,4 @@ class cargos extends basedatos
         $this->desconectar();
     }
 }
-?> 
+?>

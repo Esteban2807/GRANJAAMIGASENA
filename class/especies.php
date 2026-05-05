@@ -2,7 +2,8 @@
 
 include_once 'basedatos.php';
 
-class especies extends basedatos {
+class especies extends basedatos
+{
     public $id;
     public $nombre;
     public $consulta;
@@ -14,20 +15,24 @@ class especies extends basedatos {
     }
     //Metodos
     //GET
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
     //SET
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id = $id;
     }
-    public function setNombre($nombre){
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
-     public function listar()
+    public function listar()
     {
         $sql = "SELECT * FROM listarEspecies";
         $this->conectar();
@@ -57,7 +62,7 @@ class especies extends basedatos {
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
-     public function consultar()
+    public function consultar()
     {
         $sql = sprintf("CALL consultarEspecie (%s)", $this->id);
         $this->conectar();

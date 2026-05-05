@@ -27,27 +27,87 @@ class animales extends basedatos
         $this->observaciones = $observaciones;
     }
 
-    public function getId() { return $this->id; }
-    public function getChapeta() { return $this->chapeta; }
-    public function getNombre() { return $this->nombre; }
-    public function getSexo() { return $this->sexo; }
-    public function getFechaNacimiento() { return $this->fecha_nacimiento; }
-    public function getIdEspecie() { return $this->id_especie; }
-    public function getIdRaza() { return $this->id_raza; }
-    public function getIdPadre() { return $this->id_padre; }
-    public function getIdMadre() { return $this->id_madre; }
-    public function getObservaciones() { return $this->observaciones; }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getChapeta()
+    {
+        return $this->chapeta;
+    }
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+    public function getSexo()
+    {
+        return $this->sexo;
+    }
+    public function getFechaNacimiento()
+    {
+        return $this->fecha_nacimiento;
+    }
+    public function getIdEspecie()
+    {
+        return $this->id_especie;
+    }
+    public function getIdRaza()
+    {
+        return $this->id_raza;
+    }
+    public function getIdPadre()
+    {
+        return $this->id_padre;
+    }
+    public function getIdMadre()
+    {
+        return $this->id_madre;
+    }
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
 
-    public function setId($id) { $this->id = $id; }
-    public function setChapeta($chapeta) { $this->chapeta = $chapeta; }
-    public function setNombre($nombre) { $this->nombre = $nombre; }
-    public function setSexo($sexo) { $this->sexo = $sexo; }
-    public function setFechaNacimiento($fecha_nacimiento) { $this->fecha_nacimiento = $fecha_nacimiento; }
-    public function setIdEspecie($id_especie) { $this->id_especie = $id_especie; }
-    public function setIdRaza($id_raza) { $this->id_raza = $id_raza; }
-    public function setIdPadre($id_padre) { $this->id_padre = $id_padre; }
-    public function setIdMadre($id_madre) { $this->id_madre = $id_madre; }
-    public function setObservaciones($observaciones) { $this->observaciones = $observaciones; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setChapeta($chapeta)
+    {
+        $this->chapeta = $chapeta;
+    }
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+    public function setSexo($sexo)
+    {
+        $this->sexo = $sexo;
+    }
+    public function setFechaNacimiento($fecha_nacimiento)
+    {
+        $this->fecha_nacimiento = $fecha_nacimiento;
+    }
+    public function setIdEspecie($id_especie)
+    {
+        $this->id_especie = $id_especie;
+    }
+    public function setIdRaza($id_raza)
+    {
+        $this->id_raza = $id_raza;
+    }
+    public function setIdPadre($id_padre)
+    {
+        $this->id_padre = $id_padre;
+    }
+    public function setIdMadre($id_madre)
+    {
+        $this->id_madre = $id_madre;
+    }
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+    }
 
     public function listar()
     {
