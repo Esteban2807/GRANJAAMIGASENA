@@ -38,7 +38,7 @@ class cargos extends basedatos
     }
     public function listar()
     {
-        $sql = "SELECT * FROM cargos ORDER BY id";
+        $sql = "SELECT * FROM listarCargos";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -47,28 +47,28 @@ class cargos extends basedatos
     }
     public function insertar()
     {
-        $sql = sprintf("INSERT INTO cargos (nombre) VALUES ('%s')", $this->nombre);
+        $sql = sprintf("CALL crearCargo ('%s')", $this->nombre);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM cargos WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarCargo (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function actualizar()
     {
-        $sql = sprintf("UPDATE cargos SET nombre = '%s' WHERE id = %s", $this->nombre, $this->id);
+        $sql = sprintf("CALL actualizarCargo (%s, '%s')", $this->id, $this->nombre);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM cargos WHERE id = %s", $this->id);
+        $sql = sprintf("CALL consultarCargo (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
@@ -78,7 +78,7 @@ class cargos extends basedatos
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM cargos WHERE nombre LIKE '%$this->consulta%' OR id LIKE '%$this->consulta%'";
+        $sql = sprintf("CALL consultarCargos ('%s')", $this->consulta);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -95,4 +95,4 @@ class cargos extends basedatos
         $this->desconectar();
     }
 }
-?> 
+?>

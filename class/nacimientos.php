@@ -24,23 +24,71 @@ class nacimientos extends basedatos
         $this->observaciones = $observaciones;
     }
 
-    public function setId($id) { $this->id = $id; }
-    public function setFecha($fecha) { $this->fecha = $fecha; }
-    public function setPartoId($parto_id) { $this->parto_id = $parto_id; }
-    public function setDocumentoUsuario($documento_usuario) { $this->documento_usuario = $documento_usuario; }
-    public function setPesoKg($peso_kg) { $this->peso_kg = $peso_kg; }
-    public function setSexo($sexo) { $this->sexo = $sexo; }
-    public function setVigor($vigor) { $this->vigor = $vigor; }
-    public function setObservaciones($observaciones) { $this->observaciones = $observaciones; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    }
+    public function setPartoId($parto_id)
+    {
+        $this->parto_id = $parto_id;
+    }
+    public function setDocumentoUsuario($documento_usuario)
+    {
+        $this->documento_usuario = $documento_usuario;
+    }
+    public function setPesoKg($peso_kg)
+    {
+        $this->peso_kg = $peso_kg;
+    }
+    public function setSexo($sexo)
+    {
+        $this->sexo = $sexo;
+    }
+    public function setVigor($vigor)
+    {
+        $this->vigor = $vigor;
+    }
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+    }
 
-    public function getId() { return $this->id; }
-    public function getFecha() { return $this->fecha; }
-    public function getPartoId() { return $this->parto_id; }
-    public function getDocumentoUsuario() { return $this->documento_usuario; }
-    public function getPesoKg() { return $this->peso_kg; }
-    public function getSexo() { return $this->sexo; }
-    public function getVigor() { return $this->vigor; }
-    public function getObservaciones() { return $this->observaciones; }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+    public function getPartoId()
+    {
+        return $this->parto_id;
+    }
+    public function getDocumentoUsuario()
+    {
+        return $this->documento_usuario;
+    }
+    public function getPesoKg()
+    {
+        return $this->peso_kg;
+    }
+    public function getSexo()
+    {
+        return $this->sexo;
+    }
+    public function getVigor()
+    {
+        return $this->vigor;
+    }
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
 
     public function listar()
     {
@@ -117,4 +165,4 @@ class nacimientos extends basedatos
         return $res;
     }
 }
-?> 
+?>

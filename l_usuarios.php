@@ -119,7 +119,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                     </table>
                 <?php endif; ?>
 
-                <form action="inicio" method="get" class="text-center">
+                <form action="index.php" method="get" class="text-center">
                     <button type="submit" class="btn-action btn-mt">
                         <i class="fas fa-arrow-left"></i> Volver
                     </button>

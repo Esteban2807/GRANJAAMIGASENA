@@ -80,7 +80,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['siglas']); ?></td>
                                     <td><?php echo $registro['estado'] ? 'Activo' : 'Inactivo'; ?></td>
                                     <td>
-                                        <form action="tipos-documento/actualizar" method="POST" class="form-inline">
+                                        <form action="ac_tipos_documento.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id"
                                                 value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit">
@@ -111,7 +111,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     </table>
                 <?php endif; ?>
 
-                <form action="inicio" method="get" class="text-center">
+                <form action="index.php" method="get" class="text-center">
                     <button type="submit" class="btn-action btn-mt">
                         <i class="fas fa-arrow-left"></i> Volver
                     </button>

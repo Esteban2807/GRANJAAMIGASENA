@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: ../../l_usuarios.php");
     exit;
 } else {
-    header("Location: ../../inicio");
+    header("Location: ../../index.php");
     exit;
 }
 ?>
