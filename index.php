@@ -185,6 +185,7 @@ verificarSesion();
     <script src="js/dropdowns.js"></script>
     <script src="js/loader.js"></script>
     <script src="js/sweetalerts.js"></script>
+    <script src="js/asistente_voz.js"></script> 
 
 </body>
 

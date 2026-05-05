@@ -92,5 +92,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
+    <script src="js/asistente_voz.js"></script> 
 </body>
 </html>
