@@ -13,5 +13,5 @@ $obj->setSexo($_POST['sexo']);
 $obj->setVigor($_POST['vigor']);
 $obj->setObservaciones($_POST['observaciones']);
 $obj->actualizar();
-header("Location: ../../l_nacimientos.php");
+header("Location: ../../l_nacimientos.php?msg=actualizado");
 ?> 

@@ -8,5 +8,5 @@ $obj->setId($_POST['id']);
 $obj->consultar();
 $obj->setNombre($_POST['nombre']);
 $obj->actualizar();
-header("Location: ../../l_cargos.php");
+header("Location: ../../l_cargos.php?msg=actualizado");
 ?> 

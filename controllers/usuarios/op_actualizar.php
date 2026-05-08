@@ -30,6 +30,6 @@ if (isset($_SESSION['rol_id']) && $_SESSION['rol_id'] == 1) {
 
 $obj->actualizar();
 
-header("Location: ../../l_usuarios.php");
+header("Location: ../../l_usuarios.php?msg=actualizado");
 exit;
 ?>

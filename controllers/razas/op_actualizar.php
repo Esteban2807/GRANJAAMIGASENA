@@ -19,5 +19,5 @@ $obj->setIdEspecie($_POST['id_especie']);
 $obj->actualizar();
 
 # Redirigir al listado de Razas
-header("Location: ../../l_razas.php");
+header("Location: ../../l_razas.php?msg=actualizado");
 ?>

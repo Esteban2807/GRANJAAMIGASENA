@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setUnidadMedida($_POST['unidad_medida']);
     $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
     $obj->insertar();
-    header("Location: ../../l_medicamentos.php");
+    header("Location: ../../l_medicamentos.php?msg=creado");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{

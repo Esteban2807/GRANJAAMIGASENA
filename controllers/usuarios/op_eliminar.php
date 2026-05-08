@@ -12,5 +12,5 @@ if ($documento !== null) {
     $obj->eliminar();
 }
 
-header("Location: ../../l_usuarios.php");
+header("Location: ../../l_usuarios.php?msg=eliminado");
 ?>
