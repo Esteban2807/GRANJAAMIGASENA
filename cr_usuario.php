@@ -4,7 +4,7 @@ verificarSesion();
 verificarRol([1]);
 include_once 'class/cargos.php';
 $roles = (new cargos())->listar();
-include_once 'class/tipos_documentos.php';
+include_once 'class/tipos_documento.php';
 $tiposDocumentos = (new Tipos_documento())->listar();
 ?>
 <!DOCTYPE html>

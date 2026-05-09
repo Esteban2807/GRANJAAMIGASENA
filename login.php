@@ -4,7 +4,7 @@ $login_error = $_SESSION['login_error'] ?? null;
 if ($login_error) {
     unset($_SESSION['login_error']);
 }
-include_once 'class/tipos_documentos.php';
+include_once 'class/tipos_documento.php';
 $tiposDocumentos = (new Tipos_documento())->listar();
 ?>
 
