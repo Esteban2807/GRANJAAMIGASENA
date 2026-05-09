@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+$rolId = $_SESSION['rol_id'] ?? 0;
+function tieneAcceso($rolId, array $roles): bool { return in_array($rolId, $roles); }
 $nombreUsuario = $_SESSION['user']['nombres'] ?? 'Usuario';
 
 // Solo mostrar bienvenida si viene directo del login
