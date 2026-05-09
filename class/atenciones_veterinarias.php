@@ -32,31 +32,103 @@ class atenciones_veterinarias extends basedatos
         $this->costo_total = $costo_total;
     }
 
-    public function setId($id) { $this->id = $id; }
-    public function setIdAnimal($id_animal) { $this->id_animal = $id_animal; }
-    public function setDocumentoVeterinario($documento_veterinario) { $this->documento_veterinario = $documento_veterinario; }
-    public function setFechaAtencion($fecha_atencion) { $this->fecha_atencion = $fecha_atencion; }
-    public function setMotivo($motivo) { $this->motivo = $motivo; }
-    public function setDiagnostico($diagnostico) { $this->diagnostico = $diagnostico; }
-    public function setTratamiento($tratamiento) { $this->tratamiento = $tratamiento; }
-    public function setMedicamentoId($medicamento_id) { $this->medicamento_id = $medicamento_id; }
-    public function setDosis($dosis) { $this->dosis = $dosis; }
-    public function setViaAdministracion($via_administracion) { $this->via_administracion = $via_administracion; }
-    public function setObservaciones($observaciones) { $this->observaciones = $observaciones; }
-    public function setCostoTotal($costo_total) { $this->costo_total = $costo_total; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setIdAnimal($id_animal)
+    {
+        $this->id_animal = $id_animal;
+    }
+    public function setDocumentoVeterinario($documento_veterinario)
+    {
+        $this->documento_veterinario = $documento_veterinario;
+    }
+    public function setFechaAtencion($fecha_atencion)
+    {
+        $this->fecha_atencion = $fecha_atencion;
+    }
+    public function setMotivo($motivo)
+    {
+        $this->motivo = $motivo;
+    }
+    public function setDiagnostico($diagnostico)
+    {
+        $this->diagnostico = $diagnostico;
+    }
+    public function setTratamiento($tratamiento)
+    {
+        $this->tratamiento = $tratamiento;
+    }
+    public function setMedicamentoId($medicamento_id)
+    {
+        $this->medicamento_id = $medicamento_id;
+    }
+    public function setDosis($dosis)
+    {
+        $this->dosis = $dosis;
+    }
+    public function setViaAdministracion($via_administracion)
+    {
+        $this->via_administracion = $via_administracion;
+    }
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+    }
+    public function setCostoTotal($costo_total)
+    {
+        $this->costo_total = $costo_total;
+    }
 
-    public function getId() { return $this->id; }
-    public function getIdAnimal() { return $this->id_animal; }
-    public function getDocumentoVeterinario() { return $this->documento_veterinario; }
-    public function getFechaAtencion() { return $this->fecha_atencion; }
-    public function getMotivo() { return $this->motivo; }
-    public function getDiagnostico() { return $this->diagnostico; }
-    public function getTratamiento() { return $this->tratamiento; }
-    public function getMedicamentoId() { return $this->medicamento_id; }
-    public function getDosis() { return $this->dosis; }
-    public function getViaAdministracion() { return $this->via_administracion; }
-    public function getObservaciones() { return $this->observaciones; }
-    public function getCostoTotal() { return $this->costo_total; }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getIdAnimal()
+    {
+        return $this->id_animal;
+    }
+    public function getDocumentoVeterinario()
+    {
+        return $this->documento_veterinario;
+    }
+    public function getFechaAtencion()
+    {
+        return $this->fecha_atencion;
+    }
+    public function getMotivo()
+    {
+        return $this->motivo;
+    }
+    public function getDiagnostico()
+    {
+        return $this->diagnostico;
+    }
+    public function getTratamiento()
+    {
+        return $this->tratamiento;
+    }
+    public function getMedicamentoId()
+    {
+        return $this->medicamento_id;
+    }
+    public function getDosis()
+    {
+        return $this->dosis;
+    }
+    public function getViaAdministracion()
+    {
+        return $this->via_administracion;
+    }
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+    public function getCostoTotal()
+    {
+        return $this->costo_total;
+    }
 
     public function listar()
     {
@@ -145,4 +217,4 @@ class atenciones_veterinarias extends basedatos
         return $res;
     }
 }
-?> 
+?>

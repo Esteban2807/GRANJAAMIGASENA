@@ -84,7 +84,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     </table>
                 <?php endif; ?>
                 <div class="text-center" style="margin-top: 20px;">
-                    <a href="inicio" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</a>
+                    <a href="index.php" class="btn-action btn-mt"><i class="fas fa-arrow-left"></i> Volver</a>
                 </div>
             </div>
         </div>
@@ -94,6 +94,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/lupa.js"></script>
+    <script src="js/asistente_voz.js"></script> 
 </body>
 </html>

@@ -108,7 +108,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     </table>
                 <?php endif; ?>
 
-                <form action="inicio" method="get" class="text-center">
+                <form action="index.php" method="get" class="text-center">
                     <button type="submit" class="btn-action btn-mt">
                         <i class="fas fa-arrow-left"></i> Volver
                     </button>
@@ -124,7 +124,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/lupa.js"></script>
+    <script src="js/asistente_voz.js"></script> 
 
 </body>
 

@@ -2,7 +2,8 @@
 
 include_once 'basedatos.php';
 
-class especies extends basedatos {
+class especies extends basedatos
+{
     public $id;
     public $nombre;
     public $consulta;
@@ -14,22 +15,26 @@ class especies extends basedatos {
     }
     //Metodos
     //GET
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
     //SET
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id = $id;
     }
-    public function setNombre($nombre){
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
-     public function listar()
+    public function listar()
     {
-        $sql = "SELECT * FROM especies ORDER BY id";
+        $sql = "SELECT * FROM listarEspecies";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -38,28 +43,28 @@ class especies extends basedatos {
     }
     public function insertar()
     {
-        $sql = sprintf("INSERT INTO especies (nombre) VALUES ('%s')", $this->nombre);
+        $sql = sprintf("CALL crearEspecie ('%s')", $this->nombre);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM especies WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarEspecie (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function actualizar()
     {
-        $sql = sprintf("UPDATE especies SET nombre = '%s'   WHERE id = %s",  $this->nombre, $this->id);
+        $sql = sprintf("CALL actualizarEspecie (%s, '%s')", $this->id, $this->nombre);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
-     public function consultar()
+    public function consultar()
     {
-        $sql = "SELECT * FROM especies WHERE id = $this->id";
+        $sql = sprintf("CALL consultarEspecie (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
@@ -76,7 +81,7 @@ class especies extends basedatos {
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM especies WHERE nombre like '%$this->consulta%' OR id like '%$this->consulta%'";
+        $sql = sprintf("CALL consultarEspecies ('%s')", $this->consulta);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

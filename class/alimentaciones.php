@@ -20,19 +20,55 @@ class alimentaciones extends basedatos
         $this->fecha_hora = $fecha_hora;
     }
 
-    public function setId($id) { $this->id = $id; }
-    public function setIdAnimal($id_animal) { $this->id_animal = $id_animal; }
-    public function setDocumentoAlimentador($documento_alimentador) { $this->documento_alimentador = $documento_alimentador; }
-    public function setIdAlimento($id_alimento) { $this->id_alimento = $id_alimento; }
-    public function setCantidadDada($cantidad_dada) { $this->cantidad_dada = $cantidad_dada; }
-    public function setFechaHora($fecha_hora) { $this->fecha_hora = $fecha_hora; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setIdAnimal($id_animal)
+    {
+        $this->id_animal = $id_animal;
+    }
+    public function setDocumentoAlimentador($documento_alimentador)
+    {
+        $this->documento_alimentador = $documento_alimentador;
+    }
+    public function setIdAlimento($id_alimento)
+    {
+        $this->id_alimento = $id_alimento;
+    }
+    public function setCantidadDada($cantidad_dada)
+    {
+        $this->cantidad_dada = $cantidad_dada;
+    }
+    public function setFechaHora($fecha_hora)
+    {
+        $this->fecha_hora = $fecha_hora;
+    }
 
-    public function getId() { return $this->id; }
-    public function getIdAnimal() { return $this->id_animal; }
-    public function getDocumentoAlimentador() { return $this->documento_alimentador; }
-    public function getIdAlimento() { return $this->id_alimento; }
-    public function getCantidadDada() { return $this->cantidad_dada; }
-    public function getFechaHora() { return $this->fecha_hora; }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getIdAnimal()
+    {
+        return $this->id_animal;
+    }
+    public function getDocumentoAlimentador()
+    {
+        return $this->documento_alimentador;
+    }
+    public function getIdAlimento()
+    {
+        return $this->id_alimento;
+    }
+    public function getCantidadDada()
+    {
+        return $this->cantidad_dada;
+    }
+    public function getFechaHora()
+    {
+        return $this->fecha_hora;
+    }
 
     public function listar()
     {
@@ -46,7 +82,7 @@ class alimentaciones extends basedatos
     public function insertar()
     {
         $sql = sprintf(
-            "INSERT INTO alimentaciones (id_animal,documento_alimentador,id_alimento,cantidad_dada,fecha_hora) VALUES ('%s','%s','%s','%s','%s')",
+            "CALL registrarAlimentacion('%s','%s','%s','%s','%s')",
             $this->id_animal,
             $this->documento_alimentador,
             $this->id_alimento,
@@ -59,7 +95,7 @@ class alimentaciones extends basedatos
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM alimentaciones WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarAlimentacion(%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -67,13 +103,13 @@ class alimentaciones extends basedatos
     public function actualizar()
     {
         $sql = sprintf(
-            "UPDATE alimentaciones SET id_animal='%s', documento_alimentador='%s', id_alimento='%s', cantidad_dada='%s', fecha_hora='%s' WHERE id=%s",
+            "CALL actualizarAlimentacion(%s,'%s','%s','%s','%s','%s')",
+            $this->id,
             $this->id_animal,
             $this->documento_alimentador,
             $this->id_alimento,
             $this->cantidad_dada,
-            $this->fecha_hora,
-            $this->id
+            $this->fecha_hora
         );
         $this->conectar();
         $this->ejecutarSQL($sql);
@@ -103,4 +139,4 @@ class alimentaciones extends basedatos
         return $res;
     }
 }
-?> 
+?>

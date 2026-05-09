@@ -24,23 +24,71 @@ class partos extends basedatos
         $this->duracion_minutos = $duracion_minutos;
     }
 
-    public function setId($id) { $this->id = $id; }
-    public function setFecha($fecha) { $this->fecha = $fecha; }
-    public function setFacilidad($facilidad) { $this->facilidad = $facilidad; }
-    public function setMadreId($madre_id) { $this->madre_id = $madre_id; }
-    public function setSecuencia($secuencia) { $this->secuencia = $secuencia; }
-    public function setDocumentoUsuario($documento_usuario) { $this->documento_usuario = $documento_usuario; }
-    public function setDocumentoVeterinario($documento_veterinario) { $this->documento_veterinario = $documento_veterinario; }
-    public function setDuracionMinutos($duracion_minutos) { $this->duracion_minutos = $duracion_minutos; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    }
+    public function setFacilidad($facilidad)
+    {
+        $this->facilidad = $facilidad;
+    }
+    public function setMadreId($madre_id)
+    {
+        $this->madre_id = $madre_id;
+    }
+    public function setSecuencia($secuencia)
+    {
+        $this->secuencia = $secuencia;
+    }
+    public function setDocumentoUsuario($documento_usuario)
+    {
+        $this->documento_usuario = $documento_usuario;
+    }
+    public function setDocumentoVeterinario($documento_veterinario)
+    {
+        $this->documento_veterinario = $documento_veterinario;
+    }
+    public function setDuracionMinutos($duracion_minutos)
+    {
+        $this->duracion_minutos = $duracion_minutos;
+    }
 
-    public function getId() { return $this->id; }
-    public function getFecha() { return $this->fecha; }
-    public function getFacilidad() { return $this->facilidad; }
-    public function getMadreId() { return $this->madre_id; }
-    public function getSecuencia() { return $this->secuencia; }
-    public function getDocumentoUsuario() { return $this->documento_usuario; }
-    public function getDocumentoVeterinario() { return $this->documento_veterinario; }
-    public function getDuracionMinutos() { return $this->duracion_minutos; }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+    public function getFacilidad()
+    {
+        return $this->facilidad;
+    }
+    public function getMadreId()
+    {
+        return $this->madre_id;
+    }
+    public function getSecuencia()
+    {
+        return $this->secuencia;
+    }
+    public function getDocumentoUsuario()
+    {
+        return $this->documento_usuario;
+    }
+    public function getDocumentoVeterinario()
+    {
+        return $this->documento_veterinario;
+    }
+    public function getDuracionMinutos()
+    {
+        return $this->duracion_minutos;
+    }
 
     public function listar()
     {
@@ -117,4 +165,4 @@ class partos extends basedatos
         return $res;
     }
 }
-?> 
+?>

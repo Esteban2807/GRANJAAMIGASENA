@@ -56,6 +56,13 @@ if (!empty($_SESSION['mostrar_bienvenida'])) {
     </main>
 
     <footer class="footer"><?php include './config/footer.php' ?></footer>
+    <!-- Scripts -->
+    <script src="js/tema.js"></script>
+    <script src="js/panel_menu.js"></script>
+    <script src="js/dropdowns.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/sweetalerts.js"></script>
+    <script src="js/asistente_voz.js"></script> 
 
     <script src="/js/tema.js"></script>
     <script src="/js/panel_menu.js"></script>
