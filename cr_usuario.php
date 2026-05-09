@@ -4,6 +4,8 @@ verificarSesion();
 verificarRol([1]);
 include_once 'class/cargos.php';
 $roles = (new cargos())->listar();
+include_once 'class/tipos_documento.php';
+$tiposDocumentos = (new Tipos_documento())->listar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -31,10 +33,9 @@ $roles = (new cargos())->listar();
                         <label for="tipo_documento">Tipo de documento:</label>
                         <select name="tipo_documento" id="tipo_documento" required>
                             <option value="">-- Seleccione --</option>
-                            <option value="CC">Cédula de Ciudadanía</option>
-                            <option value="TI">Tarjeta de Identidad</option>
-                            <option value="CE">Cédula de Extranjería</option>
-                            <option value="PAS">Pasaporte</option>
+                            <?php foreach ($tiposDocumentos as $tipoDocumento): ?>
+                                <option value="<?php echo $tipoDocumento['siglas']; ?>"><?php echo $tipoDocumento['nombre']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">

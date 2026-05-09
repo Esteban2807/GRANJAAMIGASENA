@@ -4,6 +4,8 @@ $login_error = $_SESSION['login_error'] ?? null;
 if ($login_error) {
     unset($_SESSION['login_error']);
 }
+include_once 'class/tipos_documento.php';
+$tiposDocumentos = (new Tipos_documento())->listar();
 ?>
 
 
@@ -198,10 +200,9 @@ if ($login_error) {
                     <i class="fa-solid fa-id-card input-icon"></i>
                     <select id="tipo_documento" name="tipo_documento" required>
                         <option value="">Tipo de documento...</option>
-                        <option value="CC">Cédula de ciudadanía</option>
-                        <option value="TI">Tarjeta de identidad</option>
-                        <option value="CE">Cédula de extranjería</option>
-                        <option value="PAS">Pasaporte</option>
+                        <?php foreach ($tiposDocumentos as $tipoDocumento): ?>
+                            <option value="<?php echo $tipoDocumento['siglas']; ?>"><?php echo $tipoDocumento['nombre']; ?></option>
+                        <?php endforeach; ?>
                     </select>
 
                 </div>
@@ -269,10 +270,9 @@ if ($login_error) {
                         <i class="fa-solid fa-id-card input-icon"></i>
                         <select id="docTypeSignup" name="tipo_documento" required>
                             <option value="">Tipo Documento...</option>
-                            <option value="CC">Cédula de ciudadanía</option>
-                            <option value="TI">Tarjeta de identidad</option>
-                            <option value="CE">Cédula de extranjería</option>
-                            <option value="PAS">Pasaporte</option>
+                            <?php foreach ($tiposDocumentos as $tipoDocumento): ?>
+                                <option value="<?php echo $tipoDocumento['siglas']; ?>"><?php echo $tipoDocumento['nombre']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
