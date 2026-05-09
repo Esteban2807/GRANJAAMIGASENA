@@ -1,5 +1,9 @@
 <?php
 include_once 'class/usuarios.php';
+include_once 'class/tipos_documento.php';
+
+$tipos = new Tipos_documento();
+$listaTipos = $tipos->listar();
 require_once __DIR__ . '/vendor/autoload.php';
 $emailConfig = include __DIR__ . '/config/email.php';
 include_once __DIR__ . '/lib/reset_token.php';
@@ -92,10 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="tipo_documento">Tipo de documento:</label>
                         <select name="tipo_documento" id="tipo_documento" required>
                             <option value="">-- Seleccione --</option>
-                            <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
-                            <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                            <option value="Cédula de extranjería">Cédula de extranjería</option>
-                            <option value="Pasaporte">Pasaporte</option>
+                            <?php foreach ($listaTipos as $tipo): ?>
+                                <option value="<?php echo $tipo['siglas']; ?>"><?php echo $tipo['nombre']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">

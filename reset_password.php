@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $u = new usuarios();
         $u->setDocumento($doc);
         $u->consultar();
-        $u->setContrasena($p1);
+        $u->setContrasena(md5($p1));
         $u->actualizar();
         header("Location: login.php");
         exit;
