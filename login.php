@@ -133,7 +133,7 @@ if ($login_error) {
                 <br>
 
                 <!-- ENLACE AL MANUAL DE USUARIO -->
-                <a href="integracion_manual_usuario/Manual_Usuario.html" target="_blank">
+                <a href="integracion_manuales/Manual_Usuario.html" target="_blank">
                     <i class="fa-solid fa-book"></i> Ver Manual de Usuario
                 </a>
 
