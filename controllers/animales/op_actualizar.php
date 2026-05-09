@@ -28,5 +28,5 @@ $obj->setFechaNacimiento($_POST['fecha_nacimiento']); // ← agregar
 # Actualizar en la base de datos
 $obj->actualizar();
 # Redirigir al listado de Animales
-header("Location: ../../l_animales.php");
+header("Location: ../../l_animales.php?msg=actualizado");
 ?>

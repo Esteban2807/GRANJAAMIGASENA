@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setDocumentoVeterinario($_POST['documento_veterinario']);
     $obj->setDuracionMinutos($_POST['duracion_minutos']);
     $obj->insertar();
-    header("Location: ../../l_partos.php");
+    header("Location: ../../l_partos.php?msg=creado");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{

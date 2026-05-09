@@ -1991,3 +1991,89 @@ body.login-page {
     opacity: 1 !important;
     z-index: 9999 !important;
 }
+
+/* ===== LUPA DE ZOOM ===== */
+
+#lupa-zoom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;       /* 👈 Tamaño del círculo (igual que LUPA_SIZE en el JS) */
+    height: 160px;      /* 👈 Mismo valor que width */
+    border-radius: 50%;
+    border: 3px solid #39a900;   /* 👈 Grosor y color del borde de la lupa */
+    box-shadow: 0 0 0 2px rgba(57,169,0,0.3), 0 8px 32px rgba(0,0,0,0.4);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 99999;
+    transition: opacity 0.15s ease;
+}
+
+#lupa-zoom canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/* ===== BOTÓN FLOTANTE ===== */
+
+#lupa-toggle-btn {
+    position: fixed;
+    bottom: 28px;       /* 👈 Distancia desde abajo */
+    right: 28px;        /* 👈 Distancia desde la derecha */
+    z-index: 99998;
+    width: 56px;        /* 👈 Tamaño del botón */
+    height: 56px;       /* 👈 Mismo que width */
+    border-radius: 50%;
+    border: none;
+    background: #39a900;   /* 👈 Color verde del botón */
+    color: #ffffff;        /* 👈 Color del ícono */
+    font-size: 22px;       /* 👈 Tamaño del ícono de lupa */
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(57,169,0,0.55), 0 2px 8px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    outline: none;
+}
+
+#lupa-toggle-btn:hover {
+    transform: scale(1.12);   /* 👈 Cuánto crece al pasar el mouse (1.12 = 12% más grande) */
+    background: #2d8a00;      /* 👈 Color al pasar el mouse */
+}
+
+#lupa-toggle-btn.activa {
+    background: #2d8a00;      /* 👈 Color cuando está activada */
+    animation: lupa-pulso 2s infinite;   /* 👈 Velocidad del pulso */
+}
+
+@keyframes lupa-pulso {
+    0%   { box-shadow: 0 0 0 0px  rgba(57,169,0,0.6); }  /* 👈 Color del pulso */
+    70%  { box-shadow: 0 0 0 10px rgba(57,169,0,0); }    /* 👈 Tamaño del pulso (10px) */
+    100% { box-shadow: 0 0 0 0px  rgba(57,169,0,0); }
+}
+
+/* ===== TOOLTIP ===== */
+
+#lupa-toggle-btn::after {
+    content: attr(title);
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1a1a1a;      /* 👈 Fondo del tooltip */
+    color: #f1ffeb;           /* 👈 Color del texto del tooltip */
+    font-size: 12px;          /* 👈 Tamaño del texto del tooltip */
+    white-space: nowrap;
+    padding: 5px 11px;
+    border-radius: 7px;
+    border: 1px solid #39a900;   /* 👈 Borde del tooltip */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+#lupa-toggle-btn:hover::after { opacity: 1; }

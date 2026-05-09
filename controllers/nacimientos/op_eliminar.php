@@ -5,5 +5,5 @@ include '../../class/nacimientos.php';
 $obj = new nacimientos();
 $obj->setId($_POST['id']);
 $obj->eliminar();
-header("Location: ../../l_nacimientos.php");
+header("Location: ../../l_nacimientos.php?msg=eliminado");
 ?> 

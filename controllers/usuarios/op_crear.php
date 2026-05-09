@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $obj->insertar();
 
-    header("Location: ../../l_usuarios.php");
+    header("Location: ../../l_usuarios.php?msg=creado");
     exit;
 } else {
     header("Location: ../../index.php");
