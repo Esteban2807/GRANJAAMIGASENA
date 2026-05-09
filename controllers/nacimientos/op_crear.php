@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setVigor($_POST['vigor']);
     $obj->setObservaciones($_POST['observaciones']);
     $obj->insertar();
-    header("Location: ../../l_nacimientos.php");
+    header("Location: ../../l_nacimientos.php?msg=creado");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{

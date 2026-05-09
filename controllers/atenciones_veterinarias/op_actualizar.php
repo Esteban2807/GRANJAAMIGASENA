@@ -17,5 +17,5 @@ $obj->setViaAdministracion($_POST['via_administracion']);
 $obj->setObservaciones($_POST['observaciones']);
 $obj->setCostoTotal($_POST['costo_total']);
 $obj->actualizar();
-header("Location: ../../l_atenciones_veterinarias.php");
+header("Location: ../../l_atenciones_veterinarias.php?msg=actualizado");
 ?> 

@@ -13,6 +13,6 @@ $obj->setDocumentoUsuario($_POST['documento_usuario']);
 $obj->setDocumentoVeterinario($_POST['documento_veterinario']);
 $obj->setDuracionMinutos($_POST['duracion_minutos']);
 $obj->actualizar();
-$dest = "../../l_partos.php";
+$dest = "../../l_partos.php?msg=actualizado";
 header("Location: $dest");
 ?> 

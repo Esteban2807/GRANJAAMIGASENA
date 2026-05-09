@@ -20,5 +20,5 @@ $obj->setNombre($_POST['nombre']);
 $obj->actualizar();
 
 # Redirigir al listado de Especies
-header("Location: ../../l_especies.php");
+header("Location: ../../l_especies.php?msg=actualizado");
 ?>

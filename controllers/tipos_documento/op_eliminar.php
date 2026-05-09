@@ -14,5 +14,5 @@ $obj->setId($_POST['id']);
 $obj->eliminar();
 
 # Redirigir al listado
-header("Location: ../../l_tipos_documento.php");
+header("Location: ../../l_tipos_documento.php?msg=eliminado");
 ?>

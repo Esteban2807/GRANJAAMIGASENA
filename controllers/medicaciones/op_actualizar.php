@@ -11,5 +11,5 @@ $obj->setIdMedicamento($_POST['id_medicamento']);
 $obj->setCantidadDada($_POST['cantidad_dada']);
 $obj->setFechaHora($_POST['fecha_hora']);
 $obj->actualizar();
-header("Location: ../../l_medicaciones.php");
+header("Location: ../../l_medicaciones.php?msg=actualizado");
 ?> 

@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setObservaciones($_POST['observaciones']);
     $obj->setCostoTotal($_POST['costo_total']);
     $obj->insertar();
-    header("Location: ../../l_atenciones_veterinarias.php");
+    header("Location: ../../l_atenciones_veterinarias.php?msg=creado");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{

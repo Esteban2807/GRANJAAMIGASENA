@@ -22,5 +22,5 @@ $obj->setEstado($_POST['estado']);
 $obj->actualizar();
 
 # Redirigir al listado de Tipos_documento
-header("Location: ../../l_tipos_documento.php");
+header("Location: ../../l_tipos_documento.php?msg=actualizado");
 ?>

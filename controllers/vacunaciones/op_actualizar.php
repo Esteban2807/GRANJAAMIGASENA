@@ -11,5 +11,5 @@ $obj->setIdVacuna($_POST['id_vacuna']);
 $obj->setCantidadDada($_POST['cantidad_dada']);
 $obj->setFechaHora($_POST['fecha_hora']);
 $obj->actualizar();
-header("Location: ../../l_vacunaciones.php");
+header("Location: ../../l_vacunaciones.php?msg=actualizado");
 ?> 

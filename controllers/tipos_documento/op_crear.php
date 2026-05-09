@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->insertar();
 
     # Redirigir al listado de Tipos_documento
-    header("Location: ../../l_tipos_documento.php");
+    header("Location: ../../l_tipos_documento.php?msg=creado");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{

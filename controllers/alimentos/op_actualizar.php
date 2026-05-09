@@ -12,5 +12,5 @@ $obj->setStockActual($_POST['stock_actual']);
 $obj->setUnidadMedida($_POST['unidad_medida']);
 $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
 $obj->actualizar();
-header("Location: ../../l_alimentos.php");
+header("Location: ../../l_alimentos.php?msg=actualizado");
 ?> 
