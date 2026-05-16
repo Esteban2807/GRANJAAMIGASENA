@@ -30,10 +30,10 @@ if ($stored && $stored === md5($contrasena)) {
     ];
     $_SESSION['rol_id'] = $usuario->getIdCargo();
     $_SESSION['mostrar_bienvenida'] = true;
-    header('Location: /inicio');
+    header('Location: /index.php');
     exit;
 }
 
 $_SESSION['login_error'] = 'Documento o contraseña incorrectos.';
-header('Location: /login');
+header('Location: /login.php');
 exit;

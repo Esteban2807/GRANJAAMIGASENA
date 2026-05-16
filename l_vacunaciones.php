@@ -30,8 +30,8 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             </div>
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="vacunaciones" method="GET">
-                        <input type="text" name="buscar" placeholder="Buscar por animal o documento." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                    <form class="search-form" action="l_vacunaciones.php" method="GET">
+                        <input type="text" id="buscar-vacunacion" name="buscar" placeholder="Buscar por animal o documento..." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action"><i class="fas fa-search"></i> Buscar</button>
                     </form>
                 </div>
@@ -41,7 +41,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <p>No se encontraron vacunaciones.</p>
                     </div>
                 <?php else: ?>
-                    <table class="data-table">
+                    <table class="data-table" id="tabla-vacunaciones">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -88,10 +88,48 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
         </div>
     </main>
     <footer class="footer"><?php include './config/footer.php' ?></footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/asistente_voz.js"></script> 
+    <script src="js/asistente_voz.js"></script>
+    <script src="js/busqueda_realtime.js"></script>
+    <script>
+        $(document).ready(function() {
+            new BuscadorRealtime({
+                inputSelector: '#buscar-vacunacion',
+                tableSelector: '#tabla-vacunaciones tbody',
+                emptyStateSelector: '.empty-state',
+                apiEndpoint: 'controllers/vacunaciones/op_buscar.php',
+                renderRow: function(vacunacion) {
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(vacunacion.id).html()}</td>
+                            <td>${$('<div>').text(vacunacion.id_animal).html()}</td>
+                            <td>${$('<div>').text(vacunacion.documento_veterinario).html()}</td>
+                            <td>${$('<div>').text(vacunacion.id_vacuna).html()}</td>
+                            <td>${$('<div>').text(vacunacion.cantidad_dada).html()}</td>
+                            <td>${$('<div>').text(vacunacion.fecha_hora).html()}</td>
+                            <td>
+                                <form action="ac_vacunacion.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(vacunacion.id).html()}">
+                                    <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="form-eliminar-${$('<div>').text(vacunacion.id).html()}" action="controllers/vacunaciones/op_eliminar.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(vacunacion.id).html()}">
+                                    <button type="button" class="btn btn-delete btn-swal-eliminar" data-id="${$('<div>').text(vacunacion.id).html()}" data-nombre="${$('<div>').text(vacunacion.id || 'este registro').html()}">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        });
+    </script> 
 </body>
 </html>

@@ -48,7 +48,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             <div class="card-body">
                 <div class="search-section">
                     <form class="search-form" action="l_tipos_documento.php" method="GET">
-                        <input type="text" name="buscar" placeholder="Buscar por nombre."
+                        <input type="text" id="buscar-tipo-documento" name="buscar" placeholder="Buscar por nombre..."
                             value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
@@ -62,7 +62,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <p>No se encontraron tipos de documento.</p>
                     </div>
                 <?php else: ?>
-                    <table class="data-table">
+                    <table class="data-table" id="tabla-tipos-documento">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -123,11 +123,49 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <!-- Footer -->
     <footer class="footer"><?php include './config/footer.php' ?></footer>
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/asistente_voz.js"></script> 
+    <script src="js/asistente_voz.js"></script>
+    <script src="js/busqueda_realtime.js"></script>
+    <script>
+        $(document).ready(function() {
+            new BuscadorRealtime({
+                inputSelector: '#buscar-tipo-documento',
+                tableSelector: '#tabla-tipos-documento tbody',
+                emptyStateSelector: '.empty-state',
+                apiEndpoint: 'controllers/tipos_documento/op_buscar.php',
+                renderRow: function(tipo) {
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(tipo.id).html()}</td>
+                            <td>${$('<div>').text(tipo.nombre).html()}</td>
+                            <td>${$('<div>').text(tipo.siglas).html()}</td>
+                            <td>${tipo.estado ? 'Activo' : 'Inactivo'}</td>
+                            <td>
+                                <form action="ac_tipos_documento.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(tipo.id).html()}">
+                                    <button type="submit" class="btn-edit">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="form-eliminar-${$('<div>').text(tipo.id).html()}" action="controllers/tipos_documento/op_eliminar.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(tipo.id).html()}">
+                                    <button type="button" class="btn btn-delete btn-swal-eliminar" data-id="${$('<div>').text(tipo.id).html()}" data-nombre="${$('<div>').text(tipo.nombre || 'este tipo de documento').html()}">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        });
+    </script> 
 
 </body>
 
