@@ -90,8 +90,9 @@ class alimentaciones extends basedatos
             $this->fecha_hora
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $res = $this->ejecutarSQL($sql);
         $this->desconectar();
+        return $res;
     }
     public function eliminar()
     {
