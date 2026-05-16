@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/seguridad.php';
 verificarSesion();
+verificarRol([1,3,5]);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include '../../class/alimentaciones.php';
     $obj = new alimentaciones();
@@ -16,4 +17,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else{
     header("Location: ../../index.php");
 }
-?> 
+?>

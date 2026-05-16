@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1,2,3,4,5,6]);
+$rolId = $_SESSION['rol_id'] ?? 0;
 include_once 'class/alimentaciones.php';
 $alims = new alimentaciones();
 if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
@@ -26,7 +28,9 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
         <div class="content-card">
             <div class="card-header">
                 <h1 class="card-title"><i class="fas fa-drumstick-bite"></i> Alimentaciones</h1>
+                <?php if (in_array($rolId, [1,3,5])): ?>
                 <a href="cr_alimentacion.php" class="btn-create"><i class="fas fa-plus-circle"></i> Crear Nuevo</a>
+                <?php endif; ?>
             </div>
             <div class="card-body">
                 <div class="search-section">
@@ -62,12 +66,15 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['id_alimento']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['cantidad_dada']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['fecha_hora']); ?></td>
+                                    <?php if (in_array($rolId, [1,5])): ?>
                                     <td>
                                         <form action="ac_alimentacion.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
+                                    <?php if (in_array($rolId, [1,5])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>" action="controllers/alimentaciones/op_eliminar.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
@@ -76,6 +83,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

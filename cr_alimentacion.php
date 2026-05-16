@@ -1,7 +1,14 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
+verificarRol([1,3,5]);
+include_once 'class/alimentaciones.php';
 include_once 'class/animales.php';
 include_once 'class/alimentos.php';
 include_once 'class/usuarios.php';
+$al = new alimentaciones();
+$al->setId($_POST['id']);
+$al->consultar();
 $animales = new animales();
 $alimentos = new alimentos();
 $usuarios = new usuarios();
@@ -9,16 +16,12 @@ $animalesData = $animales->listar();
 $alimentosData = $alimentos->listar();
 $usuariosData = $usuarios->listar();
 ?>
-<?php
-require_once __DIR__ . '/config/seguridad.php';
-verificarSesion();
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Alimentación</title>
+    <title>Actualizar Alimentación</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -27,47 +30,45 @@ verificarSesion();
     <main class="container">
         <div class="content-card">
             <div class="card-header">
-                <h1 class="card-title"><i class="fas fa-drumstick-bite"></i> Crear Alimentación</h1>
+                <h1 class="card-title"><i class="fas fa-drumstick-bite"></i> Actualizar Alimentación</h1>
             </div>
             <div class="card-body">
-                <form action="controllers/alimentaciones/op_crear.php" method="POST">
+                <form action="controllers/alimentaciones/op_actualizar.php" method="POST">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($al->getId()) ?>">
                     <div class="form-group">
                         <label for="id_animal">Animal:</label>
                         <select name="id_animal" id="id_animal" required>
-                            <option value="">-- Seleccione --</option>
                             <?php foreach ($animalesData as $a): ?>
-                                <option value="<?= htmlspecialchars($a['id']) ?>"><?= htmlspecialchars($a['id'].' - '.$a['nombre']) ?></option>
+                                <option value="<?= htmlspecialchars($a['id']) ?>" <?= $al->getIdAnimal()===$a['id']?'selected':''; ?>><?= htmlspecialchars($a['id'].' - '.$a['nombre']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="documento_alimentador">Alimentador:</label>
                         <select name="documento_alimentador" id="documento_alimentador" required>
-                            <option value="">-- Seleccione --</option>
                             <?php foreach ($usuariosData as $u): ?>
-                                <option value="<?= htmlspecialchars($u['documento']) ?>"><?= htmlspecialchars($u['documento'].' - '.$u['nombres'].' '.$u['apellidos']) ?></option>
+                                <option value="<?= htmlspecialchars($u['documento']) ?>" <?= $al->getDocumentoAlimentador()===$u['documento']?'selected':''; ?>><?= htmlspecialchars($u['documento'].' - '.$u['nombres'].' '.$u['apellidos']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="id_alimento">Alimento:</label>
                         <select name="id_alimento" id="id_alimento" required>
-                            <option value="">-- Seleccione --</option>
-                            <?php foreach ($alimentosData as $al): ?>
-                                <option value="<?= htmlspecialchars($al['id']) ?>"><?= htmlspecialchars($al['nombre']) ?></option>
+                            <?php foreach ($alimentosData as $ali): ?>
+                                <option value="<?= htmlspecialchars($ali['id']) ?>" <?= $al->getIdAlimento()===$ali['id']?'selected':''; ?>><?= htmlspecialchars($ali['nombre']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="cantidad_dada">Cantidad:</label>
-                        <input type="number" step="0.01" name="cantidad_dada" id="cantidad_dada" required>
+                        <input type="number" step="0.01" name="cantidad_dada" id="cantidad_dada" value="<?= htmlspecialchars($al->getCantidadDada()) ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="fecha_hora">Fecha y Hora:</label>
-                        <input type="datetime-local" name="fecha_hora" id="fecha_hora" required>
+                        <input type="datetime-local" name="fecha_hora" id="fecha_hora" value="<?= htmlspecialchars(str_replace(' ', 'T', $al->getFechaHora())) ?>" required>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn-action"><i class="fas fa-save"></i> Guardar</button>
+                        <button type="submit" class="btn-action"><i class="fas fa-save"></i> Guardar Cambios</button>
                         <a href="l_alimentaciones.php" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
                     </div>
                 </form>

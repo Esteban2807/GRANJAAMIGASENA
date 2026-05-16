@@ -128,8 +128,10 @@
                 switch($_SESSION['rol_id']) {
                     case 1: $rol = "Administrador"; break;
                     case 2: $rol = "Veterinario"; break;
-                    case 3: $rol = "Operario"; break;
-                    case 6: $rol = "Aprendiz"; break;
+                    case 3: $rol = "Aprendiz"; break;
+                    case 4: $rol = "Gestor de Inventario"; break;
+                    case 5: $rol = "Encargado de Granja"; break;
+                    case 6: $rol = "Visitante"; break;
                 }
             }
             echo $rol;

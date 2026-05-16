@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/seguridad.php';
 verificarSesion();
+verificarRol([1,4]);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include '../../class/vacunas.php';
     $obj = new vacunas();
@@ -10,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $obj->setUnidadMedida($_POST['unidad_medida']);
     $obj->setFechaVencimiento($_POST['fecha_vencimiento']);
     $obj->insertar();
-    header("Location: ../../vacunas");
+    header("Location: ../../l_vacunas.php?msg=creado");
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo "Método GET no permitido para crear registros";
 } else{
-   header("Location: ../../l_vacunas.php?msg=creado");
+    header("Location: ../../l_vacunas.php");
 }
-?> 
+?>

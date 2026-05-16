@@ -3,6 +3,7 @@
 require_once("config/seguridad.php");
 verificarSesion();
 verificarRol([1]);
+$rolId = $_SESSION['rol_id'] ?? 0;
 
 include_once 'class/usuarios.php';
 
@@ -44,9 +45,11 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                 <h1 class="card-title">
                     <i class="fas fa-user-circle"></i> Usuarios
                 </h1>
+                <?php if (in_array($rolId, [1])): ?>
                 <a href="cr_usuario.php" class="btn-create">
                     <i class="fas fa-plus-circle"></i> Crear Nuevo
                 </a>
+                <?php endif; ?>
             </div>
 
             <div class="card-body">
@@ -87,6 +90,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['nombres']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['apellidos']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['cargo_nombre']); ?></td>
+                                    <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form action="ac_usuario.php" method="POST" class="form-inline">
                                             <input type="hidden" name="documento"
@@ -96,6 +100,8 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
+                                    <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['documento']; ?>"
                                             action="controllers/usuarios/op_eliminar.php"
@@ -113,6 +119,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
+verificarRol([1]);
+$rolId = $_SESSION['rol_id'] ?? 0;
 
 include_once 'class/tipos_documento.php';
 
@@ -40,9 +44,11 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 <h1 class="card-title">
                     <i class="fas fa-id-card"></i> Tipo de Documento
                 </h1>
+                <?php if (in_array($rolId, [1])): ?>
                 <a href="cr_tipo_documento.php" class="btn-create">
                     <i class="fas fa-plus-circle"></i> Crear Nuevo
                 </a>
+                <?php endif; ?>
             </div>
 
             <div class="card-body">
@@ -79,6 +85,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['siglas']); ?></td>
                                     <td><?php echo $registro['estado'] ? 'Activo' : 'Inactivo'; ?></td>
+                                    <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form action="ac_tipos_documento.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id"
@@ -88,6 +95,8 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
+                                    <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>"
                                             action="controllers/tipos_documento/op_eliminar.php"
@@ -105,6 +114,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
