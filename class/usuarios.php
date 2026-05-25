@@ -153,13 +153,12 @@ class usuarios extends basedatos
     public function actualizar()
     {
         $sql = sprintf(
-            "CALL actualizarUsuario('%s','%s','%s','%s','%s','%s','%s')",
+            "CALL actualizarUsuario('%s','%s','%s','%s','%s',%s)",
             $this->documento,
             $this->tipo_documento,
             $this->correo,
             $this->nombres,
             $this->apellidos,
-            $this->contrasena,
             $this->id_cargo
         );
         $this->conectar();

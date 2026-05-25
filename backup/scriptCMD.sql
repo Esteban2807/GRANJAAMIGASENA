@@ -1426,7 +1426,7 @@ DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE crearUsuario (
-    IN p_tipo_documento INT,
+    IN p_tipo_documento VARCHAR(4),
     IN p_documento VARCHAR(20),
     IN p_correo VARCHAR(100),
     IN p_nombres VARCHAR(100),
@@ -1450,11 +1450,10 @@ DELIMITER //
 
 CREATE PROCEDURE actualizarUsuario (
     IN p_documento VARCHAR(20),
-    IN p_tipo_documento INT,
+    IN p_tipo_documento VARCHAR(4),
     IN p_correo VARCHAR(100),
     IN p_nombres VARCHAR(100),
     IN p_apellidos VARCHAR(100),
-    IN p_contrasena VARCHAR(255),
     IN p_id_cargo INT
 )
 BEGIN
@@ -1463,7 +1462,6 @@ BEGIN
         correo = p_correo,
         nombres = p_nombres,
         apellidos = p_apellidos,
-        contrasena = p_contrasena,
         id_cargo = p_id_cargo
     WHERE documento = p_documento;
 END //
