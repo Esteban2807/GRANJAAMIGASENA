@@ -30,8 +30,8 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             </div>
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="l_cargos.php?buscar=1" method="GET">
-                        <input type="text" name="buscar" placeholder="Buscar por nombre." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                    <form class="search-form" action="l_cargos.php" method="GET">
+                        <input type="text" id="buscar-cargo" name="buscar" placeholder="Buscar por nombre..." value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action"><i class="fas fa-search"></i> Buscar</button>
                     </form>
                 </div>
@@ -41,7 +41,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <p>No se encontraron cargos.</p>
                     </div>
                 <?php else: ?>
-                    <table class="data-table">
+                    <table class="data-table" id="tabla-cargos">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -80,10 +80,44 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
         </div>
     </main>
     <footer class="footer"><?php include './config/footer.php' ?></footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/asistente_voz.js"></script> 
+    <script src="js/asistente_voz.js"></script>
+    <script src="js/busqueda_realtime.js"></script>
+    <script>
+        $(document).ready(function() {
+            new BuscadorRealtime({
+                inputSelector: '#buscar-cargo',
+                tableSelector: '#tabla-cargos tbody',
+                emptyStateSelector: '.empty-state',
+                apiEndpoint: 'controllers/cargos/op_buscar.php',
+                renderRow: function(cargo) {
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(cargo.id).html()}</td>
+                            <td>${$('<div>').text(cargo.nombre).html()}</td>
+                            <td>
+                                <form action="ac_cargo.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(cargo.id).html()}">
+                                    <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="form-eliminar-${$('<div>').text(cargo.id).html()}" action="controllers/cargos/op_eliminar.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(cargo.id).html()}">
+                                    <button type="button" class="btn btn-delete btn-swal-eliminar" data-id="${$('<div>').text(cargo.id).html()}" data-nombre="${$('<div>').text(cargo.nombre || 'este cargo').html()}">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        });
+    </script> 
 </body>
 </html>

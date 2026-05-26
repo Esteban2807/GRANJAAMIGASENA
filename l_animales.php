@@ -49,7 +49,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
             <div class="card-body">
                 <div class="search-section">
                     <form class="search-form" action="l_animales.php" method="GET">
-                        <input type="text" name="buscar" placeholder="Buscar por nombre, id o fecha."
+                        <input type="text" id="buscar-animal" name="buscar" placeholder="Buscar por nombre, id o fecha..."
                             value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
@@ -63,7 +63,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <p>No se encontraron animales.</p>
                     </div>
                 <?php else: ?>
-                    <table class="data-table">
+                    <table class="data-table" id="tabla-animales">
                         <thead>
                             <tr>
                                 <th>Fecha Nacimiento</th>
@@ -132,11 +132,59 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
     <!-- Footer -->
     <footer class="footer"><?php include './config/footer.php' ?></footer>
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/asistente_voz.js"></script> 
+    <script src="js/asistente_voz.js"></script>
+    <script src="js/busqueda_realtime.js"></script>
+    <script>
+        $(document).ready(function() {
+            new BuscadorRealtime({
+                inputSelector: '#buscar-animal',
+                tableSelector: '#tabla-animales tbody',
+                emptyStateSelector: '.empty-state',
+                apiEndpoint: 'controllers/animales/op_buscar.php',
+                renderRow: function(animal) {
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(animal.fecha_nacimiento).html()}</td>
+                            <td>${$('<div>').text(animal.chapeta).html()}</td>
+                            <td>${$('<div>').text(animal.nombre).html()}</td>
+                            <td>${$('<div>').text(animal.especie).html()}</td>
+                            <td>${$('<div>').text(animal.raza).html()}</td>
+                            <td>${$('<div>').text(animal.id_padre || 'N/A').html()}</td>
+                            <td>${$('<div>').text(animal.id_madre || 'N/A').html()}</td>
+                            <td>${$('<div>').text(animal.observaciones).html()}</td>
+                            <td>
+                                <form action="ac_animal.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(animal.id).html()}">
+                                    <button type="submit" class="btn-edit">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="form-eliminar-${$('<div>').text(animal.id).html()}"
+                                    action="controllers/animales/op_eliminar.php"
+                                    method="POST"
+                                    class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(animal.id).html()}">
+                                    <button type="button"
+                                        class="btn btn-delete btn-swal-eliminar"
+                                        data-id="${$('<div>').text(animal.id).html()}"
+                                        data-nombre="${$('<div>').text(animal.nombre || 'este animal').html()}">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        });
+    </script> 
 
 </body>
 

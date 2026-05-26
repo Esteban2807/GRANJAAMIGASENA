@@ -90,7 +90,7 @@ class usuarios extends basedatos
     public function insertar()
     {
         $sql = sprintf(
-            "INSERT INTO usuarios (tipo_documento, documento, correo, nombres, apellidos, contrasena, id_cargo) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            "CALL crearUsuario('%s','%s','%s','%s','%s','%s','%s')",
             $this->tipo_documento,
             $this->documento,
             $this->correo,
@@ -107,7 +107,7 @@ class usuarios extends basedatos
 
     public function listar()
     {
-        $sql = "SELECT u.tipo_documento, u.documento,u.correo , u.nombres, u.apellidos, c.nombre AS cargo_nombre FROM usuarios AS u INNER JOIN cargos AS c ON u.id_cargo = c.id";
+        $sql = "CALL listarUsuarios()";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -117,7 +117,7 @@ class usuarios extends basedatos
 
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM usuarios WHERE documento = '%s'", $this->documento);
+        $sql = sprintf("CALL consultarUsuario('%s')", $this->documento);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
@@ -144,7 +144,7 @@ class usuarios extends basedatos
 
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM usuarios WHERE documento = '%s'", $this->documento);
+        $sql = sprintf("CALL eliminarUsuario('%s')", $this->documento);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -153,14 +153,13 @@ class usuarios extends basedatos
     public function actualizar()
     {
         $sql = sprintf(
-            "UPDATE usuarios SET tipo_documento = '%s', correo = '%s', nombres = '%s', apellidos = '%s', contrasena = '%s', id_cargo = '%s' WHERE documento = '%s'",
+            "CALL actualizarUsuario('%s','%s','%s','%s','%s',%s)",
+            $this->documento,
             $this->tipo_documento,
             $this->correo,
             $this->nombres,
             $this->apellidos,
-            $this->contrasena,
-            $this->id_cargo,
-            $this->documento
+            $this->id_cargo
         );
         $this->conectar();
         $this->ejecutarSQL($sql);
@@ -169,7 +168,7 @@ class usuarios extends basedatos
 
     public function buscar($valor)
     {
-        $sql = sprintf("SELECT * FROM usuarios WHERE nombres LIKE '%%%s%%'", $valor);
+        $sql = sprintf("CALL buscarUsuario('%s')", $valor);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
