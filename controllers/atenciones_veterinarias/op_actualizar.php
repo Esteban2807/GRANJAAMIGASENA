@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/seguridad.php';
 verificarSesion();
+verificarRol([1,2]);
 include '../../class/atenciones_veterinarias.php';
 $obj = new atenciones_veterinarias();
 $obj->setId($_POST['id']);
@@ -18,4 +19,4 @@ $obj->setObservaciones($_POST['observaciones']);
 $obj->setCostoTotal($_POST['costo_total']);
 $obj->actualizar();
 header("Location: ../../l_atenciones_veterinarias.php?msg=actualizado");
-?> 
+?>

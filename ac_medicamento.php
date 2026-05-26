@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1,4]);
 include_once 'class/medicamentos.php';
 $med = new medicamentos();
 $med->setId($_POST['id']);

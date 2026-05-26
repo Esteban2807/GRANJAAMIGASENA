@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1,2,3,6]);
+$rolId = $_SESSION['rol_id'] ?? 0;
 include_once 'class/atenciones_veterinarias.php';
 $ats = new atenciones_veterinarias();
 if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
@@ -26,7 +28,9 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
         <div class="content-card">
             <div class="card-header">
                 <h1 class="card-title"><i class="fas fa-stethoscope"></i> Atenciones Veterinarias</h1>
+                <?php if (in_array($rolId, [1,2])): ?>
                 <a href="cr_atencion_veterinaria.php" class="btn-create"><i class="fas fa-plus-circle"></i> Crear Nuevo</a>
+                <?php endif; ?>
             </div>
             <div class="card-body">
                 <div class="search-section">
@@ -66,12 +70,15 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['diagnostico']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['medicamento_id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['costo_total']); ?></td>
+                                    <?php if (in_array($rolId, [1,2])): ?>
                                     <td>
                                         <form action="ac_atencion_veterinaria.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
+                                    <?php if (in_array($rolId, [1,2])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>" action="controllers/atenciones_veterinarias/op_eliminar.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
@@ -80,6 +87,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

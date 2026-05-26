@@ -2,6 +2,7 @@
 
 require_once("config/seguridad.php");
 verificarSesion();
+verificarRol([1,2,3,5]);
 
 include_once 'class/animales.php';
 include_once 'class/especies.php';

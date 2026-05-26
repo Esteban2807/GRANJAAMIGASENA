@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1]);
 include_once 'class/tipos_documento.php';
 $tipos_documento = new Tipos_documento();
 $tipos_documento->setId($_POST['id']);

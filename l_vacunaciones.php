@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1,2,3,6]);
+$rolId = $_SESSION['rol_id'] ?? 0;
 include_once 'class/vacunaciones.php';
 $vacs = new vacunaciones();
 if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
@@ -26,7 +28,9 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
         <div class="content-card">
             <div class="card-header">
                 <h1 class="card-title"><i class="fas fa-syringe"></i> Vacunaciones</h1>
+                <?php if (in_array($rolId, [1,2])): ?>
                 <a href="cr_vacunacion.php" class="btn-create"><i class="fas fa-plus-circle"></i> Crear Nuevo</a>
+                <?php endif; ?>
             </div>
             <div class="card-body">
                 <div class="search-section">
@@ -62,12 +66,15 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     <td><?php echo htmlspecialchars($registro['id_vacuna']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['cantidad_dada']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['fecha_hora']); ?></td>
+                                    <?php if (in_array($rolId, [1,2])): ?>
                                     <td>
                                         <form action="ac_vacunacion.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
+                                    <?php if (in_array($rolId, [1,2])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>" action="controllers/vacunaciones/op_eliminar.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
@@ -76,6 +83,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

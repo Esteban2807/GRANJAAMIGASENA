@@ -90,8 +90,13 @@ class vacunaciones extends basedatos
             $this->fecha_hora
         );
         $this->conectar();
-        $this->ejecutarSQL($sql);
+        $resultado = $this->ejecutarSQL($sql);
+        $error = $this->ErrTxt;
         $this->desconectar();
+        if ($resultado === false) {
+            return ['exito' => false, 'mensaje' => $error ?: 'Error al registrar la vacunación.'];
+        }
+        return ['exito' => true, 'mensaje' => ''];
     }
     public function eliminar()
     {

@@ -6,16 +6,15 @@ function verificarRol($rolesPermitidos) {
         header("Location: /login.php");
         exit();
     }
-
     if (!in_array($_SESSION['rol_id'], $rolesPermitidos)) {
-        header("Location: index.php"); // o no_permitido.php
+        header("Location: /inicio.php");
         exit();
     }
 }
 
 function verificarSesion() {
     if (!isset($_SESSION['user'])) {
-        header("Location: login.php");
+        header("Location: /login.php");
         exit;
     }
 }

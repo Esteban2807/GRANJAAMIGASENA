@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/seguridad.php';
 verificarSesion();
+verificarRol([1]);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include '../../class/especies.php';
     $obj = new Especies();

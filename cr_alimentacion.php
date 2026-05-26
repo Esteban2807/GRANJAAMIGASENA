@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
+verificarRol([1,3,5]);
 include_once 'class/animales.php';
 include_once 'class/alimentos.php';
 include_once 'class/usuarios.php';
@@ -8,10 +11,6 @@ $usuarios = new usuarios();
 $animalesData = $animales->listar();
 $alimentosData = $alimentos->listar();
 $usuariosData = $usuarios->listar();
-?>
-<?php
-require_once __DIR__ . '/config/seguridad.php';
-verificarSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,7 +33,7 @@ verificarSesion();
                     <div class="form-group">
                         <label for="id_animal">Animal:</label>
                         <select name="id_animal" id="id_animal" required>
-                            <option value="">-- Seleccione --</option>
+                            <option value="">-- Seleccione un animal --</option>
                             <?php foreach ($animalesData as $a): ?>
                                 <option value="<?= htmlspecialchars($a['id']) ?>"><?= htmlspecialchars($a['id'].' - '.$a['nombre']) ?></option>
                             <?php endforeach; ?>
@@ -43,7 +42,7 @@ verificarSesion();
                     <div class="form-group">
                         <label for="documento_alimentador">Alimentador:</label>
                         <select name="documento_alimentador" id="documento_alimentador" required>
-                            <option value="">-- Seleccione --</option>
+                            <option value="">-- Seleccione un usuario --</option>
                             <?php foreach ($usuariosData as $u): ?>
                                 <option value="<?= htmlspecialchars($u['documento']) ?>"><?= htmlspecialchars($u['documento'].' - '.$u['nombres'].' '.$u['apellidos']) ?></option>
                             <?php endforeach; ?>
@@ -52,9 +51,9 @@ verificarSesion();
                     <div class="form-group">
                         <label for="id_alimento">Alimento:</label>
                         <select name="id_alimento" id="id_alimento" required>
-                            <option value="">-- Seleccione --</option>
-                            <?php foreach ($alimentosData as $al): ?>
-                                <option value="<?= htmlspecialchars($al['id']) ?>"><?= htmlspecialchars($al['nombre']) ?></option>
+                            <option value="">-- Seleccione un alimento --</option>
+                            <?php foreach ($alimentosData as $ali): ?>
+                                <option value="<?= htmlspecialchars($ali['id']) ?>"><?= htmlspecialchars($ali['nombre']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

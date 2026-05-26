@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/seguridad.php';
 verificarSesion();
+verificarRol([1,2]);
 include '../../class/nacimientos.php';
 $obj = new nacimientos();
 $obj->setId($_POST['id']);
@@ -14,4 +15,4 @@ $obj->setVigor($_POST['vigor']);
 $obj->setObservaciones($_POST['observaciones']);
 $obj->actualizar();
 header("Location: ../../l_nacimientos.php?msg=actualizado");
-?> 
+?>

@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/config/seguridad.php';
+verificarSesion();
+verificarRol([1,2]);
 include_once 'class/animales.php';
 include_once 'class/vacunas.php';
 include_once 'class/usuarios.php';
@@ -8,10 +11,6 @@ $usuarios = new usuarios();
 $animalesData = $animales->listar();
 $vacData = $vacunas->listar();
 $usuariosData = $usuarios->listar();
-?>
-<?php
-require_once __DIR__ . '/config/seguridad.php';
-verificarSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,6 +29,11 @@ verificarSesion();
                 <h1 class="card-title"><i class="fas fa-syringe"></i> Crear Vacunación</h1>
             </div>
             <div class="card-body">
+                <?php if (isset($_GET['error']) && $_GET['error'] !== ''): ?>
+                <div class="alert alert-danger" style="background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;padding:10px 15px;border-radius:6px;margin-bottom:15px;">
+                    <i class="fas fa-exclamation-triangle"></i> <?= htmlspecialchars(urldecode($_GET['error'])) ?>
+                </div>
+                <?php endif; ?>
                 <form action="controllers/vacunaciones/op_crear.php" method="POST">
                     <div class="form-group">
                         <label for="id_animal">Animal:</label>

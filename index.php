@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+$rolId = $_SESSION['rol_id'] ?? 0;
+function tieneAcceso($rolId, array $roles): bool { return in_array($rolId, $roles); }
 $nombreUsuario = $_SESSION['user']['nombres'] ?? 'Usuario';
 
 // Solo mostrar bienvenida si viene directo del login
@@ -38,81 +40,127 @@ if (!empty($_SESSION['mostrar_bienvenida'])) {
         </div>
 
         <ul class="cards-grid">
+
+            <?php if (tieneAcceso($rolId, [1,2,3,4,5,6])): ?>
             <li class="card"><a href="l_animales.php">
                     <div class="card-icon"><i class="fas fa-paw"></i></div>
                     <h3 class="card-title">Animales</h3>
                     <p class="card-description">Administrar animales</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1])): ?>
             <li class="card"><a href="l_tipos_documento.php">
                     <div class="card-icon"><i class="fas fa-id-card"></i></div>
                     <h3 class="card-title">Tipos de documento</h3>
                     <p class="card-description">Gestionar tipos de documento</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1])): ?>
             <li class="card"><a href="l_usuarios.php">
                     <div class="card-icon"><i class="fas fa-user-circle"></i></div>
                     <h3 class="card-title">Usuarios</h3>
                     <p class="card-description">Administrar usuarios del sistema</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,4,5,6])): ?>
             <li class="card"><a href="l_especies.php">
                     <div class="card-icon"><i class="fas fa-venus-mars"></i></div>
                     <h3 class="card-title">Especies</h3>
                     <p class="card-description">Administrar especies</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,4,5,6])): ?>
             <li class="card"><a href="l_razas.php">
                     <div class="card-icon"><i class="fas fa-paw"></i></div>
                     <h3 class="card-title">Razas</h3>
                     <p class="card-description">Administrar razas</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1])): ?>
             <li class="card"><a href="l_cargos.php">
                     <div class="card-icon"><i class="fas fa-briefcase"></i></div>
                     <h3 class="card-title">Cargos</h3>
                     <p class="card-description">Administrar cargos</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,3,4,5,6])): ?>
             <li class="card"><a href="l_alimentos.php">
                     <div class="card-icon"><i class="fas fa-apple-alt"></i></div>
                     <h3 class="card-title">Alimentos</h3>
                     <p class="card-description">Inventario de alimentos</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,4,6])): ?>
             <li class="card"><a href="l_medicamentos.php">
                     <div class="card-icon"><i class="fas fa-pills"></i></div>
                     <h3 class="card-title">Medicamentos</h3>
                     <p class="card-description">Inventario de medicamentos</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,4,6])): ?>
             <li class="card"><a href="l_vacunas.php">
                     <div class="card-icon"><i class="fas fa-syringe"></i></div>
                     <h3 class="card-title">Vacunas</h3>
                     <p class="card-description">Inventario de vacunas</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,5,6])): ?>
             <li class="card"><a href="l_alimentaciones.php">
                     <div class="card-icon"><i class="fas fa-drumstick-bite"></i></div>
                     <h3 class="card-title">Alimentaciones</h3>
                     <p class="card-description">Control de alimentación</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,6])): ?>
             <li class="card"><a href="l_medicaciones.php">
                     <div class="card-icon"><i class="fas fa-notes-medical"></i></div>
                     <h3 class="card-title">Medicaciones</h3>
                     <p class="card-description">Registro de medicaciones</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,6])): ?>
             <li class="card"><a href="l_vacunaciones.php">
                     <div class="card-icon"><i class="fas fa-syringe"></i></div>
                     <h3 class="card-title">Vacunaciones</h3>
                     <p class="card-description">Registro de vacunaciones</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,6])): ?>
             <li class="card"><a href="l_partos.php">
                     <div class="card-icon"><i class="fas fa-baby"></i></div>
                     <h3 class="card-title">Partos</h3>
                     <p class="card-description">Control de partos</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,6])): ?>
             <li class="card"><a href="l_nacimientos.php">
                     <div class="card-icon"><i class="fas fa-baby-carriage"></i></div>
                     <h3 class="card-title">Nacimientos</h3>
                     <p class="card-description">Registro de nacimientos</p>
                 </a></li>
+            <?php endif; ?>
+
+            <?php if (tieneAcceso($rolId, [1,2,3,6])): ?>
             <li class="card"><a href="l_atenciones_veterinarias.php">
                     <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
                     <h3 class="card-title">Atenciones Veterinarias</h3>
                     <p class="card-description">Historial de atenciones</p>
                 </a></li>
+            <?php endif; ?>
+
         </ul>
     </main>
 

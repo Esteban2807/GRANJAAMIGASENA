@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/seguridad.php';
 verificarSesion();
+verificarRol([1]);
 # Incluir la clase Especies
 include '../../class/especies.php';
 
@@ -22,3 +23,4 @@ $obj->actualizar();
 # Redirigir al listado de Especies
 header("Location: ../../l_especies.php?msg=actualizado");
 ?>
+

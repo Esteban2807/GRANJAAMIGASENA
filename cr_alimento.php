@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1,4]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,36 +23,36 @@ verificarSesion();
                 <form action="controllers/alimentos/op_crear.php" method="POST">
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" required>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del alimento" required>
                     </div>
                     <div class="form-group">
                         <label for="tipo">Tipo:</label>
                         <select name="tipo" id="tipo" required>
-                            <option value="">-- Seleccione --</option>
-                            <option value="Grano">Grano</option>
-                            <option value="Forraje">Forraje</option>
-                            <option value="Concentrado">Concentrado</option>
-                            <option value="Suplemento">Suplemento</option>
-                            <option value="Sales">Sales</option>
+                            <?php
+                            $tipos = ['Grano','Forraje','Concentrado','Suplemento','Sales'];
+                            foreach ($tipos as $t) {
+                                echo "<option value=\"$t\">$t</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="marca_proveedor">Marca/Proveedor:</label>
-                        <input type="text" name="marca_proveedor" id="marca_proveedor" required>
+                        <input type="text" name="marca_proveedor" id="marca_proveedor" placeholder="Marca o proveedor" required>
                     </div>
                     <div class="form-group">
                         <label for="stock_actual">Stock:</label>
-                        <input type="number" step="0.01" name="stock_actual" id="stock_actual" required>
+                        <input type="number" step="0.01" name="stock_actual" id="stock_actual" placeholder="0.00" required>
                     </div>
                     <div class="form-group">
                         <label for="unidad_medida">Unidad:</label>
                         <select name="unidad_medida" id="unidad_medida" required>
-                            <option value="">-- Seleccione --</option>
-                            <option value="kg">kg</option>
-                            <option value="g">g</option>
-                            <option value="lb">lb</option>
-                            <option value="paca">paca</option>
-                            <option value="litro">litro</option>
+                            <?php
+                            $unidades = ['kg','g','lb','paca','litro'];
+                            foreach ($unidades as $u) {
+                                echo "<option value=\"$u\">$u</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">

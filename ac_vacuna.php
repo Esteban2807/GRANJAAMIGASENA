@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/config/seguridad.php';
 verificarSesion();
+verificarRol([1,4]);
 include_once 'class/vacunas.php';
 $vac = new vacunas();
 $vac->setId($_POST['id']);
