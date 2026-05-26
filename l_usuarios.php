@@ -55,7 +55,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
             <div class="card-body">
                 <div class="search-section">
                     <form class="search-form" action="l_usuarios.php" method="POST">
-                        <input type="text" name="buscar" placeholder="Buscar por nombre."
+                        <input type="text" id="buscar-usuario" name="buscar" placeholder="Buscar por nombre..."
                             value="<?php echo isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
@@ -69,7 +69,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                         <p>No se encontraron usuarios.</p>
                     </div>
                 <?php else: ?>
-                    <table class="data-table">
+                    <table class="data-table" id="tabla-usuarios">
                         <thead>
                             <tr>
                                 <th>Tipo de Documento</th>
@@ -138,11 +138,57 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
     <!-- Footer -->
     <footer class="footer"><?php include './config/footer.php' ?></footer>
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/asistente_voz.js"></script> 
+    <script src="js/asistente_voz.js"></script>
+    <script src="js/busqueda_realtime.js"></script>
+    <script>
+        $(document).ready(function() {
+            new BuscadorRealtime({
+                inputSelector: '#buscar-usuario',
+                tableSelector: '#tabla-usuarios tbody',
+                emptyStateSelector: '.empty-state',
+                apiEndpoint: 'controllers/usuarios/op_buscar.php',
+                renderRow: function(usuario) {
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(usuario.tipo_documento).html()}</td>
+                            <td>${$('<div>').text(usuario.documento).html()}</td>
+                            <td>${$('<div>').text(usuario.correo).html()}</td>
+                            <td>${$('<div>').text(usuario.nombres).html()}</td>
+                            <td>${$('<div>').text(usuario.apellidos).html()}</td>
+                            <td>${$('<div>').text(usuario.cargo_nombre).html()}</td>
+                            <td>
+                                <form action="ac_usuario.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="documento" value="${$('<div>').text(usuario.documento).html()}">
+                                    <button type="submit" class="btn-edit">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="form-eliminar-${$('<div>').text(usuario.documento).html()}"
+                                    action="controllers/usuarios/op_eliminar.php"
+                                    method="POST"
+                                    class="form-inline">
+                                    <input type="hidden" name="documento" value="${$('<div>').text(usuario.documento).html()}">
+                                    <button type="button"
+                                        class="btn btn-delete btn-swal-eliminar"
+                                        data-id="${$('<div>').text(usuario.documento).html()}"
+                                        data-nombre="${$('<div>').text(usuario.nombres).html()}">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        });
+    </script> 
 
 
 </body>

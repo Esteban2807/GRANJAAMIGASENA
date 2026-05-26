@@ -1419,6 +1419,120 @@ END //
 DELIMITER ;
 
 
+-------------------------------------------------------------------------------
+----------------------------CREAR USUARIO---------------------------------------
+-------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE crearUsuario (
+    IN p_tipo_documento VARCHAR(4),
+    IN p_documento VARCHAR(20),
+    IN p_correo VARCHAR(100),
+    IN p_nombres VARCHAR(100),
+    IN p_apellidos VARCHAR(100),
+    IN p_contrasena VARCHAR(255),
+    IN p_id_cargo INT
+)
+BEGIN
+    INSERT INTO usuarios (tipo_documento, documento, correo, nombres, apellidos, contrasena, id_cargo)
+    VALUES (p_tipo_documento, p_documento, p_correo, p_nombres, p_apellidos, p_contrasena, p_id_cargo);
+END //
+
+DELIMITER ;
+
+
+-------------------------------------------------------------------------------
+----------------------------ACTUALIZAR USUARIO----------------------------------
+-------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarUsuario (
+    IN p_documento VARCHAR(20),
+    IN p_tipo_documento VARCHAR(4),
+    IN p_correo VARCHAR(100),
+    IN p_nombres VARCHAR(100),
+    IN p_apellidos VARCHAR(100),
+    IN p_id_cargo INT
+)
+BEGIN
+    UPDATE usuarios
+    SET tipo_documento = p_tipo_documento,
+        correo = p_correo,
+        nombres = p_nombres,
+        apellidos = p_apellidos,
+        id_cargo = p_id_cargo
+    WHERE documento = p_documento;
+END //
+
+DELIMITER ;
+
+
+-------------------------------------------------------------------------------
+----------------------------ELIMINAR USUARIO----------------------------------
+-------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarUsuario (
+    IN p_documento VARCHAR(20)
+)
+BEGIN
+    DELETE FROM usuarios WHERE documento = p_documento;
+END //
+
+DELIMITER ;
+
+
+-------------------------------------------------------------------------------
+----------------------------CONSULTAR USUARIO----------------------------------
+-------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE consultarUsuario (
+    IN p_documento VARCHAR(20)
+)
+BEGIN
+    SELECT * FROM usuarios WHERE documento = p_documento;
+END //
+
+DELIMITER ;
+
+
+-------------------------------------------------------------------------------
+----------------------------LISTAR USUARIOS-------------------------------------
+-------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE listarUsuarios ()
+BEGIN
+    SELECT u.tipo_documento, u.documento, u.correo, u.nombres, u.apellidos, c.nombre AS cargo_nombre
+    FROM usuarios AS u
+    INNER JOIN cargos AS c ON u.id_cargo = c.id;
+END //
+
+DELIMITER ;
+
+
+-------------------------------------------------------------------------------
+----------------------------BUSCAR USUARIOS-------------------------------------
+-------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE buscarUsuario (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM usuarios WHERE nombres LIKE CONCAT('%', p_consulta, '%');
+END //
+
+DELIMITER ;
+
+
 INSERT INTO `cargos` (`id`, `nombre`) VALUES
 (1, 'Administrador'),
 (2, 'Veterinarioo'),

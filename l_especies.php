@@ -52,7 +52,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
             <div class="card-body">
                 <div class="search-section">
                     <form class="search-form" action="l_especies.php" method="POST">
-                        <input type="text" name="buscar" placeholder="Buscar por nombre."
+                        <input type="text" id="buscar-especie" name="buscar" placeholder="Buscar por nombre..."
                             value="<?php echo isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
@@ -66,7 +66,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                         <p>No se encontraron especies.</p>
                     </div>
                 <?php else: ?>
-                    <table class="data-table">
+                    <table class="data-table" id="tabla-especies">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -127,11 +127,47 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
     <!-- Footer -->
     <footer class="footer"><?php include './config/footer.php' ?></footer>
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/tema.js"></script>
     <script src="js/panel_menu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/sweetalerts.js"></script>
-    <script src="js/asistente_voz.js"></script> 
+    <script src="js/asistente_voz.js"></script>
+    <script src="js/busqueda_realtime.js"></script>
+    <script>
+        $(document).ready(function() {
+            new BuscadorRealtime({
+                inputSelector: '#buscar-especie',
+                tableSelector: '#tabla-especies tbody',
+                emptyStateSelector: '.empty-state',
+                apiEndpoint: 'controllers/especies/op_buscar.php',
+                renderRow: function(especie) {
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(especie.id).html()}</td>
+                            <td>${$('<div>').text(especie.nombre).html()}</td>
+                            <td>
+                                <form action="ac_especie.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(especie.id).html()}">
+                                    <button type="submit" class="btn-edit">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="form-eliminar-${$('<div>').text(especie.id).html()}" action="controllers/especies/op_eliminar.php" method="POST" class="form-inline">
+                                    <input type="hidden" name="id" value="${$('<div>').text(especie.id).html()}">
+                                    <button type="button" class="btn btn-delete btn-swal-eliminar" data-id="${$('<div>').text(especie.id).html()}" data-nombre="${$('<div>').text(especie.nombre || 'esta especie').html()}">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        });
+    </script> 
 
 </body>
 

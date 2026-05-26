@@ -35,7 +35,7 @@ if (!empty($_SESSION['mostrar_bienvenida'])) {
 
     <main class="container">
         <div class="page-header">
-            <h1 class="page-title">Cruds</h1>
+            <h1 class="page-title">Bienvenido!</h1>
             <p class="page-subtitle">Seleccione una tabla para gestionar</p>
         </div>
 
