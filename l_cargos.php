@@ -28,9 +28,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
         <div class="content-card">
             <div class="card-header">
                 <h1 class="card-title"><i class="fas fa-briefcase"></i> Cargos</h1>
-                <?php if (in_array($rolId, [1])): ?>
-                <a href="cr_cargo.php" class="btn-create"><i class="fas fa-plus-circle"></i> Crear Nuevo</a>
-                <?php endif; ?>
             </div>
             <div class="card-body">
                 <div class="search-section">
@@ -48,31 +45,19 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-cargos">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th colspan="2">Acciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form action="ac_cargo.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
                                             <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
-                                        </form>
-                                    </td>
-                                    <?php endif; ?>
-                                    <?php if (in_array($rolId, [1])): ?>
-                                    <td>
-                                        <form id="form-eliminar-<?php echo $registro['id']; ?>" action="controllers/cargos/op_eliminar.php" method="POST" class="form-inline">
-                                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
-                                            <button type="button" class="btn btn-delete btn-swal-eliminar" data-id="<?php echo $registro['id']; ?>" data-nombre="<?php echo htmlspecialchars($registro['nombre'] ?? 'este cargo', ENT_QUOTES); ?>">
-                                                <i class="fas fa-trash-alt"></i> Eliminar
-                                            </button>
                                         </form>
                                     </td>
                                     <?php endif; ?>
@@ -105,20 +90,11 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(cargo) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(cargo.id).html()}</td>
                             <td>${$('<div>').text(cargo.nombre).html()}</td>
                             <td>
                                 <form action="ac_cargo.php" method="POST" class="form-inline">
                                     <input type="hidden" name="id" value="${$('<div>').text(cargo.id).html()}">
                                     <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form id="form-eliminar-${$('<div>').text(cargo.id).html()}" action="controllers/cargos/op_eliminar.php" method="POST" class="form-inline">
-                                    <input type="hidden" name="id" value="${$('<div>').text(cargo.id).html()}">
-                                    <button type="button" class="btn btn-delete btn-swal-eliminar" data-id="${$('<div>').text(cargo.id).html()}" data-nombre="${$('<div>').text(cargo.nombre || 'este cargo').html()}">
-                                        <i class="fas fa-trash-alt"></i> Eliminar
-                                    </button>
                                 </form>
                             </td>
                         </tr>

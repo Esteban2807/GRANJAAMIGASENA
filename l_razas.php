@@ -68,7 +68,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-razas">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Especie</th>
                                 <th colspan="2">Acciones</th>
@@ -77,7 +76,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['especie']); ?></td>
                                     <?php if (in_array($rolId, [1])): ?>
@@ -145,7 +143,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(raza) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(raza.id).html()}</td>
                             <td>${$('<div>').text(raza.nombre).html()}</td>
                             <td>${$('<div>').text(raza.especie).html()}</td>
                             <td>

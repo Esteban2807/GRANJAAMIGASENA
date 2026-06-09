@@ -48,7 +48,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-alimentaciones">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Animal</th>
                                 <th>Alimentador</th>
                                 <th>Alimento</th>
@@ -60,7 +59,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['id_animal']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['documento_alimentador']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['id_alimento']); ?></td>
@@ -113,7 +111,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(alimentacion) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(alimentacion.id).html()}</td>
                             <td>${$('<div>').text(alimentacion.id_animal).html()}</td>
                             <td>${$('<div>').text(alimentacion.documento_alimentador).html()}</td>
                             <td>${$('<div>').text(alimentacion.id_alimento).html()}</td>

@@ -409,20 +409,6 @@ DELIMITER ;
 CREATE VIEW listarCargos AS
 SELECT * FROM cargos ORDER BY id ASC;
 
--- Procedimiento crear
-
-DELIMITER //
-
-CREATE PROCEDURE crearCargo (
-    IN p_nombre VARCHAR(50)
-)
-BEGIN
-    -- Lógica del procedimiento
-    INSERT INTO cargos (nombre) VALUES (p_nombre);
-END //
-
-DELIMITER ;
-
 -- Procedimiento para actualizar
 
 DELIMITER //
@@ -437,18 +423,6 @@ BEGIN
 END //
 
 DELIMITER ;
-
--- Procedimiento para eliminar
-
-DELIMITER //
-
-CREATE PROCEDURE eliminarCargo (
-    IN p_id INT
-)
-BEGIN
-    -- Lógica del procedimiento
-    DELETE FROM cargos WHERE id = p_id;
-END //
 
 -- Procedimiento para consultar uno
 

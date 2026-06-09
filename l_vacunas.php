@@ -48,7 +48,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-vacunas">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Marca/Proveedor</th>
                                 <th>Stock</th>
@@ -60,7 +59,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['marca_proveedor']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['stock_actual']); ?></td>
@@ -113,7 +111,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(vacuna) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(vacuna.id).html()}</td>
                             <td>${$('<div>').text(vacuna.nombre).html()}</td>
                             <td>${$('<div>').text(vacuna.marca_proveedor).html()}</td>
                             <td>${$('<div>').text(vacuna.stock_actual).html()}</td>

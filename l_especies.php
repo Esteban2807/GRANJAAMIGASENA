@@ -69,7 +69,6 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                     <table class="data-table" id="tabla-especies">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th colspan="2">Acciones</th>
                             </tr>
@@ -77,7 +76,6 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <?php if (in_array($rolId, [1])): ?>
                                     <td>
@@ -144,7 +142,6 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                 renderRow: function(especie) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(especie.id).html()}</td>
                             <td>${$('<div>').text(especie.nombre).html()}</td>
                             <td>
                                 <form action="ac_especie.php" method="POST" class="form-inline">
