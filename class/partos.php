@@ -92,7 +92,7 @@ class partos extends basedatos
 
     public function listar()
     {
-        $sql = "SELECT * FROM partos ORDER BY id DESC";
+        $sql = "SELECT * FROM listarPartos";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -101,8 +101,7 @@ class partos extends basedatos
     }
     public function insertar()
     {
-        $sql = sprintf(
-            "INSERT INTO partos (fecha,facilidad,madre_id,secuencia,documento_usuario,documento_veterinario,duracion_minutos) VALUES ('%s','%s','%s','%s','%s','%s','%s')",
+        $sql = sprintf("CALL crearParto ('%s', '%s', %s, %s, '%s', '%s', %s)",
             $this->fecha,
             $this->facilidad,
             $this->madre_id,
@@ -117,23 +116,22 @@ class partos extends basedatos
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM partos WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarParto (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function actualizar()
     {
-        $sql = sprintf(
-            "UPDATE partos SET fecha='%s', facilidad='%s', madre_id='%s', secuencia='%s', documento_usuario='%s', documento_veterinario='%s', duracion_minutos='%s' WHERE id=%s",
+        $sql = sprintf("CALL actualizarParto (%s, '%s', '%s', %s, %s, '%s', '%s', %s)",
+            $this->id,
             $this->fecha,
             $this->facilidad,
             $this->madre_id,
             $this->secuencia,
             $this->documento_usuario,
             $this->documento_veterinario,
-            $this->duracion_minutos,
-            $this->id
+            $this->duracion_minutos
         );
         $this->conectar();
         $this->ejecutarSQL($sql);
@@ -141,11 +139,23 @@ class partos extends basedatos
     }
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM partos WHERE id = %s", $this->id);
+        $sql = sprintf("CALL consultarParto (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
         $this->desconectar();
+        if (!$res || !is_array($res)) {
+            $this->id = NULL;
+            $this->fecha = NULL;
+            $this->facilidad = NULL;
+            $this->madre_id = NULL;
+            $this->secuencia = NULL;
+            $this->documento_usuario = NULL;
+            $this->documento_veterinario = NULL;
+            $this->duracion_minutos = NULL;
+            return false;
+        }
+        $this->id = $res['id'];
         $this->fecha = $res['fecha'];
         $this->facilidad = $res['facilidad'];
         $this->madre_id = $res['madre_id'];
@@ -153,11 +163,12 @@ class partos extends basedatos
         $this->documento_usuario = $res['documento_usuario'];
         $this->documento_veterinario = $res['documento_veterinario'];
         $this->duracion_minutos = $res['duracion_minutos'];
+        return true;
     }
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM partos WHERE madre_id LIKE '%$this->consulta%' OR documento_veterinario LIKE '%$this->consulta%'";
+        $sql = sprintf("CALL consultarPartos ('%s')", $this->consulta);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

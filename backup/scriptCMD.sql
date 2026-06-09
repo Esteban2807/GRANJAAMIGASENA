@@ -529,6 +529,93 @@ END //
 
 DELIMITER ;
 
+----------------------
+---- RAZAS
+----------------------
+
+-- Vista listar razas
+
+CREATE VIEW listarRazas AS
+SELECT r.id, r.nombre, e.nombre AS especie 
+FROM razas AS r 
+INNER JOIN especies AS e ON r.id_especie = e.id 
+ORDER BY r.nombre ASC;
+
+-- Procedimiento crear raza
+
+DELIMITER //
+
+CREATE PROCEDURE crearRaza (
+    IN p_nombre VARCHAR(50),
+    IN p_id_especie INT
+)
+BEGIN
+    INSERT INTO razas (nombre, id_especie) VALUES (p_nombre, p_id_especie);
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar raza
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarRaza (
+    IN p_id INT,
+    IN p_nombre VARCHAR(50),
+    IN p_id_especie INT
+)
+BEGIN
+    UPDATE razas SET nombre = p_nombre, id_especie = p_id_especie WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar raza
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarRaza (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM razas WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar raza por id
+
+DELIMITER //
+
+CREATE PROCEDURE consultarRaza (
+    IN p_id INT
+)
+BEGIN
+    SELECT r.id, r.nombre, r.id_especie, e.nombre AS especie 
+    FROM razas AS r 
+    INNER JOIN especies AS e ON r.id_especie = e.id 
+    WHERE r.id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar razas por nombre o especie
+
+DELIMITER //
+
+CREATE PROCEDURE consultarRazas (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT r.id, r.nombre, e.nombre AS especie 
+    FROM razas AS r 
+    INNER JOIN especies AS e ON r.id_especie = e.id 
+    WHERE r.nombre LIKE CONCAT('%', p_consulta, '%') OR e.nombre LIKE CONCAT('%', p_consulta, '%') 
+    ORDER BY r.nombre ASC;
+END //
+
+DELIMITER ;
+
 -----------------------------------------
 -- Procedimientos y vistar para ALIMENTOS
 -----------------------------------------
@@ -1502,6 +1589,321 @@ CREATE PROCEDURE buscarUsuario (
 )
 BEGIN
     SELECT * FROM usuarios WHERE nombres LIKE CONCAT('%', p_consulta, '%');
+END //
+
+DELIMITER ;
+
+----------------------
+---- PARTOS
+----------------------
+
+-- Vista listar partos
+
+CREATE VIEW listarPartos AS
+SELECT p.id, p.fecha, p.facilidad, p.madre_id, p.secuencia, p.documento_usuario, p.documento_veterinario, p.duracion_minutos
+FROM partos AS p
+ORDER BY p.id DESC;
+
+-- Procedimiento crear parto
+
+DELIMITER //
+
+CREATE PROCEDURE crearParto (
+    IN p_fecha DATETIME,
+    IN p_facilidad VARCHAR(20),
+    IN p_madre_id INT,
+    IN p_secuencia INT,
+    IN p_documento_usuario VARCHAR(20),
+    IN p_documento_veterinario VARCHAR(20),
+    IN p_duracion_minutos INT
+)
+BEGIN
+    INSERT INTO partos (fecha, facilidad, madre_id, secuencia, documento_usuario, documento_veterinario, duracion_minutos)
+    VALUES (p_fecha, p_facilidad, p_madre_id, p_secuencia, p_documento_usuario, p_documento_veterinario, p_duracion_minutos);
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar parto
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarParto (
+    IN p_id INT,
+    IN p_fecha DATETIME,
+    IN p_facilidad VARCHAR(20),
+    IN p_madre_id INT,
+    IN p_secuencia INT,
+    IN p_documento_usuario VARCHAR(20),
+    IN p_documento_veterinario VARCHAR(20),
+    IN p_duracion_minutos INT
+)
+BEGIN
+    UPDATE partos SET 
+        fecha = p_fecha,
+        facilidad = p_facilidad,
+        madre_id = p_madre_id,
+        secuencia = p_secuencia,
+        documento_usuario = p_documento_usuario,
+        documento_veterinario = p_documento_veterinario,
+        duracion_minutos = p_duracion_minutos
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar parto
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarParto (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM partos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar parto por id
+
+DELIMITER //
+
+CREATE PROCEDURE consultarParto (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM partos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar partos
+
+DELIMITER //
+
+CREATE PROCEDURE consultarPartos (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM partos 
+    WHERE madre_id LIKE CONCAT('%', p_consulta, '%') 
+    OR documento_veterinario LIKE CONCAT('%', p_consulta, '%')
+    ORDER BY id DESC;
+END //
+
+DELIMITER ;
+
+----------------------
+---- NACIMIENTOS
+----------------------
+
+-- Vista listar nacimientos
+
+CREATE VIEW listarNacimientos AS
+SELECT n.id, n.fecha, n.parto_id, n.documento_usuario, n.peso_kg, n.sexo, n.vigor, n.observaciones
+FROM nacimientos AS n
+ORDER BY n.id DESC;
+
+-- Procedimiento crear nacimiento
+
+DELIMITER //
+
+CREATE PROCEDURE crearNacimiento (
+    IN p_fecha DATETIME,
+    IN p_parto_id INT,
+    IN p_documento_usuario VARCHAR(20),
+    IN p_peso_kg DECIMAL(5,2),
+    IN p_sexo VARCHAR(10),
+    IN p_vigor VARCHAR(20),
+    IN p_observaciones VARCHAR(255)
+)
+BEGIN
+    INSERT INTO nacimientos (fecha, parto_id, documento_usuario, peso_kg, sexo, vigor, observaciones)
+    VALUES (p_fecha, p_parto_id, p_documento_usuario, p_peso_kg, p_sexo, p_vigor, p_observaciones);
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar nacimiento
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarNacimiento (
+    IN p_id INT,
+    IN p_fecha DATETIME,
+    IN p_parto_id INT,
+    IN p_documento_usuario VARCHAR(20),
+    IN p_peso_kg DECIMAL(5,2),
+    IN p_sexo VARCHAR(10),
+    IN p_vigor VARCHAR(20),
+    IN p_observaciones VARCHAR(255)
+)
+BEGIN
+    UPDATE nacimientos SET 
+        fecha = p_fecha,
+        parto_id = p_parto_id,
+        documento_usuario = p_documento_usuario,
+        peso_kg = p_peso_kg,
+        sexo = p_sexo,
+        vigor = p_vigor,
+        observaciones = p_observaciones
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar nacimiento
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarNacimiento (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM nacimientos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar nacimiento por id
+
+DELIMITER //
+
+CREATE PROCEDURE consultarNacimiento (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM nacimientos WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar nacimientos
+
+DELIMITER //
+
+CREATE PROCEDURE consultarNacimientos (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM nacimientos 
+    WHERE sexo LIKE CONCAT('%', p_consulta, '%') 
+    OR vigor LIKE CONCAT('%', p_consulta, '%')
+    ORDER BY id DESC;
+END //
+
+DELIMITER ;
+
+----------------------
+---- ATENCIONES VETERINARIAS
+----------------------
+
+-- Vista listar atenciones veterinarias
+
+CREATE VIEW listarAtencionesVeterinarias AS
+SELECT a.id, a.id_animal, a.documento_veterinario, a.fecha_atencion, a.motivo, a.diagnostico, a.tratamiento, a.medicamento_id, a.dosis, a.via_administracion, a.observaciones, a.costo_total
+FROM atenciones_veterinarias AS a
+ORDER BY a.id DESC;
+
+-- Procedimiento crear atencion veterinaria
+
+DELIMITER //
+
+CREATE PROCEDURE crearAtencionVeterinaria (
+    IN p_id_animal INT,
+    IN p_documento_veterinario VARCHAR(20),
+    IN p_fecha_atencion DATETIME,
+    IN p_motivo VARCHAR(100),
+    IN p_diagnostico TEXT,
+    IN p_tratamiento TEXT,
+    IN p_medicamento_id INT,
+    IN p_dosis VARCHAR(50),
+    IN p_via_administracion VARCHAR(50),
+    IN p_observaciones TEXT,
+    IN p_costo_total DECIMAL(12,2)
+)
+BEGIN
+    INSERT INTO atenciones_veterinarias (id_animal, documento_veterinario, fecha_atencion, motivo, diagnostico, tratamiento, medicamento_id, dosis, via_administracion, observaciones, costo_total)
+    VALUES (p_id_animal, p_documento_veterinario, p_fecha_atencion, p_motivo, p_diagnostico, p_tratamiento, p_medicamento_id, p_dosis, p_via_administracion, p_observaciones, p_costo_total);
+END //
+
+DELIMITER ;
+
+-- Procedimiento actualizar atencion veterinaria
+
+DELIMITER //
+
+CREATE PROCEDURE actualizarAtencionVeterinaria (
+    IN p_id INT,
+    IN p_id_animal INT,
+    IN p_documento_veterinario VARCHAR(20),
+    IN p_fecha_atencion DATETIME,
+    IN p_motivo VARCHAR(100),
+    IN p_diagnostico TEXT,
+    IN p_tratamiento TEXT,
+    IN p_medicamento_id INT,
+    IN p_dosis VARCHAR(50),
+    IN p_via_administracion VARCHAR(50),
+    IN p_observaciones TEXT,
+    IN p_costo_total DECIMAL(12,2)
+)
+BEGIN
+    UPDATE atenciones_veterinarias SET 
+        id_animal = p_id_animal,
+        documento_veterinario = p_documento_veterinario,
+        fecha_atencion = p_fecha_atencion,
+        motivo = p_motivo,
+        diagnostico = p_diagnostico,
+        tratamiento = p_tratamiento,
+        medicamento_id = p_medicamento_id,
+        dosis = p_dosis,
+        via_administracion = p_via_administracion,
+        observaciones = p_observaciones,
+        costo_total = p_costo_total
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento eliminar atencion veterinaria
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarAtencionVeterinaria (
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM atenciones_veterinarias WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar atencion veterinaria por id
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAtencionVeterinaria (
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM atenciones_veterinarias WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+-- Procedimiento consultar atenciones veterinarias
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAtencionesVeterinarias (
+    IN p_consulta VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM atenciones_veterinarias 
+    WHERE motivo LIKE CONCAT('%', p_consulta, '%') 
+    OR id_animal LIKE CONCAT('%', p_consulta, '%')
+    ORDER BY id DESC;
 END //
 
 DELIMITER ;

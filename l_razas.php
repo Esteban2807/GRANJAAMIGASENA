@@ -7,8 +7,8 @@ include_once 'class/razas.php';
 $razas = new Razas();
 $razasData = $razas->listar();
 /* ¿Viene búsqueda? */
-if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
-    $res = $razas->buscar($_GET['buscar']);
+if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
+    $res = $razas->buscar($_POST['buscar']);
 } else {
     $res = $razas->listar();
 }
@@ -50,9 +50,9 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="l_razas.php" method="GET">
+                    <form class="search-form" action="l_razas.php" method="POST">
                         <input type="text" id="buscar-raza" name="buscar" placeholder="Buscar por nombre o especie..."
-                            value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                            value="<?php echo isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
                         </button>

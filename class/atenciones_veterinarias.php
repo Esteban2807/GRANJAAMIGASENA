@@ -132,7 +132,7 @@ class atenciones_veterinarias extends basedatos
 
     public function listar()
     {
-        $sql = "SELECT * FROM atenciones_veterinarias ORDER BY id DESC";
+        $sql = "SELECT * FROM listarAtencionesVeterinarias";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -141,8 +141,7 @@ class atenciones_veterinarias extends basedatos
     }
     public function insertar()
     {
-        $sql = sprintf(
-            "INSERT INTO atenciones_veterinarias (id_animal,documento_veterinario,fecha_atencion,motivo,diagnostico,tratamiento,medicamento_id,dosis,via_administracion,observaciones,costo_total) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+        $sql = sprintf("CALL crearAtencionVeterinaria (%s, '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s', '%s', %s)",
             $this->id_animal,
             $this->documento_veterinario,
             $this->fecha_atencion,
@@ -161,15 +160,15 @@ class atenciones_veterinarias extends basedatos
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM atenciones_veterinarias WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarAtencionVeterinaria (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function actualizar()
     {
-        $sql = sprintf(
-            "UPDATE atenciones_veterinarias SET id_animal='%s', documento_veterinario='%s', fecha_atencion='%s', motivo='%s', diagnostico='%s', tratamiento='%s', medicamento_id='%s', dosis='%s', via_administracion='%s', observaciones='%s', costo_total='%s' WHERE id=%s",
+        $sql = sprintf("CALL actualizarAtencionVeterinaria (%s, %s, '%s', '%s', '%s', '%s', %s, '%s', '%s', '%s', %s)",
+            $this->id,
             $this->id_animal,
             $this->documento_veterinario,
             $this->fecha_atencion,
@@ -180,8 +179,7 @@ class atenciones_veterinarias extends basedatos
             $this->dosis,
             $this->via_administracion,
             $this->observaciones,
-            $this->costo_total,
-            $this->id
+            $this->costo_total
         );
         $this->conectar();
         $this->ejecutarSQL($sql);
@@ -189,11 +187,27 @@ class atenciones_veterinarias extends basedatos
     }
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM atenciones_veterinarias WHERE id = %s", $this->id);
+        $sql = sprintf("CALL consultarAtencionVeterinaria (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
         $this->desconectar();
+        if (!$res || !is_array($res)) {
+            $this->id = NULL;
+            $this->id_animal = NULL;
+            $this->documento_veterinario = NULL;
+            $this->fecha_atencion = NULL;
+            $this->motivo = NULL;
+            $this->diagnostico = NULL;
+            $this->tratamiento = NULL;
+            $this->medicamento_id = NULL;
+            $this->dosis = NULL;
+            $this->via_administracion = NULL;
+            $this->observaciones = NULL;
+            $this->costo_total = NULL;
+            return false;
+        }
+        $this->id = $res['id'];
         $this->id_animal = $res['id_animal'];
         $this->documento_veterinario = $res['documento_veterinario'];
         $this->fecha_atencion = $res['fecha_atencion'];
@@ -205,11 +219,12 @@ class atenciones_veterinarias extends basedatos
         $this->via_administracion = $res['via_administracion'];
         $this->observaciones = $res['observaciones'];
         $this->costo_total = $res['costo_total'];
+        return true;
     }
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM atenciones_veterinarias WHERE motivo LIKE '%$this->consulta%' OR id_animal LIKE '%$this->consulta%'";
+        $sql = sprintf("CALL consultarAtencionesVeterinarias ('%s')", $this->consulta);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
