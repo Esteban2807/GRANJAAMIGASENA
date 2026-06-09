@@ -92,7 +92,7 @@ class nacimientos extends basedatos
 
     public function listar()
     {
-        $sql = "SELECT * FROM nacimientos ORDER BY id DESC";
+        $sql = "SELECT * FROM listarNacimientos";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -101,8 +101,7 @@ class nacimientos extends basedatos
     }
     public function insertar()
     {
-        $sql = sprintf(
-            "INSERT INTO nacimientos (fecha,parto_id,documento_usuario,peso_kg,sexo,vigor,observaciones) VALUES ('%s','%s','%s','%s','%s','%s','%s')",
+        $sql = sprintf("CALL crearNacimiento ('%s', %s, '%s', %s, '%s', '%s', '%s')",
             $this->fecha,
             $this->parto_id,
             $this->documento_usuario,
@@ -117,23 +116,22 @@ class nacimientos extends basedatos
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM nacimientos WHERE id = %s", $this->id);
+        $sql = sprintf("CALL eliminarNacimiento (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function actualizar()
     {
-        $sql = sprintf(
-            "UPDATE nacimientos SET fecha='%s', parto_id='%s', documento_usuario='%s', peso_kg='%s', sexo='%s', vigor='%s', observaciones='%s' WHERE id=%s",
+        $sql = sprintf("CALL actualizarNacimiento (%s, '%s', %s, '%s', %s, '%s', '%s', '%s')",
+            $this->id,
             $this->fecha,
             $this->parto_id,
             $this->documento_usuario,
             $this->peso_kg,
             $this->sexo,
             $this->vigor,
-            $this->observaciones,
-            $this->id
+            $this->observaciones
         );
         $this->conectar();
         $this->ejecutarSQL($sql);
@@ -141,11 +139,23 @@ class nacimientos extends basedatos
     }
     public function consultar()
     {
-        $sql = sprintf("SELECT * FROM nacimientos WHERE id = %s", $this->id);
+        $sql = sprintf("CALL consultarNacimiento (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();
         $this->desconectar();
+        if (!$res || !is_array($res)) {
+            $this->id = NULL;
+            $this->fecha = NULL;
+            $this->parto_id = NULL;
+            $this->documento_usuario = NULL;
+            $this->peso_kg = NULL;
+            $this->sexo = NULL;
+            $this->vigor = NULL;
+            $this->observaciones = NULL;
+            return false;
+        }
+        $this->id = $res['id'];
         $this->fecha = $res['fecha'];
         $this->parto_id = $res['parto_id'];
         $this->documento_usuario = $res['documento_usuario'];
@@ -153,11 +163,12 @@ class nacimientos extends basedatos
         $this->sexo = $res['sexo'];
         $this->vigor = $res['vigor'];
         $this->observaciones = $res['observaciones'];
+        return true;
     }
     public function buscar($consulta)
     {
         $this->consulta = $consulta;
-        $sql = "SELECT * FROM nacimientos WHERE sexo LIKE '%$this->consulta%' OR vigor LIKE '%$this->consulta%'";
+        $sql = sprintf("CALL consultarNacimientos ('%s')", $this->consulta);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();

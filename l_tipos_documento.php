@@ -71,7 +71,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-tipos-documento">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Siglas</th>
                                 <th>Estado</th>
@@ -81,7 +80,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['siglas']); ?></td>
                                     <td><?php echo $registro['estado'] ? 'Activo' : 'Inactivo'; ?></td>
@@ -150,7 +148,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(tipo) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(tipo.id).html()}</td>
                             <td>${$('<div>').text(tipo.nombre).html()}</td>
                             <td>${$('<div>').text(tipo.siglas).html()}</td>
                             <td>${tipo.estado ? 'Activo' : 'Inactivo'}</td>

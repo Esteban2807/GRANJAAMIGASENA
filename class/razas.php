@@ -40,7 +40,7 @@ class razas extends basedatos
     }
     public function listar()
     {
-        $sql = "SELECT r.id,r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id;";
+        $sql = "SELECT * FROM listarRazas";
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -49,21 +49,21 @@ class razas extends basedatos
     }
     public function insertar()
     {
-        $sql = sprintf("INSERT INTO razas (nombre,id_especie) VALUES ('%s','%s');", $this->nombre, $this->id_especie);
+        $sql = sprintf("CALL crearRaza ('%s', %s)", $this->nombre, $this->id_especie);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function eliminar()
     {
-        $sql = sprintf("DELETE FROM razas WHERE id = '%s';", $this->id);
+        $sql = sprintf("CALL eliminarRaza (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
     }
     public function actualizar()
     {
-        $sql = sprintf("UPDATE razas SET nombre = '%s', id_especie = '%s' WHERE id = '%s'", $this->nombre, $this->id_especie, $this->id);
+        $sql = sprintf("CALL actualizarRaza (%s, '%s', %s)", $this->id, $this->nombre, $this->id_especie);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $this->desconectar();
@@ -71,7 +71,7 @@ class razas extends basedatos
     public function buscar($consult)
     {
         $this->consult = $consult;
-        $sql = "SELECT r.id,r.nombre, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.nombre like '%$this->consult%'  OR especie = '%$this->consult%';";
+        $sql = sprintf("CALL consultarRazas ('%s')", $this->consult);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarTodo();
@@ -80,7 +80,7 @@ class razas extends basedatos
     }
     public function consultar()
     {
-        $sql = sprintf("SELECT r.id,r.nombre, r.id_especie, e.nombre AS especie FROM razas AS r INNER JOIN especies AS e ON r.id_especie = e.id WHERE r.id = '%s'", $this->id);
+        $sql = sprintf("CALL consultarRaza (%s)", $this->id);
         $this->conectar();
         $this->ejecutarSQL($sql);
         $res = $this->cargarRegistro();

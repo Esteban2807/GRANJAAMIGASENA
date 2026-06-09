@@ -7,8 +7,8 @@ include_once 'class/razas.php';
 $razas = new Razas();
 $razasData = $razas->listar();
 /* ¿Viene búsqueda? */
-if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
-    $res = $razas->buscar($_GET['buscar']);
+if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
+    $res = $razas->buscar($_POST['buscar']);
 } else {
     $res = $razas->listar();
 }
@@ -50,9 +50,9 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
 
             <div class="card-body">
                 <div class="search-section">
-                    <form class="search-form" action="l_razas.php" method="GET">
+                    <form class="search-form" action="l_razas.php" method="POST">
                         <input type="text" id="buscar-raza" name="buscar" placeholder="Buscar por nombre o especie..."
-                            value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>">
+                            value="<?php echo isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : ''; ?>">
                         <button type="submit" class="btn-action">
                             <i class="fas fa-search"></i> Buscar
                         </button>
@@ -68,7 +68,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-razas">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Especie</th>
                                 <th colspan="2">Acciones</th>
@@ -77,7 +76,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['nombre']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['especie']); ?></td>
                                     <?php if (in_array($rolId, [1])): ?>
@@ -145,7 +143,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(raza) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(raza.id).html()}</td>
                             <td>${$('<div>').text(raza.nombre).html()}</td>
                             <td>${$('<div>').text(raza.especie).html()}</td>
                             <td>

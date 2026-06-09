@@ -48,7 +48,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     <table class="data-table" id="tabla-partos">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Fecha</th>
                                 <th>Facilidad</th>
                                 <th>Madre</th>
@@ -62,7 +61,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                         <tbody>
                             <?php foreach ($res as $registro): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($registro['id']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['fecha']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['facilidad']); ?></td>
                                     <td><?php echo htmlspecialchars($registro['madre_id']); ?></td>
@@ -117,7 +115,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                 renderRow: function(parto) {
                     return `
                         <tr>
-                            <td>${$('<div>').text(parto.id).html()}</td>
                             <td>${$('<div>').text(parto.fecha).html()}</td>
                             <td>${$('<div>').text(parto.facilidad).html()}</td>
                             <td>${$('<div>').text(parto.madre_id).html()}</td>
