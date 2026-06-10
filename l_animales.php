@@ -137,16 +137,11 @@ $numAcciones   = ($puedeEditar ? 1 : 0) + ($puedeEliminar ? 1 : 0);
                 emptyStateSelector: '.empty-state',
                 apiEndpoint: 'controllers/animales/op_buscar.php',
                 renderRow: function(animal) {
-                    return `
-                        <tr>
-                            <td>${$('<div>').text(animal.fecha_nacimiento).html()}</td>
-                            <td>${$('<div>').text(animal.chapeta).html()}</td>
-                            <td>${$('<div>').text(animal.nombre).html()}</td>
-                            <td>${$('<div>').text(animal.especie).html()}</td>
-                            <td>${$('<div>').text(animal.raza).html()}</td>
-                            <td>${$('<div>').text(animal.id_padre || 'N/A').html()}</td>
-                            <td>${$('<div>').text(animal.id_madre || 'N/A').html()}</td>
-                            <td>${$('<div>').text(animal.observaciones).html()}</td>
+                    const puedeEditar = animal.puedeEditar;
+                    const puedeEliminar = animal.puedeEliminar;
+                    let acciones = '';
+                    if (puedeEditar) {
+                        acciones += `
                             <td>
                                 <form action="ac_animal.php" method="POST" class="form-inline">
                                     <input type="hidden" name="id" value="${$('<div>').text(animal.id).html()}">
@@ -155,6 +150,10 @@ $numAcciones   = ($puedeEditar ? 1 : 0) + ($puedeEliminar ? 1 : 0);
                                     </button>
                                 </form>
                             </td>
+                        `;
+                    }
+                    if (puedeEliminar) {
+                        acciones += `
                             <td>
                                 <form id="form-eliminar-${$('<div>').text(animal.id).html()}"
                                     action="controllers/animales/op_eliminar.php"
@@ -169,6 +168,19 @@ $numAcciones   = ($puedeEditar ? 1 : 0) + ($puedeEliminar ? 1 : 0);
                                     </button>
                                 </form>
                             </td>
+                        `;
+                    }
+                    return `
+                        <tr>
+                            <td>${$('<div>').text(animal.fecha_nacimiento).html()}</td>
+                            <td>${$('<div>').text(animal.chapeta).html()}</td>
+                            <td>${$('<div>').text(animal.nombre).html()}</td>
+                            <td>${$('<div>').text(animal.especie).html()}</td>
+                            <td>${$('<div>').text(animal.raza).html()}</td>
+                            <td>${$('<div>').text(animal.id_padre || 'N/A').html()}</td>
+                            <td>${$('<div>').text(animal.id_madre || 'N/A').html()}</td>
+                            <td>${$('<div>').text(animal.observaciones).html()}</td>
+                            ${acciones}
                         </tr>
                     `;
                 }

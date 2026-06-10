@@ -91,12 +91,14 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                     return `
                         <tr>
                             <td>${$('<div>').text(cargo.nombre).html()}</td>
+                            ${cargo.acciones ? `
                             <td>
                                 <form action="ac_cargo.php" method="POST" class="form-inline">
                                     <input type="hidden" name="id" value="${$('<div>').text(cargo.id).html()}">
                                     <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
                                 </form>
                             </td>
+                            ` : ''}
                         </tr>
                     `;
                 }

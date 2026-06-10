@@ -100,8 +100,6 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
-                                    <?php endif; ?>
-                                    <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['documento']; ?>"
                                             action="controllers/usuarios/op_eliminar.php"
@@ -161,6 +159,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                             <td>${$('<div>').text(usuario.nombres).html()}</td>
                             <td>${$('<div>').text(usuario.apellidos).html()}</td>
                             <td>${$('<div>').text(usuario.cargo_nombre).html()}</td>
+                            ${usuario.acciones ? `
                             <td>
                                 <form action="ac_usuario.php" method="POST" class="form-inline">
                                     <input type="hidden" name="documento" value="${$('<div>').text(usuario.documento).html()}">
@@ -183,6 +182,7 @@ if (isset($_POST['buscar']) && trim($_POST['buscar']) !== '') {
                                     </button>
                                 </form>
                             </td>
+                            ` : ''}
                         </tr>
                     `;
                 }

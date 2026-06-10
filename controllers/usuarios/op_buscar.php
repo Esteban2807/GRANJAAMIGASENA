@@ -22,5 +22,6 @@ $resultados = $usuarios->buscar($query);
 
 echo json_encode([
     'success' => true,
-    'data' => $resultados
+    'data' => $resultados,
+    'acciones' => in_array($_SESSION['rol_id'], [1])
 ]);

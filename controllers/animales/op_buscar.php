@@ -19,7 +19,14 @@ if (empty($query)) {
 
 $resultados = $animales->buscar($query);
 
+$puedeEditar   = in_array($_SESSION['rol_id'], [1,2,3,5]);
+$puedeEliminar = in_array($_SESSION['rol_id'], [1,2,5]);
+
 echo json_encode([
     'success' => true,
-    'data' => $resultados
+    'data' => $resultados,
+    'puedeEditar' => $puedeEditar,
+    'puedeEliminar' => $puedeEliminar
 ]);
+
+
