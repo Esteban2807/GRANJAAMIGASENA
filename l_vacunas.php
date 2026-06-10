@@ -71,8 +71,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             <button type="submit" class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
                                         </form>
                                     </td>
-                                    <?php endif; ?>
-                                    <?php if (in_array($rolId, [1,4])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>" action="controllers/vacunas/op_eliminar.php" method="POST" class="form-inline">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($registro['id']); ?>">
@@ -116,6 +114,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                             <td>${$('<div>').text(vacuna.stock_actual).html()}</td>
                             <td>${$('<div>').text(vacuna.unidad_medida).html()}</td>
                             <td>${$('<div>').text(vacuna.fecha_vencimiento).html()}</td>
+                            ${vacuna.acciones ? `
                             <td>
                                 <form action="ac_vacuna.php" method="POST" class="form-inline">
                                     <input type="hidden" name="id" value="${$('<div>').text(vacuna.id).html()}">
@@ -130,6 +129,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     </button>
                                 </form>
                             </td>
+                            ` : ''}
                         </tr>
                     `;
                 }

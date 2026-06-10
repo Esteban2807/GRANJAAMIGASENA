@@ -93,8 +93,6 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                             </button>
                                         </form>
                                     </td>
-                                    <?php endif; ?>
-                                    <?php if (in_array($rolId, [1])): ?>
                                     <td>
                                         <form id="form-eliminar-<?php echo $registro['id']; ?>"
                                             action="controllers/tipos_documento/op_eliminar.php"
@@ -151,6 +149,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                             <td>${$('<div>').text(tipo.nombre).html()}</td>
                             <td>${$('<div>').text(tipo.siglas).html()}</td>
                             <td>${tipo.estado ? 'Activo' : 'Inactivo'}</td>
+                            ${tipo.acciones ? `
                             <td>
                                 <form action="ac_tipos_documento.php" method="POST" class="form-inline">
                                     <input type="hidden" name="id" value="${$('<div>').text(tipo.id).html()}">
@@ -167,6 +166,7 @@ if (isset($_GET['buscar']) && trim($_GET['buscar']) !== '') {
                                     </button>
                                 </form>
                             </td>
+                            ` : ''}
                         </tr>
                     `;
                 }
